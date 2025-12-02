@@ -4,31 +4,21 @@
 
 Create beautiful, interactive visualizations with a single line of code. No API keys, no paid services, just pure visualization power.
 
-## Features
+## Features (v0.2.0)
 
 - 🎨 **Beautiful by Default** - Professional themes out of the box
 - ⚡ **Simple API** - One-line visualizations: `vz.line(data, x, y)`
-- 📊 **20+ Chart Types** - From basics to advanced (Sankey, Network, Geographic)
+- 📊 **12 2D Chart Types** - Line, Bar, Area, Scatter, Pie, Heatmap, Histogram, Boxplot, Radar, Waterfall, Funnel, Bubble
 - 🎭 **Theme System** - 5 built-in themes + custom themes
-- 💾 **Export Anywhere** - PNG, SVG, HTML, PDF support
+- 💾 **Export Anywhere** - HTML export (PNG, SVG, PDF coming in v0.3.0)
 - 🚀 **No AI Dependencies** - Completely free, no API keys needed
 - 📈 **Performance** - Handle 100K+ data points efficiently
-- 🌍 **Geographic Maps** - Choropleth, scatter, and route maps
-- 🔗 **Network Graphs** - Force-directed layouts, community detection
-- 📐 **Statistical Plots** - Distributions, correlations, regressions
+- 🔜 **Coming Soon** - 3D charts, Geographic maps, Network graphs, Real-time visualizations (v0.3.0+)
 
 ## Installation
 
 ```bash
 pip install vizforge
-
-# With all features
-pip install vizforge[full]
-
-# Only specific features
-pip install vizforge[geo]      # Geographic mapping
-pip install vizforge[stats]    # Statistical visualizations
-pip install vizforge[network]  # Network graphs
 ```
 
 ## Quick Start
@@ -54,37 +44,31 @@ vz.scatter(data, x='age', y='income', size='population')
 vz.pie(data, values='market_share', names='company')
 ```
 
-## Chart Types
+## Chart Types (12 in v0.2.0)
 
-### Basic Charts
-- **Line Chart** - Single/multi-line, area charts
-- **Bar Chart** - Vertical/horizontal, grouped/stacked
-- **Scatter Plot** - 2D/3D, bubble charts
-- **Pie Chart** - Pie/donut, sunburst
+### Basic Charts (4)
+- **Line Chart** - `vz.line()` - Single/multi-line, time series
+- **Bar Chart** - `vz.bar()` - Vertical/horizontal, grouped/stacked
+- **Scatter Plot** - `vz.scatter()` - 2D scatter with optional colors
+- **Pie Chart** - `vz.pie()` / `vz.donut()` - Proportions and percentages
 
-### Advanced Charts
-- **Heatmap** - Correlation matrices, custom data
-- **Treemap** - Hierarchical data visualization
-- **Sankey Diagram** - Flow visualization
-- **Network Graph** - Nodes/edges, force-directed
-- **Waterfall Chart** - Cumulative effect
-- **Funnel Chart** - Conversion tracking
-- **Gauge Chart** - KPI display
-- **Candlestick** - Financial data
+### Statistical Charts (4)
+- **Histogram** - `vz.histogram()` - Distribution analysis with bins
+- **Boxplot** - `vz.boxplot()` - Quartiles, median, outliers
+- **Heatmap** - `vz.heatmap()` - Correlation matrices, color-coded data
+- **Area Chart** - `vz.area()` - Filled area under line, stacking support
 
-### Statistical Charts
-- **Histogram** - Distribution analysis
-- **Box Plot** - Quartiles and outliers
-- **Violin Plot** - Distribution shape
-- **KDE Plot** - Kernel density estimation
-- **Correlation Matrix** - Feature relationships
-- **Regression Plot** - With confidence intervals
+### Business Charts (4)
+- **Waterfall Chart** - `vz.waterfall()` - Cumulative sequential changes
+- **Funnel Chart** - `vz.funnel()` - Conversion tracking, stages
+- **Radar Chart** - `vz.radar()` - Multivariate data, spider/star chart
+- **Bubble Chart** - `vz.bubble()` - 3-variable scatter with size encoding
 
-### Geographic Charts
-- **Choropleth Map** - Regions colored by value
-- **Scatter Map** - Points on map
-- **Route Map** - Lines between locations
-- **Heat Map** - Density visualization
+### Coming in v0.3.0+
+- 3D Charts (Surface, Scatter3D, Mesh3D, Volume, Cone, Isosurface)
+- Geographic Charts (Choropleth, Scatter Geo, Line Geo, Density Geo, Flow Map)
+- Network Charts (Network Graph, Sankey, Tree, Dendrogram)
+- Real-time Charts (Streaming Line, Live Dashboard, Real-time Heatmap)
 
 ## Themes
 
@@ -109,31 +93,29 @@ vz.set_theme(custom)
 ## Export Options
 
 ```python
-# PNG (high resolution)
-chart.export("output.png", width=1920, height=1080)
-
-# SVG (vector graphics)
-chart.export("output.svg")
-
-# HTML (interactive)
+# HTML (interactive) - v0.2.0
 chart.export("output.html")
 
-# PDF (publication-ready)
-chart.export("output.pdf")
+# Coming in v0.3.0:
+# PNG, SVG, PDF export
 ```
 
 ## Examples
 
-### Multi-line Comparison
+### Multi-series Line Chart
 ```python
-from vizforge import Chart
+import vizforge as vz
+import pandas as pd
 
-chart = Chart(chart_type='line', theme='dark')
-chart.add_line(x=dates, y=product_a, name='Product A')
-chart.add_line(x=dates, y=product_b, name='Product B')
-chart.add_line(x=dates, y=product_c, name='Product C')
-chart.update_layout(title='Product Comparison')
-chart.show()
+df = pd.DataFrame({
+    'date': pd.date_range('2024-01-01', periods=30),
+    'Product A': np.random.randint(100, 200, 30),
+    'Product B': np.random.randint(80, 180, 30),
+    'Product C': np.random.randint(90, 190, 30)
+})
+
+vz.line(df, x='date', y=['Product A', 'Product B', 'Product C'],
+        title='Product Comparison', theme='dark')
 ```
 
 ### Grouped Bar Chart
@@ -150,37 +132,39 @@ vz.bar(
 
 ### Correlation Heatmap
 ```python
+import numpy as np
+
+correlation_matrix = np.random.randn(10, 10)
 vz.heatmap(
     correlation_matrix,
     title='Feature Correlation',
-    colorscale='RdBu',
-    annotations=True
+    colorscale='RdBu'
 )
 ```
 
-### Geographic Choropleth
+### Funnel Analysis
 ```python
-from vizforge.geo import choropleth_map
+funnel_data = {
+    'Website Visitors': 10000,
+    'Signed Up': 5000,
+    'Active Users': 2000,
+    'Paying Customers': 500
+}
 
-choropleth_map(
-    locations=countries,
-    values=gdp_data,
-    title='GDP by Country',
-    colorscale='Greens'
-)
+vz.funnel(funnel_data, title='Conversion Funnel')
 ```
 
-### Network Graph
+### Bubble Chart
 ```python
-from vizforge.charts import network_graph
+df = pd.DataFrame({
+    'x': np.random.randn(50),
+    'y': np.random.randn(50),
+    'size': np.random.randint(10, 100, 50),
+    'category': np.random.choice(['A', 'B', 'C'], 50)
+})
 
-network_graph(
-    nodes=node_list,
-    edges=edge_list,
-    layout='force_directed',
-    node_size='degree',
-    node_color='community'
-)
+vz.bubble(df, x='x', y='y', size='size', color='category',
+          title='Multi-dimensional Analysis')
 ```
 
 ## Philosophy
