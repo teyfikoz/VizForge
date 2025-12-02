@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vizforge"
-version = "0.2.0"
+version = "0.2.1"
 description = "Production-grade data visualization library with zero AI dependencies"
 readme = "README.md"
 authors = [
-    { name = "Tefik Yildiz", email = "teyfikoz@example.com" }
+    { name = "Teyfik Oz", email = "teyfikoz@example.com" }
 ]
 license = {text = "MIT"}
 classifiers = [
