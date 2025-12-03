@@ -4,16 +4,17 @@
 
 Create beautiful, interactive visualizations with a single line of code. No API keys, no paid services, just pure visualization power.
 
-## Features (v0.2.0)
+## Features (v0.3.0)
 
 - 🎨 **Beautiful by Default** - Professional themes out of the box
 - ⚡ **Simple API** - One-line visualizations: `vz.line(data, x, y)`
-- 📊 **12 2D Chart Types** - Line, Bar, Area, Scatter, Pie, Heatmap, Histogram, Boxplot, Radar, Waterfall, Funnel, Bubble
+- 📊 **23 Chart Types** - 12 2D + 6 3D + 5 Geographic charts
+- 🌍 **3D & Geographic** - Surface plots, scatter3D, choropleth maps, flow maps
 - 🎭 **Theme System** - 5 built-in themes + custom themes
-- 💾 **Export Anywhere** - HTML export (PNG, SVG, PDF coming in v0.3.0)
+- 💾 **Export Anywhere** - HTML export (PNG, SVG, PDF coming in v0.4.0)
 - 🚀 **No AI Dependencies** - Completely free, no API keys needed
 - 📈 **Performance** - Handle 100K+ data points efficiently
-- 🔜 **Coming Soon** - 3D charts, Geographic maps, Network graphs, Real-time visualizations (v0.3.0+)
+- 🔜 **Coming Soon** - Network graphs, Real-time visualizations, Dashboard builder (v0.4.0+)
 
 ## Installation
 
@@ -44,31 +45,46 @@ vz.scatter(data, x='age', y='income', size='population')
 vz.pie(data, values='market_share', names='company')
 ```
 
-## Chart Types (12 in v0.2.0)
+## Chart Types (23 in v0.3.0)
 
-### Basic Charts (4)
-- **Line Chart** - `vz.line()` - Single/multi-line, time series
-- **Bar Chart** - `vz.bar()` - Vertical/horizontal, grouped/stacked
-- **Scatter Plot** - `vz.scatter()` - 2D scatter with optional colors
-- **Pie Chart** - `vz.pie()` / `vz.donut()` - Proportions and percentages
+### 2D Charts (12)
+**Basic:**
+- **Line Chart** - `vz.line()` - Time series, multi-line
+- **Bar Chart** - `vz.bar()` - Grouped, stacked
+- **Scatter Plot** - `vz.scatter()` - 2D scatter with colors
+- **Pie Chart** - `vz.pie()` / `vz.donut()` - Proportions
 
-### Statistical Charts (4)
-- **Histogram** - `vz.histogram()` - Distribution analysis with bins
-- **Boxplot** - `vz.boxplot()` - Quartiles, median, outliers
-- **Heatmap** - `vz.heatmap()` - Correlation matrices, color-coded data
-- **Area Chart** - `vz.area()` - Filled area under line, stacking support
+**Statistical:**
+- **Histogram** - `vz.histogram()` - Distribution with bins
+- **Boxplot** - `vz.boxplot()` - Quartiles, outliers
+- **Heatmap** - `vz.heatmap()` - Correlation matrices
+- **Area Chart** - `vz.area()` - Filled areas, stacking
 
-### Business Charts (4)
-- **Waterfall Chart** - `vz.waterfall()` - Cumulative sequential changes
-- **Funnel Chart** - `vz.funnel()` - Conversion tracking, stages
-- **Radar Chart** - `vz.radar()` - Multivariate data, spider/star chart
-- **Bubble Chart** - `vz.bubble()` - 3-variable scatter with size encoding
+**Business:**
+- **Waterfall** - `vz.waterfall()` - Sequential changes
+- **Funnel** - `vz.funnel()` - Conversion stages
+- **Radar** - `vz.radar()` - Multivariate data
+- **Bubble** - `vz.bubble()` - 3-variable scatter
 
-### Coming in v0.3.0+
-- 3D Charts (Surface, Scatter3D, Mesh3D, Volume, Cone, Isosurface)
-- Geographic Charts (Choropleth, Scatter Geo, Line Geo, Density Geo, Flow Map)
-- Network Charts (Network Graph, Sankey, Tree, Dendrogram)
-- Real-time Charts (Streaming Line, Live Dashboard, Real-time Heatmap)
+### 3D Charts (6) ✨ NEW
+- **Surface Plot** - `vz.surface()` - 3D surfaces, mathematical functions
+- **Scatter3D** - `vz.scatter3d()` - 3D scatter with size/color
+- **Mesh3D** - `vz.mesh3d()` - 3D geometry, CAD models
+- **Volume Plot** - `vz.volume()` - Volumetric data, medical imaging
+- **Cone Plot** - `vz.cone()` - Vector fields, fluid dynamics
+- **Isosurface** - `vz.isosurface()` - Level sets, molecular orbitals
+
+### Geographic Charts (5) ✨ NEW
+- **Choropleth Map** - `vz.choropleth()` - Color-coded regions
+- **Scatter Geo** - `vz.scattergeo()` - Points on map
+- **Line Geo** - `vz.linegeo()` - Routes, paths on map
+- **Density Geo** - `vz.densitygeo()` - Heatmap on map
+- **Flow Map** - `vz.flowmap()` - Origin-destination flows
+
+### Coming in v0.4.0+
+- Network Charts (Graph, Sankey, Tree, Dendrogram)
+- Real-time Charts (Streaming, Live Dashboard)
+- Dashboard Builder (Drag-and-drop)
 
 ## Themes
 

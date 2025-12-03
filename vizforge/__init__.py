@@ -3,7 +3,7 @@ VizForge - Production-grade data visualization library with zero AI dependencies
 
 Create beautiful, interactive visualizations with a single line of code.
 
-v0.2.0: Now with 12 chart types!
+v0.3.0: Now with 23 chart types! (12 2D + 6 3D + 5 Geographic)
 """
 
 from .version import __version__
@@ -17,9 +17,9 @@ from .core import (
     list_themes,
 )
 
-# Import all 12 chart types
+# Import all 23 chart types
 from .charts import (
-    # Classes
+    # 2D Chart Classes
     LineChart,
     BarChart,
     AreaChart,
@@ -32,7 +32,20 @@ from .charts import (
     WaterfallChart,
     FunnelChart,
     BubbleChart,
-    # Functions
+    # 3D Chart Classes
+    SurfacePlot,
+    Scatter3D,
+    Mesh3D,
+    VolumePlot,
+    ConePlot,
+    IsosurfacePlot,
+    # Geographic Chart Classes
+    ChoroplethMap,
+    ScatterGeoMap,
+    LineGeoMap,
+    DensityGeoMap,
+    FlowMap,
+    # 2D Functions
     line,
     bar,
     area,
@@ -46,6 +59,19 @@ from .charts import (
     waterfall,
     funnel,
     bubble,
+    # 3D Functions
+    surface,
+    scatter3d,
+    mesh3d,
+    volume,
+    cone,
+    isosurface,
+    # Geographic Functions
+    choropleth,
+    scattergeo,
+    linegeo,
+    densitygeo,
+    flowmap,
 )
 
 __all__ = [
@@ -58,7 +84,7 @@ __all__ = [
     "set_theme",
     "register_theme",
     "list_themes",
-    # Chart Classes
+    # 2D Chart Classes
     "LineChart",
     "BarChart",
     "AreaChart",
@@ -71,7 +97,20 @@ __all__ = [
     "WaterfallChart",
     "FunnelChart",
     "BubbleChart",
-    # Convenience Functions
+    # 3D Chart Classes
+    "SurfacePlot",
+    "Scatter3D",
+    "Mesh3D",
+    "VolumePlot",
+    "ConePlot",
+    "IsosurfacePlot",
+    # Geographic Chart Classes
+    "ChoroplethMap",
+    "ScatterGeoMap",
+    "LineGeoMap",
+    "DensityGeoMap",
+    "FlowMap",
+    # 2D Functions
     "line",
     "bar",
     "area",
@@ -85,4 +124,17 @@ __all__ = [
     "waterfall",
     "funnel",
     "bubble",
+    # 3D Functions
+    "surface",
+    "scatter3d",
+    "mesh3d",
+    "volume",
+    "cone",
+    "isosurface",
+    # Geographic Functions
+    "choropleth",
+    "scattergeo",
+    "linegeo",
+    "densitygeo",
+    "flowmap",
 ]

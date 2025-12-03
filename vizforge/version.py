@@ -1,12 +1,12 @@
 """VizForge version information."""
 
-__version__ = "0.2.1"
-__version_info__ = (0, 2, 1)
+__version__ = "0.3.0"
+__version_info__ = (0, 3, 0)
 
 # Feature flags
 CHARTS_2D_ENABLED = True  # 12 chart types
-CHARTS_3D_ENABLED = False  # Coming in v0.3.0
-GEO_CHARTS_ENABLED = False  # Coming in v0.3.0
+CHARTS_3D_ENABLED = True  # 6 chart types ✅
+GEO_CHARTS_ENABLED = True  # 5 chart types ✅
 NETWORK_CHARTS_ENABLED = False  # Coming in v0.4.0
 REALTIME_ENABLED = False  # Coming in v0.4.0
 WEBGPU_ENABLED = False  # Coming in v1.0.0

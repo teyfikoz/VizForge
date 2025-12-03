@@ -1,5 +1,6 @@
-"""2D chart types for VizForge."""
+"""Chart types for VizForge (2D, 3D, Geographic)."""
 
+# 2D Charts
 from .line import LineChart, line
 from .bar import BarChart, bar
 from .area import AreaChart, area
@@ -13,8 +14,27 @@ from .waterfall import WaterfallChart, waterfall
 from .funnel import FunnelChart, funnel
 from .bubble import BubbleChart, bubble
 
+# 3D Charts
+from .threed import (
+    SurfacePlot, surface,
+    Scatter3D, scatter3d,
+    Mesh3D, mesh3d,
+    VolumePlot, volume,
+    ConePlot, cone,
+    IsosurfacePlot, isosurface,
+)
+
+# Geographic Charts
+from .geo import (
+    ChoroplethMap, choropleth,
+    ScatterGeoMap, scattergeo,
+    LineGeoMap, linegeo,
+    DensityGeoMap, densitygeo,
+    FlowMap, flowmap,
+)
+
 __all__ = [
-    # Classes
+    # 2D Chart Classes
     "LineChart",
     "BarChart",
     "AreaChart",
@@ -27,7 +47,20 @@ __all__ = [
     "WaterfallChart",
     "FunnelChart",
     "BubbleChart",
-    # Convenience functions
+    # 3D Chart Classes
+    "SurfacePlot",
+    "Scatter3D",
+    "Mesh3D",
+    "VolumePlot",
+    "ConePlot",
+    "IsosurfacePlot",
+    # Geographic Chart Classes
+    "ChoroplethMap",
+    "ScatterGeoMap",
+    "LineGeoMap",
+    "DensityGeoMap",
+    "FlowMap",
+    # 2D Functions
     "line",
     "bar",
     "area",
@@ -41,4 +74,17 @@ __all__ = [
     "waterfall",
     "funnel",
     "bubble",
+    # 3D Functions
+    "surface",
+    "scatter3d",
+    "mesh3d",
+    "volume",
+    "cone",
+    "isosurface",
+    # Geographic Functions
+    "choropleth",
+    "scattergeo",
+    "linegeo",
+    "densitygeo",
+    "flowmap",
 ]
