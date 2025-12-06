@@ -3,7 +3,7 @@ VizForge - Production-grade data visualization library with zero AI dependencies
 
 Create beautiful, interactive visualizations with a single line of code.
 
-v0.3.0: Now with 23 chart types! (12 2D + 6 3D + 5 Geographic)
+v0.4.0: Now with 40+ chart types! (12 2D + 6 3D + 5 Geo + 6 Network + 5 Real-time + 9 Stats + 5 Advanced)
 """
 
 from .version import __version__
@@ -17,7 +17,7 @@ from .core import (
     list_themes,
 )
 
-# Import all 23 chart types
+# Import all 40+ chart types
 from .charts import (
     # 2D Chart Classes
     LineChart,
@@ -45,6 +45,35 @@ from .charts import (
     LineGeoMap,
     DensityGeoMap,
     FlowMap,
+    # Network Chart Classes
+    NetworkGraph,
+    SankeyDiagram,
+    TreeDiagram,
+    IcicleDiagram,
+    Dendrogram,
+    ClusterHeatmap,
+    # Real-time Chart Classes
+    StreamingLine,
+    LiveHeatmap,
+    AnimatedScatter,
+    AnimatedBar,
+    AnimatedChoropleth,
+    # Statistical Chart Classes
+    ViolinPlot,
+    KDEPlot,
+    KDE2D,
+    RegressionPlot,
+    CorrelationMatrix,
+    ROCCurve,
+    MultiROCCurve,
+    FeatureImportance,
+    PermutationImportance,
+    # Advanced Chart Classes
+    Treemap,
+    Sunburst,
+    ParallelCoordinates,
+    ContourPlot,
+    FilledContour,
     # 2D Functions
     line,
     bar,
@@ -72,6 +101,35 @@ from .charts import (
     linegeo,
     densitygeo,
     flowmap,
+    # Network Functions
+    network_graph,
+    sankey,
+    tree,
+    icicle,
+    dendrogram,
+    cluster_heatmap,
+    # Real-time Functions
+    streaming_line,
+    live_heatmap,
+    animated_scatter,
+    animated_bar,
+    animated_choropleth,
+    # Statistical Functions
+    violin,
+    kde,
+    kde2d,
+    regression,
+    correlation_matrix,
+    roc_curve_plot,
+    multi_roc_curve,
+    feature_importance,
+    permutation_importance,
+    # Advanced Functions
+    treemap,
+    sunburst,
+    parallel_coordinates,
+    contour,
+    filled_contour,
 )
 
 __all__ = [
@@ -110,6 +168,35 @@ __all__ = [
     "LineGeoMap",
     "DensityGeoMap",
     "FlowMap",
+    # Network Chart Classes
+    "NetworkGraph",
+    "SankeyDiagram",
+    "TreeDiagram",
+    "IcicleDiagram",
+    "Dendrogram",
+    "ClusterHeatmap",
+    # Real-time Chart Classes
+    "StreamingLine",
+    "LiveHeatmap",
+    "AnimatedScatter",
+    "AnimatedBar",
+    "AnimatedChoropleth",
+    # Statistical Chart Classes
+    "ViolinPlot",
+    "KDEPlot",
+    "KDE2D",
+    "RegressionPlot",
+    "CorrelationMatrix",
+    "ROCCurve",
+    "MultiROCCurve",
+    "FeatureImportance",
+    "PermutationImportance",
+    # Advanced Chart Classes
+    "Treemap",
+    "Sunburst",
+    "ParallelCoordinates",
+    "ContourPlot",
+    "FilledContour",
     # 2D Functions
     "line",
     "bar",
@@ -137,4 +224,33 @@ __all__ = [
     "linegeo",
     "densitygeo",
     "flowmap",
+    # Network Functions
+    "network_graph",
+    "sankey",
+    "tree",
+    "icicle",
+    "dendrogram",
+    "cluster_heatmap",
+    # Real-time Functions
+    "streaming_line",
+    "live_heatmap",
+    "animated_scatter",
+    "animated_bar",
+    "animated_choropleth",
+    # Statistical Functions
+    "violin",
+    "kde",
+    "kde2d",
+    "regression",
+    "correlation_matrix",
+    "roc_curve_plot",
+    "multi_roc_curve",
+    "feature_importance",
+    "permutation_importance",
+    # Advanced Functions
+    "treemap",
+    "sunburst",
+    "parallel_coordinates",
+    "contour",
+    "filled_contour",
 ]

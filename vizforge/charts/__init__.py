@@ -1,4 +1,4 @@
-"""Chart types for VizForge (2D, 3D, Geographic)."""
+"""Chart types for VizForge (2D, 3D, Geographic, Network, Real-time, Statistical, Advanced)."""
 
 # 2D Charts
 from .line import LineChart, line
@@ -33,6 +33,41 @@ from .geo import (
     FlowMap, flowmap,
 )
 
+# Network Charts
+from .network import (
+    NetworkGraph, network_graph,
+    SankeyDiagram, sankey,
+    TreeDiagram, IcicleDiagram, tree, icicle,
+    Dendrogram, ClusterHeatmap, dendrogram, cluster_heatmap,
+)
+
+# Real-time Charts
+from .realtime import (
+    StreamingLine, streaming_line,
+    LiveHeatmap, live_heatmap,
+    AnimatedScatter, animated_scatter,
+    AnimatedBar, animated_bar,
+    AnimatedChoropleth, animated_choropleth,
+)
+
+# Statistical Charts
+from .stats import (
+    ViolinPlot, violin,
+    KDEPlot, KDE2D, kde, kde2d,
+    RegressionPlot, regression,
+    CorrelationMatrix, correlation_matrix,
+    ROCCurve, MultiROCCurve, roc_curve_plot, multi_roc_curve,
+    FeatureImportance, PermutationImportance, feature_importance, permutation_importance,
+)
+
+# Advanced Charts
+from .advanced import (
+    Treemap, treemap,
+    Sunburst, sunburst,
+    ParallelCoordinates, parallel_coordinates,
+    ContourPlot, FilledContour, contour, filled_contour,
+)
+
 __all__ = [
     # 2D Chart Classes
     "LineChart",
@@ -60,6 +95,35 @@ __all__ = [
     "LineGeoMap",
     "DensityGeoMap",
     "FlowMap",
+    # Network Chart Classes
+    "NetworkGraph",
+    "SankeyDiagram",
+    "TreeDiagram",
+    "IcicleDiagram",
+    "Dendrogram",
+    "ClusterHeatmap",
+    # Real-time Chart Classes
+    "StreamingLine",
+    "LiveHeatmap",
+    "AnimatedScatter",
+    "AnimatedBar",
+    "AnimatedChoropleth",
+    # Statistical Chart Classes
+    "ViolinPlot",
+    "KDEPlot",
+    "KDE2D",
+    "RegressionPlot",
+    "CorrelationMatrix",
+    "ROCCurve",
+    "MultiROCCurve",
+    "FeatureImportance",
+    "PermutationImportance",
+    # Advanced Chart Classes
+    "Treemap",
+    "Sunburst",
+    "ParallelCoordinates",
+    "ContourPlot",
+    "FilledContour",
     # 2D Functions
     "line",
     "bar",
@@ -87,4 +151,33 @@ __all__ = [
     "linegeo",
     "densitygeo",
     "flowmap",
+    # Network Functions
+    "network_graph",
+    "sankey",
+    "tree",
+    "icicle",
+    "dendrogram",
+    "cluster_heatmap",
+    # Real-time Functions
+    "streaming_line",
+    "live_heatmap",
+    "animated_scatter",
+    "animated_bar",
+    "animated_choropleth",
+    # Statistical Functions
+    "violin",
+    "kde",
+    "kde2d",
+    "regression",
+    "correlation_matrix",
+    "roc_curve_plot",
+    "multi_roc_curve",
+    "feature_importance",
+    "permutation_importance",
+    # Advanced Functions
+    "treemap",
+    "sunburst",
+    "parallel_coordinates",
+    "contour",
+    "filled_contour",
 ]

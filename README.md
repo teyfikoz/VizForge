@@ -4,17 +4,19 @@
 
 Create beautiful, interactive visualizations with a single line of code. No API keys, no paid services, just pure visualization power.
 
-## Features (v0.3.0)
+## Features (v0.4.0)
 
 - 🎨 **Beautiful by Default** - Professional themes out of the box
 - ⚡ **Simple API** - One-line visualizations: `vz.line(data, x, y)`
-- 📊 **23 Chart Types** - 12 2D + 6 3D + 5 Geographic charts
+- 📊 **48 Chart Types** - 12 2D + 6 3D + 5 Geographic + 6 Network + 5 Real-time + 9 Statistical + 5 Advanced
 - 🌍 **3D & Geographic** - Surface plots, scatter3D, choropleth maps, flow maps
+- 🔗 **Network & Graphs** - Network graphs, Sankey, trees, dendrograms
+- 📈 **Real-time & Animated** - Streaming data, live dashboards, animated transitions
+- 📊 **Statistical Analysis** - Violin plots, KDE, regression, ROC curves, feature importance
 - 🎭 **Theme System** - 5 built-in themes + custom themes
-- 💾 **Export Anywhere** - HTML export (PNG, SVG, PDF coming in v0.4.0)
+- 💾 **Export Anywhere** - HTML export (PNG, SVG, PDF coming soon)
 - 🚀 **No AI Dependencies** - Completely free, no API keys needed
 - 📈 **Performance** - Handle 100K+ data points efficiently
-- 🔜 **Coming Soon** - Network graphs, Real-time visualizations, Dashboard builder (v0.4.0+)
 
 ## Installation
 
@@ -27,25 +29,25 @@ pip install vizforge
 ```python
 import vizforge as vz
 import pandas as pd
+import numpy as np
 
 # Line chart
 data = pd.DataFrame({
     'date': pd.date_range('2024-01-01', periods=30),
-    'sales': [100, 120, 115, 130, 140, ...]
+    'sales': np.random.randint(100, 200, 30)
 })
 vz.line(data, x='date', y='sales', title='Daily Sales')
 
-# Bar chart
-vz.bar(data, x='category', y='amount', color='region')
+# Statistical analysis
+vz.violin(data, x='category', y='value', title='Distribution by Category')
 
-# Scatter plot
-vz.scatter(data, x='age', y='income', size='population')
-
-# Pie chart
-vz.pie(data, values='market_share', names='company')
+# Network visualization
+nodes = ['A', 'B', 'C', 'D']
+edges = [('A', 'B'), ('B', 'C'), ('C', 'D')]
+vz.network_graph(nodes, edges, title='Network')
 ```
 
-## Chart Types (23 in v0.3.0)
+## Chart Types (48 in v0.4.0)
 
 ### 2D Charts (12)
 **Basic:**
@@ -66,7 +68,7 @@ vz.pie(data, values='market_share', names='company')
 - **Radar** - `vz.radar()` - Multivariate data
 - **Bubble** - `vz.bubble()` - 3-variable scatter
 
-### 3D Charts (6) ✨ NEW
+### 3D Charts (6)
 - **Surface Plot** - `vz.surface()` - 3D surfaces, mathematical functions
 - **Scatter3D** - `vz.scatter3d()` - 3D scatter with size/color
 - **Mesh3D** - `vz.mesh3d()` - 3D geometry, CAD models
@@ -74,17 +76,45 @@ vz.pie(data, values='market_share', names='company')
 - **Cone Plot** - `vz.cone()` - Vector fields, fluid dynamics
 - **Isosurface** - `vz.isosurface()` - Level sets, molecular orbitals
 
-### Geographic Charts (5) ✨ NEW
+### Geographic Charts (5)
 - **Choropleth Map** - `vz.choropleth()` - Color-coded regions
 - **Scatter Geo** - `vz.scattergeo()` - Points on map
 - **Line Geo** - `vz.linegeo()` - Routes, paths on map
 - **Density Geo** - `vz.densitygeo()` - Heatmap on map
 - **Flow Map** - `vz.flowmap()` - Origin-destination flows
 
-### Coming in v0.4.0+
-- Network Charts (Graph, Sankey, Tree, Dendrogram)
-- Real-time Charts (Streaming, Live Dashboard)
-- Dashboard Builder (Drag-and-drop)
+### Network Charts (6) ✨ NEW
+- **Network Graph** - `vz.network_graph()` - Force-directed graphs
+- **Sankey Diagram** - `vz.sankey()` - Flow diagrams
+- **Tree Diagram** - `vz.tree()` - Hierarchical trees
+- **Icicle Diagram** - `vz.icicle()` - Vertical hierarchies
+- **Dendrogram** - `vz.dendrogram()` - Clustering trees
+- **Cluster Heatmap** - `vz.cluster_heatmap()` - Heatmap with dendrograms
+
+### Real-time Charts (5) ✨ NEW
+- **Streaming Line** - `vz.streaming_line()` - Live data streams
+- **Live Heatmap** - `vz.live_heatmap()` - Real-time heatmaps
+- **Animated Scatter** - `vz.animated_scatter()` - Time-series animation
+- **Animated Bar** - `vz.animated_bar()` - Bar race charts
+- **Animated Choropleth** - `vz.animated_choropleth()` - Geographic animation
+
+### Statistical Charts (9) ✨ NEW
+- **Violin Plot** - `vz.violin()` - Distribution with KDE
+- **KDE Plot** - `vz.kde()` - Kernel density estimation
+- **KDE 2D** - `vz.kde2d()` - 2D density estimation
+- **Regression Plot** - `vz.regression()` - Scatter with regression line
+- **Correlation Matrix** - `vz.correlation_matrix()` - Feature correlations
+- **ROC Curve** - `vz.roc_curve_plot()` - Classification metrics
+- **Multi ROC** - `vz.multi_roc_curve()` - Model comparison
+- **Feature Importance** - `vz.feature_importance()` - ML feature importance
+- **Permutation Importance** - `vz.permutation_importance()` - With uncertainty
+
+### Advanced Charts (5) ✨ NEW
+- **Treemap** - `vz.treemap()` - Hierarchical rectangles
+- **Sunburst** - `vz.sunburst()` - Hierarchical rings
+- **Parallel Coordinates** - `vz.parallel_coordinates()` - Multi-dimensional
+- **Contour Plot** - `vz.contour()` - 2D contour lines
+- **Filled Contour** - `vz.filled_contour()` - Filled contours
 
 ## Themes
 
@@ -106,81 +136,109 @@ custom = vz.Theme(
 vz.set_theme(custom)
 ```
 
-## Export Options
-
-```python
-# HTML (interactive) - v0.2.0
-chart.export("output.html")
-
-# Coming in v0.3.0:
-# PNG, SVG, PDF export
-```
-
 ## Examples
 
-### Multi-series Line Chart
+### Network Graph
+```python
+import vizforge as vz
+
+# Social network
+nodes = ['Alice', 'Bob', 'Charlie', 'David', 'Eve']
+edges = [
+    ('Alice', 'Bob'),
+    ('Bob', 'Charlie'),
+    ('Charlie', 'David'),
+    ('David', 'Eve'),
+    ('Eve', 'Alice')
+]
+
+vz.network_graph(nodes, edges, layout='spring',
+                title='Friend Network')
+```
+
+### Statistical Analysis
 ```python
 import vizforge as vz
 import pandas as pd
-
-df = pd.DataFrame({
-    'date': pd.date_range('2024-01-01', periods=30),
-    'Product A': np.random.randint(100, 200, 30),
-    'Product B': np.random.randint(80, 180, 30),
-    'Product C': np.random.randint(90, 190, 30)
-})
-
-vz.line(df, x='date', y=['Product A', 'Product B', 'Product C'],
-        title='Product Comparison', theme='dark')
-```
-
-### Grouped Bar Chart
-```python
-vz.bar(
-    data,
-    x='month',
-    y='revenue',
-    color='region',
-    barmode='group',
-    title='Regional Revenue by Month'
-)
-```
-
-### Correlation Heatmap
-```python
 import numpy as np
 
-correlation_matrix = np.random.randn(10, 10)
-vz.heatmap(
-    correlation_matrix,
-    title='Feature Correlation',
-    colorscale='RdBu'
+# A/B Test Results
+df = pd.DataFrame({
+    'variant': ['Control']*200 + ['Treatment']*200,
+    'conversion_rate': np.concatenate([
+        np.random.normal(0.05, 0.02, 200),
+        np.random.normal(0.07, 0.02, 200)
+    ])
+})
+
+vz.violin(df, x='variant', y='conversion_rate',
+         title='A/B Test Results', box_visible=True)
+```
+
+### Real-time Streaming
+```python
+import vizforge as vz
+import numpy as np
+
+# Live sensor data
+def get_sensor_reading():
+    return np.random.randn()
+
+chart = vz.streaming_line(
+    data_source=get_sensor_reading,
+    window_size=200,
+    update_interval=100,  # ms
+    title='Live Sensor Data',
+    fill_area=True
 )
 ```
 
-### Funnel Analysis
+### Machine Learning
 ```python
-funnel_data = {
-    'Website Visitors': 10000,
-    'Signed Up': 5000,
-    'Active Users': 2000,
-    'Paying Customers': 500
-}
+import vizforge as vz
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
 
-vz.funnel(funnel_data, title='Conversion Funnel')
+# Train model
+X, y = make_classification(n_samples=1000, n_features=20)
+model = RandomForestClassifier()
+model.fit(X, y)
+
+# Feature importance
+features = [f'Feature {i}' for i in range(20)]
+importance = model.feature_importances_
+
+vz.feature_importance(features, importance, top_n=10,
+                     title='Top 10 Features')
+
+# ROC Curve
+y_scores = model.predict_proba(X)[:, 1]
+vz.roc_curve_plot(y, y_scores,
+                 model_name='Random Forest',
+                 title='Model Performance')
 ```
 
-### Bubble Chart
+### Animated Charts
 ```python
-df = pd.DataFrame({
-    'x': np.random.randn(50),
-    'y': np.random.randn(50),
-    'size': np.random.randint(10, 100, 50),
-    'category': np.random.choice(['A', 'B', 'C'], 50)
+import vizforge as vz
+import pandas as pd
+import numpy as np
+
+# Evolution over time
+years = list(range(2010, 2024))
+data = pd.DataFrame({
+    'year': years * 5,
+    'company': ['A', 'B', 'C', 'D', 'E'] * 14,
+    'revenue': np.random.randint(100, 1000, 70),
+    'profit': np.random.randint(10, 200, 70),
+    'employees': np.random.randint(50, 500, 70)
 })
 
-vz.bubble(df, x='x', y='y', size='size', color='category',
-          title='Multi-dimensional Analysis')
+vz.animated_scatter(
+    data, x='revenue', y='profit',
+    animation_frame='year', size='employees',
+    color='company', title='Company Growth 2010-2023'
+)
 ```
 
 ## Philosophy
@@ -203,6 +261,8 @@ VizForge believes that:
 | Themes | ✅ | ⚠️ | ⚠️ | ✅ |
 | Geographic | ✅ | ✅ | ⚠️ | ❌ |
 | Network Graphs | ✅ | ✅ | ⚠️ | ❌ |
+| Real-time | ✅ | ✅ | ❌ | ❌ |
+| Statistical | ✅ | ⚠️ | ✅ | ✅ |
 | One-line Plots | ✅ | ❌ | ⚠️ | ✅ |
 | Learning Curve | Low | Medium | High | Medium |
 
@@ -220,6 +280,8 @@ VizForge believes that:
 - pandas >= 2.0.0
 - numpy >= 1.24.0
 - plotly >= 5.18.0
+- scipy >= 1.10.0
+- scikit-learn >= 1.3.0
 
 ## License
 
