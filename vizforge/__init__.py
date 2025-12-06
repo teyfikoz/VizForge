@@ -3,7 +3,7 @@ VizForge - Production-grade data visualization library with zero AI dependencies
 
 Create beautiful, interactive visualizations with a single line of code.
 
-v0.4.0: Now with 40+ chart types! (12 2D + 6 3D + 5 Geo + 6 Network + 5 Real-time + 9 Stats + 5 Advanced)
+v0.5.0: Now with 48 chart types + Dashboard Builder + Advanced Export!
 """
 
 from .version import __version__
@@ -15,6 +15,40 @@ from .core import (
     set_theme,
     register_theme,
     list_themes,
+    ChartExporter,
+    export_chart,
+    BatchExporter,
+    ExportError,
+)
+
+from .config import (
+    Config,
+    get_config,
+    set_config,
+    reset_config,
+)
+
+from .dashboard import (
+    Dashboard,
+    DashboardLayout,
+    create_dashboard,
+    ChartComponent,
+    KPICard,
+    FilterComponent,
+    TextComponent,
+)
+
+from .utils import (
+    clean_data,
+    aggregate_data,
+    resample_timeseries,
+    detect_outliers,
+    normalize_data,
+    bin_data,
+    generate_color_palette,
+    color_scale,
+    hex_to_rgb,
+    rgb_to_hex,
 )
 
 # Import all 40+ chart types
@@ -142,6 +176,34 @@ __all__ = [
     "set_theme",
     "register_theme",
     "list_themes",
+    "ChartExporter",
+    "export_chart",
+    "BatchExporter",
+    "ExportError",
+    # Config
+    "Config",
+    "get_config",
+    "set_config",
+    "reset_config",
+    # Dashboard
+    "Dashboard",
+    "DashboardLayout",
+    "create_dashboard",
+    "ChartComponent",
+    "KPICard",
+    "FilterComponent",
+    "TextComponent",
+    # Utils
+    "clean_data",
+    "aggregate_data",
+    "resample_timeseries",
+    "detect_outliers",
+    "normalize_data",
+    "bin_data",
+    "generate_color_palette",
+    "color_scale",
+    "hex_to_rgb",
+    "rgb_to_hex",
     # 2D Chart Classes
     "LineChart",
     "BarChart",
