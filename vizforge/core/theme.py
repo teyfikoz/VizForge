@@ -62,6 +62,23 @@ class Theme:
     opacity: float = 1.0
     border_radius: int = 4
 
+    @property
+    def plotly_template(self) -> str:
+        """
+        Get Plotly template name based on theme.
+
+        Returns:
+            Plotly template name (e.g., 'plotly', 'plotly_dark', 'simple_white')
+        """
+        # Map theme names to Plotly templates
+        template_map = {
+            'dark': 'plotly_dark',
+            'minimal': 'simple_white',
+            'default': 'plotly',
+            'corporate': 'plotly',
+        }
+        return template_map.get(self.name, 'plotly')
+
     def to_plotly_layout(self) -> dict:
         """Convert theme to Plotly layout configuration."""
         return {

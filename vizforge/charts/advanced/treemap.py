@@ -1,6 +1,6 @@
 """Treemap implementation for VizForge."""
 
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd

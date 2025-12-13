@@ -1,6 +1,6 @@
 """Dashboard builder for VizForge."""
 
-from .dashboard import Dashboard, DashboardLayout
+from .dashboard import Dashboard, DashboardLayout, create_dashboard
 from .components import (
     ChartComponent,
     KPICard,
@@ -11,6 +11,7 @@ from .components import (
 __all__ = [
     "Dashboard",
     "DashboardLayout",
+    "create_dashboard",
     "ChartComponent",
     "KPICard",
     "FilterComponent",
