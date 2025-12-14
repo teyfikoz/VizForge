@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vizforge"
-version = "0.5.0"
+version = "0.5.1"
 description = "Production-grade data visualization library with zero AI dependencies"
 readme = "README.md"
 authors = [
