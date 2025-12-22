@@ -1,9 +1,14 @@
 """
-VizForge - Production-grade data visualization library with zero AI dependencies.
+VizForge - Visualization Intelligence Platform
 
-Create beautiful, interactive visualizations with a single line of code.
+Not just charts - Visual reasoning, explainability, and evidence-based insights.
 
-v0.5.0: Now with 48 chart types + Dashboard Builder + Advanced Export!
+v2.0.0 NEW: Visualization Intelligence Layer!
+- Smart chart selection with reasoning
+- Visual bias detection
+- Evidence-based insights with provenance
+- Synthetic data generation
+- 100% offline, zero API costs
 """
 
 from .version import __version__
@@ -15,10 +20,6 @@ from .core import (
     set_theme,
     register_theme,
     list_themes,
-    ChartExporter,
-    export_chart,
-    BatchExporter,
-    ExportError,
 )
 
 from .config import (
@@ -49,6 +50,101 @@ from .utils import (
     color_scale,
     hex_to_rgb,
     rgb_to_hex,
+)
+
+# NEW v1.3.0: Natural Language Query (NLQ) Engine
+from .nlq import (
+    NLQEngine,
+    ask,  # Main entry point: vz.ask("Show sales trend", df)
+)
+
+# NEW v1.3.0: Predictive Analytics Engine
+from .predictive import (
+    forecast,
+    detect_trend,
+    detect_anomalies,
+    analyze_seasonality,
+    TimeSeriesForecaster,
+    TrendDetector,
+    AnomalyDetector,
+    SeasonalityAnalyzer,
+)
+
+# NEW v1.3.0: Auto Data Storytelling Engine
+from .storytelling import (
+    discover_insights,
+    generate_story,
+    generate_report,
+    InsightDiscovery,
+    NarrativeGenerator,
+    ReportGenerator,
+)
+
+# NEW v1.3.0: Visual Chart Designer (Web-based UI)
+from .visual_designer import (
+    launch_designer,  # Main entry point: vz.launch_designer()
+    DesignerApp,
+    ChartConfig,
+    ChartType,
+    CodeGenerator,
+)
+
+# NEW v1.3.0: Universal Data Connectors (13+ sources)
+from .connectors import (
+    connect,  # Main entry point: vz.connect('postgresql', ...)
+    list_connectors,
+    BaseConnector,
+    DataSource,
+    # Database connectors
+    PostgreSQLConnector,
+    MySQLConnector,
+    SQLiteConnector,
+    MongoDBConnector,
+    # Cloud connectors
+    S3Connector,
+    GCSConnector,
+    AzureBlobConnector,
+    # API connectors
+    RESTConnector,
+    GraphQLConnector,
+    # File connectors
+    ExcelConnector,
+    ParquetConnector,
+    HDF5Connector,
+    # Web connectors
+    HTMLTableConnector,
+    WebScraperConnector,
+)
+
+# NEW v1.3.0: Video Export Engine (MP4/WebM/GIF)
+from .video_export import (
+    export_video,  # Main entry point: vz.export_video(chart, 'output.mp4', ...)
+    VideoExporter,
+    VideoConfig,
+    VideoFormat,
+    AnimationEngine,
+    AnimationType,
+    FrameGenerator,
+)
+
+# NEW v2.0.0: Visualization Intelligence Layer
+from .intelligence import (
+    ChartReasoningEngine,
+    ChartDecision,
+    VisualBiasDetector,
+    BiasReport,
+)
+
+# NEW v2.0.0: Insight Provenance & Evidence Tracking
+from .insights import (
+    InsightProvenanceEngine,
+    Insight,
+)
+
+# NEW v2.0.0: Synthetic Data Generation
+from .synthetic import (
+    SyntheticVisualizationEngine,
+    SyntheticVizConfig,
 )
 
 # Import all 40+ chart types
@@ -176,10 +272,6 @@ __all__ = [
     "set_theme",
     "register_theme",
     "list_themes",
-    "ChartExporter",
-    "export_chart",
-    "BatchExporter",
-    "ExportError",
     # Config
     "Config",
     "get_config",
@@ -204,6 +296,69 @@ __all__ = [
     "color_scale",
     "hex_to_rgb",
     "rgb_to_hex",
+    # NLQ Engine
+    "NLQEngine",
+    "ask",
+    # Predictive Analytics
+    "forecast",
+    "detect_trend",
+    "detect_anomalies",
+    "analyze_seasonality",
+    "TimeSeriesForecaster",
+    "TrendDetector",
+    "AnomalyDetector",
+    "SeasonalityAnalyzer",
+    # Storytelling
+    "discover_insights",
+    "generate_story",
+    "generate_report",
+    "InsightDiscovery",
+    "NarrativeGenerator",
+    "ReportGenerator",
+    # Visual Designer
+    "launch_designer",
+    "DesignerApp",
+    "ChartConfig",
+    "ChartType",
+    "CodeGenerator",
+    # Data Connectors
+    "connect",
+    "list_connectors",
+    "BaseConnector",
+    "DataSource",
+    "PostgreSQLConnector",
+    "MySQLConnector",
+    "SQLiteConnector",
+    "MongoDBConnector",
+    "S3Connector",
+    "GCSConnector",
+    "AzureBlobConnector",
+    "RESTConnector",
+    "GraphQLConnector",
+    "ExcelConnector",
+    "ParquetConnector",
+    "HDF5Connector",
+    "HTMLTableConnector",
+    "WebScraperConnector",
+    # Video Export
+    "export_video",
+    "VideoExporter",
+    "VideoConfig",
+    "VideoFormat",
+    "AnimationEngine",
+    "AnimationType",
+    "FrameGenerator",
+    # v2.0.0: Intelligence Layer
+    "ChartReasoningEngine",
+    "ChartDecision",
+    "VisualBiasDetector",
+    "BiasReport",
+    # v2.0.0: Insights & Provenance
+    "InsightProvenanceEngine",
+    "Insight",
+    # v2.0.0: Synthetic Data
+    "SyntheticVisualizationEngine",
+    "SyntheticVizConfig",
     # 2D Chart Classes
     "LineChart",
     "BarChart",

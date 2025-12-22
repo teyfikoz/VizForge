@@ -118,7 +118,7 @@ def area(
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
     stacked: bool = False,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> AreaChart:

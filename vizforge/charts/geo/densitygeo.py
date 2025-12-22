@@ -135,7 +135,7 @@ def densitygeo(
     colorscale: str = "Hot",
     scope: str = "world",
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> DensityGeoMap:

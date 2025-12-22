@@ -159,7 +159,7 @@ def scatter3d(
     marker_size: int = 8,
     colorscale: str = "Viridis",
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Scatter3D:

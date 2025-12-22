@@ -129,7 +129,7 @@ def surface(
     contours: bool = False,
     opacity: float = 1.0,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> SurfacePlot:

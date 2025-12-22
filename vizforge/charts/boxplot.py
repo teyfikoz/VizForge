@@ -114,7 +114,7 @@ def boxplot(
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
     orientation: str = "v",
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Boxplot:

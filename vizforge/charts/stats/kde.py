@@ -171,7 +171,7 @@ def kde(
     rug: bool = False,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> KDEPlot:
@@ -228,7 +228,7 @@ def kde2d(
     contours: bool = True,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> KDE2D:

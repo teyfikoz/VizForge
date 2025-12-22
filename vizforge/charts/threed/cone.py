@@ -119,7 +119,7 @@ def cone(
     colorscale: str = "Viridis",
     sizemode: str = "absolute",
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ConePlot:

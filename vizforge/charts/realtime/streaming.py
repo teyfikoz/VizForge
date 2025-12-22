@@ -217,7 +217,7 @@ def streaming_line(
     fill_area: bool = False,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> StreamingLine:
@@ -288,7 +288,7 @@ def live_heatmap(
     update_interval: int = 1000,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> LiveHeatmap:

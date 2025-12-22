@@ -171,7 +171,7 @@ def flowmap(
     scope: str = "world",
     projection: str = "natural earth",
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> FlowMap:

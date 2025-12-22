@@ -140,7 +140,7 @@ def heatmap(
     theme: Optional[Union[str, Theme]] = None,
     colorscale: str = "Viridis",
     show_values: bool = False,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Heatmap:

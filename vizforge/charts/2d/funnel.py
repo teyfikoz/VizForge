@@ -99,7 +99,7 @@ def funnel(
     y: Optional[Union[str, list]] = None,
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> FunnelChart:

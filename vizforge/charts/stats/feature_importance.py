@@ -208,7 +208,7 @@ def feature_importance(
     show_values: bool = True,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> FeatureImportance:
@@ -274,7 +274,7 @@ def permutation_importance(
     top_n: Optional[int] = None,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> PermutationImportance:

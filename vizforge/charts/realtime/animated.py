@@ -215,7 +215,7 @@ def animated_scatter(
     animation_duration: int = 1000,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> AnimatedScatter:
@@ -294,7 +294,7 @@ def animated_bar(
     animation_duration: int = 1000,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> AnimatedBar:
@@ -365,7 +365,7 @@ def animated_choropleth(
     scope: str = "world",
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> AnimatedChoropleth:

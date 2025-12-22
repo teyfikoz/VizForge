@@ -197,7 +197,7 @@ def roc_curve_plot(
     show_diagonal: bool = True,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ROCCurve:
@@ -258,7 +258,7 @@ def multi_roc_curve(
     show_diagonal: bool = True,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> MultiROCCurve:

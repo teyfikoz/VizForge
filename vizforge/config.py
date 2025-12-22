@@ -16,7 +16,7 @@ class Config:
     _config = {
         # Display settings
         'default_theme': 'default',
-        'auto_show': True,
+        'auto_show': False,  # v2.0.1: Charts no longer auto-show, use .show() explicitly
         'figure_width': None,
         'figure_height': None,
 

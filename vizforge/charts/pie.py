@@ -128,7 +128,7 @@ def pie(
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
     hole: float = 0.0,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> PieChart:
@@ -180,7 +180,7 @@ def donut(
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
     hole: float = 0.4,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> PieChart:

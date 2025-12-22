@@ -98,7 +98,7 @@ def histogram(
     theme: Optional[Union[str, Theme]] = None,
     nbins: Optional[int] = None,
     cumulative: bool = False,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Histogram:

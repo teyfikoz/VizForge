@@ -270,7 +270,7 @@ def scatter(
     size: Optional[Union[str, list, np.ndarray, int]] = None,
     color: Optional[Union[str, list, np.ndarray]] = None,
     text: Optional[Union[str, list, np.ndarray]] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ScatterPlot:

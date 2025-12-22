@@ -1,0 +1,324 @@
+/* VizForge Visual Designer Styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --sidebar-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --canvas-bg: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    position: sticky;
+    top: 56px;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Canvas Area */
+.canvas-area {
+    min-height: calc(100vh - 120px);
+    background: var(--canvas-bg);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+}
+
+.empty-state {
+    padding: 60px 20px;
+}
+
+.empty-state i {
+    opacity: 0.3;
+}
+
+#chart-preview {
+    width: 100%;
+    height: 100%;
+}
+
+/* Chart Type Cards */
+.chart-type-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: white;
+}
+
+.chart-type-card:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-type-card i {
+    margin-right: 8px;
+}
+
+.chart-category {
+    margin-bottom: 20px;
+}
+
+.chart-category-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Properties Panel */
+.property-group {
+    margin-bottom: 20px;
+}
+
+.property-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #495057;
+}
+
+.property-input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.property-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.property-description {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 3px;
+}
+
+.required-asterisk {
+    color: #dc3545;
+    margin-left: 3px;
+}
+
+/* Code Modal */
+#generated-code {
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Loading Spinner */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+/* Alert Messages */
+.alert-floating {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Data Info Badge */
+.data-info-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #e7f3ff;
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin: 2px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        position: relative;
+        top: 0;
+    }
+
+    .canvas-area {
+        min-height: 400px;
+    }
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Chart Type Icons */
+.chart-icon-line::before { content: "\f201"; }
+.chart-icon-bar::before { content: "\f080"; }
+.chart-icon-pie::before { content: "\f200"; }
+.chart-icon-scatter::before { content: "\f1e0"; }
+.chart-icon-area::before { content: "\f1fe"; }
+.chart-icon-heatmap::before { content: "\f009"; }
+
+/* Tooltips */
+.tooltip-custom {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-custom .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.75rem;
+}
+
+.tooltip-custom:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Success States */
+.success-checkmark {
+    color: #28a745;
+    font-size: 1.2rem;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Error States */
+.error-icon {
+    color: #dc3545;
+    font-size: 1.2rem;
+}
+
+/* Column Select Multi-checkbox */
+.column-checkbox-group {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.column-checkbox-item {
+    padding: 4px 0;
+}
+
+.column-checkbox-item label {
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+/* Property Sections */
+.property-section {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.property-section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Preview Button */
+.btn-preview {
+    position: sticky;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    z-index: 100;
+    margin: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Code Copy Success */
+.copy-success {
+    color: #28a745;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}

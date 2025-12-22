@@ -165,7 +165,7 @@ def contour(
     show_labels: bool = True,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ContourPlot:
@@ -232,7 +232,7 @@ def filled_contour(
     ncontours: int = 15,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> FilledContour:

@@ -95,7 +95,7 @@ def violin(
     points: str = 'outliers',
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ViolinPlot:

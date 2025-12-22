@@ -194,7 +194,7 @@ def dendrogram(
     color_threshold: Optional[float] = None,
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Dendrogram:
@@ -261,7 +261,7 @@ def cluster_heatmap(
     show_dendrograms: str = 'both',
     title: Optional[str] = None,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> ClusterHeatmap:

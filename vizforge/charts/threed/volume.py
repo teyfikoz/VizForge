@@ -107,7 +107,7 @@ def volume(
     opacity: float = 0.1,
     surface_count: int = 15,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> VolumePlot:

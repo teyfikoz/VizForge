@@ -171,7 +171,7 @@ def line(
     theme: Optional[Union[str, Theme]] = None,
     mode: str = "lines",
     fill: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> LineChart:

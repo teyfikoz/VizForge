@@ -137,7 +137,7 @@ def mesh3d(
     opacity: float = 0.8,
     flatshading: bool = False,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> Mesh3D:

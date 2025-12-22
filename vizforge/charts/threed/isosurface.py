@@ -128,7 +128,7 @@ def isosurface(
     opacity: float = 0.7,
     surface_count: int = 2,
     theme: Optional[str] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> IsosurfacePlot:

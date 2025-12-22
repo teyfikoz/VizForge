@@ -122,7 +122,7 @@ def radar(
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
     fill: str = "toself",
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> RadarChart:

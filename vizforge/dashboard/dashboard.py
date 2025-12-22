@@ -78,6 +78,12 @@ class Dashboard:
         self.kpis = []
         self.filters = []
 
+        # NEW v1.0.0: Interactive features
+        self.widgets = {}  # Widget storage
+        self.charts = []  # Chart storage for callbacks
+        self.callback_manager = None  # Initialized on first callback
+        self._session_state = None  # Initialized on first use
+
         # Create subplot figure
         self._create_subplots()
 
@@ -263,6 +269,208 @@ class Dashboard:
     def to_html(self, filepath: str):
         """Export dashboard as HTML."""
         self.fig.write_html(filepath)
+
+    # ==================== VizForge v1.0.0 NEW METHODS ====================
+
+    def add_widget(
+        self,
+        widget: 'Widget',
+        row: int,
+        col: int
+    ) -> 'Dashboard':
+        """
+        Add interactive widget to dashboard.
+
+        NEW in v1.0.0: Adds Streamlit-style widgets for interactivity.
+
+        Args:
+            widget: Widget instance (Slider, SelectBox, etc.)
+            row: Row position
+            col: Column position
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> from vizforge.interactive import Slider
+            >>> dashboard = Dashboard(rows=2, cols=2)
+            >>> slider = Slider('year', 'Select Year', 2020, 2024, default=2023)
+            >>> dashboard.add_widget(slider, row=1, col=1)
+        """
+        # Store widget
+        self.widgets[widget.id] = widget
+
+        # Initialize callback manager if needed
+        if self.callback_manager is None:
+            from ..interactive.callbacks import CallbackManager
+            self.callback_manager = CallbackManager()
+
+        # Register widget with callback manager
+        self.callback_manager.register_component(widget.id, widget)
+
+        return self
+
+    def callback(
+        self,
+        outputs: Union[str, List[str]],
+        inputs: Union[str, List[str]],
+        state: Union[str, List[str], None] = None
+    ):
+        """
+        Dash-style callback decorator.
+
+        NEW in v1.0.0: Register reactive callbacks between widgets and charts.
+
+        Args:
+            outputs: Output component ID(s)
+            inputs: Input component ID(s) that trigger callback
+            state: State component ID(s) (read-only)
+
+        Returns:
+            Decorated function
+
+        Example:
+            >>> @dashboard.callback(
+            ...     outputs='sales_chart',
+            ...     inputs=['year_slider', 'category_select']
+            ... )
+            ... def update_sales(year, category):
+            ...     filtered_data = df[(df['year'] == year) & (df['category'] == category)]
+            ...     return LineChart(filtered_data, x='month', y='sales')
+        """
+        # Initialize callback manager if needed
+        if self.callback_manager is None:
+            from ..interactive.callbacks import CallbackManager
+            self.callback_manager = CallbackManager()
+
+        # Use callback manager's decorator
+        return self.callback_manager.callback(outputs, inputs, state)
+
+    def serve(
+        self,
+        port: int = 8050,
+        debug: bool = False,
+        host: str = '127.0.0.1'
+    ):
+        """
+        Launch interactive dashboard server.
+
+        NEW in v1.0.0: Starts Dash server for full interactivity.
+
+        Args:
+            port: Server port (default: 8050)
+            debug: Debug mode with hot reload
+            host: Server host (default: 127.0.0.1)
+
+        Example:
+            >>> dashboard = Dashboard(rows=2, cols=2)
+            >>> # ... add widgets and charts ...
+            >>> dashboard.serve(port=8050, debug=True)
+            Dash is running on http://127.0.0.1:8050/
+        """
+        from .builder import DashboardServer
+
+        # Create and run server
+        server = DashboardServer(self)
+        server.run(host=host, port=port, debug=debug)
+
+    def get_session_state(self):
+        """
+        Get session state for dashboard.
+
+        NEW in v1.0.0: Access Streamlit-style session state.
+
+        Returns:
+            SessionState instance
+
+        Example:
+            >>> state = dashboard.get_session_state()
+            >>> state['user_selection'] = 'Electronics'
+            >>> print(state['user_selection'])
+        """
+        if self._session_state is None:
+            from ..interactive.state import get_session_state
+            self._session_state = get_session_state()
+
+        return self._session_state
+
+    def add_filter(
+        self,
+        filter: 'Filter',
+        apply_to: Optional[List[str]] = None
+    ) -> 'Dashboard':
+        """
+        Add filter to dashboard.
+
+        NEW in v1.0.0: Tableau-style filtering with cascading support.
+
+        Args:
+            filter: Filter instance (RangeFilter, ListFilter, etc.)
+            apply_to: Chart IDs to apply filter to (None = all charts)
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> from vizforge.interactive import RangeFilter
+            >>> price_filter = RangeFilter('price', 'price', 100, 500)
+            >>> dashboard.add_filter(price_filter)
+        """
+        self.filters.append({
+            'filter': filter,
+            'apply_to': apply_to
+        })
+
+        return self
+
+    def add_action(
+        self,
+        action: 'Action'
+    ) -> 'Dashboard':
+        """
+        Add action to dashboard.
+
+        NEW in v1.0.0: Tableau-style actions (filter, highlight, drill-down).
+
+        Args:
+            action: Action instance (FilterAction, HighlightAction, etc.)
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> from vizforge.interactive import FilterAction
+            >>> action = FilterAction(
+            ...     action_id='filter_by_region',
+            ...     source_chart='map',
+            ...     target_charts=['sales', 'profit'],
+            ...     filter_column='region'
+            ... )
+            >>> dashboard.add_action(action)
+        """
+        if not hasattr(self, 'actions'):
+            self.actions = []
+
+        self.actions.append(action)
+
+        return self
+
+    def enable_smart_mode(self) -> 'Dashboard':
+        """
+        Enable intelligent recommendations for dashboard.
+
+        NEW in v1.0.0: Activates automatic chart selection,
+        data quality warnings, and best practice suggestions.
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> dashboard = Dashboard(rows=2, cols=2)
+            >>> dashboard.enable_smart_mode()
+        """
+        self._smart_mode = True
+        return self
 
 
 def create_dashboard(

@@ -212,7 +212,7 @@ def bar(
     orientation: str = "v",
     barmode: str = "group",
     color: Optional[Union[str, list]] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> BarChart:

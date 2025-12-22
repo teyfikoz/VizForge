@@ -109,7 +109,7 @@ def waterfall(
     y: Optional[Union[str, list, np.ndarray]] = None,
     title: Optional[str] = None,
     theme: Optional[Union[str, Theme]] = None,
-    show: bool = True,
+    show: bool = False,
     export: Optional[str] = None,
     **kwargs
 ) -> WaterfallChart:
