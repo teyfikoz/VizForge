@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vizforge"
-version = "3.0.0"
+version = "3.0.1"
 description = "Production-Grade Visualization Intelligence: WebGPU rendering (1000x faster), data streaming, plugin architecture, real-time collaboration, enhanced interactivity - 100% offline, zero API costs!"
 readme = "README.md"
 authors = [

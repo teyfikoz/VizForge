@@ -1,7 +1,7 @@
 """VizForge version information."""
 
-__version__ = "3.0.0"
-__version_info__ = (3, 0, 0)
+__version__ = "3.0.1"
+__version_info__ = (3, 0, 1)
 
 # Feature flags - v0.5.x Core
 CHARTS_2D_ENABLED = True  # 12 chart types ✅

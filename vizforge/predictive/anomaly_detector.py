@@ -95,7 +95,7 @@ class AnomalyDetector:
             raise ValueError("Need at least 3 data points for anomaly detection")
 
         # Handle missing values
-        self.data = pd.Series(self.data).fillna(method='ffill').fillna(method='bfill').values
+        self.data = pd.Series(self.data).ffill().bfill().values
 
     def detect(self) -> List[Anomaly]:
         """

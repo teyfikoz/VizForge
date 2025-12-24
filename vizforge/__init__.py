@@ -150,11 +150,10 @@ from .synthetic import (
 )
 
 # NEW v3.0.0: Performance & Extensibility
-from .core.webgpu import (
-    WebGPURenderer,
-    WebGPUConfig,
-    enable_webgpu,
-)
+try:
+    from .core.webgpu import WebGPURenderer
+except ImportError:
+    WebGPURenderer = None
 
 from .core.streaming import (
     DataStream,

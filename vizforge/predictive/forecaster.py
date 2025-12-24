@@ -94,7 +94,7 @@ class TimeSeriesForecaster:
             raise ValueError("Need at least 3 data points for forecasting")
 
         # Clean data (handle missing values)
-        self.data = self.data.fillna(method='ffill').fillna(method='bfill')
+        self.data = self.data.ffill().bfill()
 
     def forecast(
         self,
