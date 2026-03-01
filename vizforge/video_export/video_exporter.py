@@ -6,9 +6,10 @@ Supports MP4, WebM, and GIF formats.
 
 import os
 import tempfile
-from enum import Enum
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Optional, Callable, List
+from enum import Enum
+
 import pandas as pd
 
 
@@ -51,9 +52,9 @@ class VideoExporter:
     def export(
         self,
         output_path: str,
-        data_frames: List[pd.DataFrame] = None,
+        data_frames: list[pd.DataFrame] = None,
         transition: str = "smooth",
-        progress_callback: Optional[Callable] = None
+        progress_callback: Callable | None = None
     ) -> str:
         """
         Export chart as video.
@@ -86,14 +87,15 @@ class VideoExporter:
     def _export_gif(
         self,
         output_path: str,
-        data_frames: List[pd.DataFrame],
+        data_frames: list[pd.DataFrame],
         transition: str,
-        progress_callback: Optional[Callable]
+        progress_callback: Callable | None
     ) -> str:
         """Export as GIF using PIL."""
         try:
-            from PIL import Image
             import io
+
+            from PIL import Image
         except ImportError:
             raise ImportError(
                 "GIF export requires 'Pillow'. Install with: pip install Pillow"
@@ -139,9 +141,9 @@ class VideoExporter:
     def _export_mp4(
         self,
         output_path: str,
-        data_frames: List[pd.DataFrame],
+        data_frames: list[pd.DataFrame],
         transition: str,
-        progress_callback: Optional[Callable]
+        progress_callback: Callable | None
     ) -> str:
         """Export as MP4 using ffmpeg."""
         import subprocess
@@ -203,9 +205,9 @@ class VideoExporter:
     def _export_webm(
         self,
         output_path: str,
-        data_frames: List[pd.DataFrame],
+        data_frames: list[pd.DataFrame],
         transition: str,
-        progress_callback: Optional[Callable]
+        progress_callback: Callable | None
     ) -> str:
         """Export as WebM using ffmpeg."""
         import subprocess
@@ -257,8 +259,8 @@ class VideoExporter:
     def _export_frames(
         self,
         output_dir: str,
-        data_frames: List[pd.DataFrame],
-        progress_callback: Optional[Callable]
+        data_frames: list[pd.DataFrame],
+        progress_callback: Callable | None
     ) -> str:
         """Export individual frames as PNG."""
         os.makedirs(output_dir, exist_ok=True)
@@ -287,13 +289,13 @@ class VideoExporter:
 def export_video(
     chart,
     output_path: str,
-    data_frames: List[pd.DataFrame] = None,
+    data_frames: list[pd.DataFrame] = None,
     format: str = 'mp4',
     fps: int = 30,
     width: int = 1920,
     height: int = 1080,
     quality: str = 'high',
-    progress_callback: Optional[Callable] = None
+    progress_callback: Callable | None = None
 ) -> str:
     """
     Export chart as video (convenience function).

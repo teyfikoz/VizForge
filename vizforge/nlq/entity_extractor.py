@@ -7,8 +7,8 @@ Works with DataFrame to find best column matches.
 
 import re
 from dataclasses import dataclass
-from typing import List, Dict, Any, Optional
-from datetime import datetime, timedelta
+from typing import Any
+
 import pandas as pd
 
 
@@ -39,7 +39,7 @@ class EntityExtractor:
         self.columns = list(dataframe.columns)
         self.column_types = self._analyze_column_types()
 
-    def _analyze_column_types(self) -> Dict[str, str]:
+    def _analyze_column_types(self) -> dict[str, str]:
         """Analyze column data types."""
         types = {}
         for col in self.columns:
@@ -54,7 +54,7 @@ class EntityExtractor:
                 types[col] = 'unknown'
         return types
 
-    def extract_entities(self, query: str) -> List[Entity]:
+    def extract_entities(self, query: str) -> list[Entity]:
         """
         Extract all entities from query.
 
@@ -80,7 +80,7 @@ class EntityExtractor:
 
         return entities
 
-    def _extract_columns(self, query: str) -> List[Entity]:
+    def _extract_columns(self, query: str) -> list[Entity]:
         """Extract column references from query."""
         entities = []
         query_lower = query.lower()
@@ -126,7 +126,7 @@ class EntityExtractor:
 
         return entities
 
-    def _extract_time_periods(self, query: str) -> List[Entity]:
+    def _extract_time_periods(self, query: str) -> list[Entity]:
         """Extract time periods from query."""
         entities = []
         query_lower = query.lower()
@@ -153,7 +153,7 @@ class EntityExtractor:
 
         return entities
 
-    def _extract_numbers(self, query: str) -> List[Entity]:
+    def _extract_numbers(self, query: str) -> list[Entity]:
         """Extract numeric values from query."""
         entities = []
 
@@ -172,7 +172,7 @@ class EntityExtractor:
 
         return entities
 
-    def _extract_values(self, query: str) -> List[Entity]:
+    def _extract_values(self, query: str) -> list[Entity]:
         """Extract categorical values from query."""
         entities = []
 
@@ -196,19 +196,19 @@ class EntityExtractor:
 
         return entities
 
-    def get_numeric_columns(self) -> List[str]:
+    def get_numeric_columns(self) -> list[str]:
         """Get all numeric columns."""
         return [col for col, dtype in self.column_types.items() if dtype == 'numeric']
 
-    def get_categorical_columns(self) -> List[str]:
+    def get_categorical_columns(self) -> list[str]:
         """Get all categorical columns."""
         return [col for col, dtype in self.column_types.items() if dtype == 'categorical']
 
-    def get_datetime_columns(self) -> List[str]:
+    def get_datetime_columns(self) -> list[str]:
         """Get all datetime columns."""
         return [col for col, dtype in self.column_types.items() if dtype == 'datetime']
 
-    def suggest_columns_for_intent(self, intent: str) -> Dict[str, List[str]]:
+    def suggest_columns_for_intent(self, intent: str) -> dict[str, list[str]]:
         """
         Suggest appropriate columns for given intent.
 

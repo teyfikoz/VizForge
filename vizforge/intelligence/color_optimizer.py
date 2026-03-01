@@ -5,9 +5,7 @@ Perceptual color optimization and accessibility-first palettes (NO API costs).
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import List, Dict, Any, Optional, Tuple
 import colorsys
-import math
 
 
 class ColorOptimizer:
@@ -115,7 +113,7 @@ class ColorOptimizer:
         hue_start: float = 0.0,
         lightness: float = 0.6,
         saturation: float = 0.7
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Generate optimized color palette.
 
@@ -149,7 +147,7 @@ class ColorOptimizer:
         else:
             raise ValueError(f"Unknown mode: {mode}. Use: {list(self.PALETTES.keys()) + ['custom']}")
 
-    def _extend_palette(self, base_palette: List[str], n_colors: int) -> List[str]:
+    def _extend_palette(self, base_palette: list[str], n_colors: int) -> list[str]:
         """Extend palette by interpolating in HCL space."""
         extended = base_palette.copy()
 
@@ -175,7 +173,7 @@ class ColorOptimizer:
         hue_start: float,
         lightness: float,
         saturation: float
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Generate perceptually uniform palette using HCL color space.
 
@@ -196,10 +194,10 @@ class ColorOptimizer:
 
     def optimize_for_accessibility(
         self,
-        colors: List[str],
+        colors: list[str],
         background: str = '#FFFFFF',
         level: str = 'AA'
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Optimize colors for WCAG accessibility.
 
@@ -340,7 +338,7 @@ class ColorOptimizer:
 
     # ==================== Color Space Conversions ====================
 
-    def _hex_to_rgb(self, hex_color: str) -> Tuple[int, int, int]:
+    def _hex_to_rgb(self, hex_color: str) -> tuple[int, int, int]:
         """Convert hex to RGB."""
         hex_color = hex_color.lstrip('#')
         return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
@@ -349,7 +347,7 @@ class ColorOptimizer:
         """Convert RGB to hex."""
         return f'#{r:02X}{g:02X}{b:02X}'
 
-    def _hex_to_hsl(self, hex_color: str) -> Tuple[float, float, float]:
+    def _hex_to_hsl(self, hex_color: str) -> tuple[float, float, float]:
         """Convert hex to HSL."""
         r, g, b = self._hex_to_rgb(hex_color)
         r, g, b = r / 255.0, g / 255.0, b / 255.0
@@ -362,7 +360,7 @@ class ColorOptimizer:
         r, g, b = int(r * 255), int(g * 255), int(b * 255)
         return self._rgb_to_hex(r, g, b)
 
-    def _hex_to_hcl(self, hex_color: str) -> Tuple[float, float, float]:
+    def _hex_to_hcl(self, hex_color: str) -> tuple[float, float, float]:
         """
         Convert hex to HCL (perceptually uniform).
 

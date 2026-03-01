@@ -1,12 +1,10 @@
 """Contour Plot implementation for VizForge."""
 
-from typing import Optional, List, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ContourPlot(BaseChart):
@@ -31,14 +29,14 @@ class ContourPlot(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
+        x: np.ndarray | list,
+        y: np.ndarray | list,
         z: np.ndarray,
         colorscale: str = 'Viridis',
         contours_coloring: str = 'heatmap',  # 'heatmap', 'lines', 'none'
         show_lines: bool = True,
         show_labels: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -107,12 +105,12 @@ class FilledContour(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
+        x: np.ndarray | list,
+        y: np.ndarray | list,
         z: np.ndarray,
         colorscale: str = 'Viridis',
         ncontours: int = 15,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Filled Contour."""
@@ -156,17 +154,17 @@ class FilledContour(BaseChart):
 
 
 def contour(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
+    x: np.ndarray | list,
+    y: np.ndarray | list,
     z: np.ndarray,
     colorscale: str = 'Viridis',
     contours_coloring: str = 'heatmap',
     show_lines: bool = True,
     show_labels: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ContourPlot:
     """
@@ -225,15 +223,15 @@ def contour(
 
 
 def filled_contour(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
+    x: np.ndarray | list,
+    y: np.ndarray | list,
     z: np.ndarray,
     colorscale: str = 'Viridis',
     ncontours: int = 15,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> FilledContour:
     """

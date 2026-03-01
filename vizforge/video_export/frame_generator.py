@@ -4,12 +4,11 @@ Frame generator for video exports.
 Manages frame generation, interpolation, and caching for video creation.
 """
 
-import os
 import io
-from typing import List, Optional, Callable, Tuple
-from pathlib import Path
+import os
+from collections.abc import Callable
+
 import pandas as pd
-import numpy as np
 from PIL import Image
 
 
@@ -40,9 +39,9 @@ class FrameGenerator:
 
     def generate_from_data_frames(
         self,
-        data_frames: List[pd.DataFrame],
-        progress_callback: Optional[Callable] = None
-    ) -> List[Image.Image]:
+        data_frames: list[pd.DataFrame],
+        progress_callback: Callable | None = None
+    ) -> list[Image.Image]:
         """
         Generate frames from list of DataFrames.
 
@@ -78,9 +77,9 @@ class FrameGenerator:
         start_df: pd.DataFrame,
         end_df: pd.DataFrame,
         n_frames: int,
-        easing_function: Optional[Callable] = None,
-        progress_callback: Optional[Callable] = None
-    ) -> List[Image.Image]:
+        easing_function: Callable | None = None,
+        progress_callback: Callable | None = None
+    ) -> list[Image.Image]:
         """
         Generate interpolated frames between two data states.
 
@@ -121,7 +120,7 @@ class FrameGenerator:
         output_dir: str,
         prefix: str = "frame",
         format: str = "png"
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Save all frames to directory.
 
@@ -184,8 +183,8 @@ class FrameGenerator:
         start_df: pd.DataFrame,
         end_df: pd.DataFrame,
         n_frames: int,
-        easing_function: Optional[Callable] = None
-    ) -> List[pd.DataFrame]:
+        easing_function: Callable | None = None
+    ) -> list[pd.DataFrame]:
         """
         Interpolate between two DataFrames.
 
@@ -259,7 +258,7 @@ class FrameGenerator:
     def add_watermark(
         self,
         text: str,
-        position: Tuple[int, int] = None,
+        position: tuple[int, int] = None,
         opacity: int = 128
     ) -> None:
         """
@@ -358,12 +357,12 @@ class FrameGenerator:
 # Utility functions
 
 def batch_generate_frames(
-    charts: List,
+    charts: list,
     output_dir: str,
     width: int = 1920,
     height: int = 1080,
     prefix: str = "chart"
-) -> List[str]:
+) -> list[str]:
     """
     Generate frames from multiple charts.
 

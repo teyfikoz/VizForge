@@ -4,10 +4,11 @@ VizForge Synthetic Visualization Engine v2.0
 Privacy-safe synthetic data generation for visualization testing,
 demos, education, and benchmarking.
 """
+from dataclasses import dataclass
+from typing import Literal
+
 import numpy as np
 import pandas as pd
-from dataclasses import dataclass
-from typing import Dict, List, Optional, Literal
 
 
 @dataclass
@@ -47,10 +48,10 @@ class SyntheticVisualizationEngine:
 
     def generate_time_series(
         self,
-        trend: Optional[float] = None,
-        seasonality: Optional[float] = None,
-        noise: Optional[float] = None,
-        anomaly_rate: Optional[float] = None
+        trend: float | None = None,
+        seasonality: float | None = None,
+        noise: float | None = None,
+        anomaly_rate: float | None = None
     ) -> pd.DataFrame:
         """
         Generate synthetic time series with trend, seasonality, and anomalies.
@@ -96,7 +97,7 @@ class SyntheticVisualizationEngine:
     def generate_distribution(
         self,
         kind: Literal["normal", "lognormal", "exponential", "bimodal"] = "normal",
-        params: Optional[Dict] = None
+        params: dict | None = None
     ) -> np.ndarray:
         """
         Generate synthetic data from specified distribution.
@@ -148,7 +149,7 @@ class SyntheticVisualizationEngine:
     def match_distribution(
         self,
         real_data: np.ndarray,
-        preserve: List[str] = None
+        preserve: list[str] = None
     ) -> np.ndarray:
         """
         Generate synthetic data matching real data distribution.

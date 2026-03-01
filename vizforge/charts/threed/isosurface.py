@@ -1,12 +1,10 @@
 """Isosurface plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class IsosurfacePlot(BaseChart):
@@ -29,17 +27,17 @@ class IsosurfacePlot(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
-        z: Union[np.ndarray, List],
-        values: Union[np.ndarray, List],
-        title: Optional[str] = None,
-        isomin: Optional[float] = None,
-        isomax: Optional[float] = None,
+        x: np.ndarray | list,
+        y: np.ndarray | list,
+        z: np.ndarray | list,
+        values: np.ndarray | list,
+        title: str | None = None,
+        isomin: float | None = None,
+        isomax: float | None = None,
         colorscale: str = "Viridis",
         opacity: float = 0.7,
         surface_count: int = 2,
-        caps: Optional[dict] = None,
+        caps: dict | None = None,
         **kwargs
     ):
         """
@@ -117,19 +115,19 @@ class IsosurfacePlot(BaseChart):
 
 
 def isosurface(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
-    z: Union[np.ndarray, List],
-    values: Union[np.ndarray, List],
-    title: Optional[str] = None,
-    isomin: Optional[float] = None,
-    isomax: Optional[float] = None,
+    x: np.ndarray | list,
+    y: np.ndarray | list,
+    z: np.ndarray | list,
+    values: np.ndarray | list,
+    title: str | None = None,
+    isomin: float | None = None,
+    isomax: float | None = None,
     colorscale: str = "Viridis",
     opacity: float = 0.7,
     surface_count: int = 2,
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> IsosurfacePlot:
     """

@@ -14,12 +14,12 @@ Features:
 - Plugin marketplace ready
 """
 
-from typing import Dict, List, Optional, Callable, Any, Type
-from dataclasses import dataclass
 import importlib
 import inspect
+from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
-import json
+from typing import Any
 
 
 @dataclass
@@ -30,8 +30,8 @@ class PluginMetadata:
     author: str
     description: str
     category: str  # 'chart', 'connector', 'renderer', 'interaction'
-    dependencies: List[str]
-    homepage: Optional[str] = None
+    dependencies: list[str]
+    homepage: str | None = None
     license: str = "MIT"
 
 
@@ -57,7 +57,7 @@ class Plugin:
         """Called when plugin is deactivated."""
         pass
 
-    def configure(self, config: Dict[str, Any]):
+    def configure(self, config: dict[str, Any]):
         """
         Configure plugin with user settings.
 
@@ -237,12 +237,12 @@ class PluginManager:
 
     def __init__(self):
         """Initialize plugin manager."""
-        self.plugins: Dict[str, Plugin] = {}
-        self.plugin_dirs: List[Path] = [
+        self.plugins: dict[str, Plugin] = {}
+        self.plugin_dirs: list[Path] = [
             Path.home() / '.vizforge' / 'plugins',
             Path(__file__).parent.parent / 'plugins'
         ]
-        self._hooks: Dict[str, List[Callable]] = {}
+        self._hooks: dict[str, list[Callable]] = {}
 
     def discover_plugins(self):
         """
@@ -271,7 +271,7 @@ class PluginManager:
         print(f"Discovered {len(discovered)} plugins")
         return discovered
 
-    def _load_plugin_file(self, filepath: Path) -> Optional[Plugin]:
+    def _load_plugin_file(self, filepath: Path) -> Plugin | None:
         """Load plugin from Python file."""
         # Import the module
         spec = importlib.util.spec_from_file_location(filepath.stem, filepath)
@@ -323,7 +323,7 @@ class PluginManager:
 
         print(f"Unregistered plugin: {plugin_name}")
 
-    def get_plugin(self, plugin_name: str) -> Optional[Plugin]:
+    def get_plugin(self, plugin_name: str) -> Plugin | None:
         """
         Get registered plugin by name.
 
@@ -335,7 +335,7 @@ class PluginManager:
         """
         return self.plugins.get(plugin_name)
 
-    def list_plugins(self, category: Optional[str] = None) -> List[PluginMetadata]:
+    def list_plugins(self, category: str | None = None) -> list[PluginMetadata]:
         """
         List all registered plugins.
 
@@ -450,13 +450,13 @@ def register_plugin(plugin: Plugin):
     manager.register(plugin)
 
 
-def get_plugin(name: str) -> Optional[Plugin]:
+def get_plugin(name: str) -> Plugin | None:
     """Get a registered plugin by name."""
     manager = get_plugin_manager()
     return manager.get_plugin(name)
 
 
-def list_plugins(category: Optional[str] = None) -> List[PluginMetadata]:
+def list_plugins(category: str | None = None) -> list[PluginMetadata]:
     """List all registered plugins."""
     manager = get_plugin_manager()
     return manager.list_plugins(category)

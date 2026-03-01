@@ -4,18 +4,15 @@ Flask web application for Visual Chart Designer.
 Provides a web-based UI for building charts visually.
 """
 
-import json
-import os
-import io
 import base64
+import io
 from pathlib import Path
-from typing import Dict, Any, Optional, List
 
 import pandas as pd
-from flask import Flask, render_template, request, jsonify, send_file
 import plotly
+from flask import Flask, jsonify, render_template, request
 
-from .chart_config import ChartConfig, ChartType, CHART_CATEGORIES
+from .chart_config import CHART_CATEGORIES, ChartConfig, ChartType
 from .code_generator import CodeGenerator
 
 
@@ -39,8 +36,8 @@ class DesignerApp:
         )
 
         self.code_generator = CodeGenerator()
-        self.current_data: Optional[pd.DataFrame] = None
-        self.current_data_source: Optional[str] = None
+        self.current_data: pd.DataFrame | None = None
+        self.current_data_source: str | None = None
 
         self._setup_routes()
 

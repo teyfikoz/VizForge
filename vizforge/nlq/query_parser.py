@@ -6,9 +6,9 @@ NO API required - rule-based pattern matching.
 """
 
 import re
-from enum import Enum
 from dataclasses import dataclass
-from typing import List, Dict, Any, Optional
+from enum import Enum
+from typing import Any
 
 
 class Intent(Enum):
@@ -45,16 +45,16 @@ class ParsedQuery:
     confidence: float  # 0.0 to 1.0
 
     # Extracted components
-    metrics: List[str]  # Numeric columns to analyze
-    dimensions: List[str]  # Categorical columns for grouping
-    time_column: Optional[str]  # Time-based column
-    filters: List[Dict[str, Any]]  # Filter conditions
-    aggregation: Optional[Aggregation]
-    limit: Optional[int]  # Top N
+    metrics: list[str]  # Numeric columns to analyze
+    dimensions: list[str]  # Categorical columns for grouping
+    time_column: str | None  # Time-based column
+    filters: list[dict[str, Any]]  # Filter conditions
+    aggregation: Aggregation | None
+    limit: int | None  # Top N
 
     # Additional metadata
-    keywords: List[str]
-    chart_suggestion: Optional[str]
+    keywords: list[str]
+    chart_suggestion: str | None
 
 
 class QueryParser:
@@ -151,7 +151,7 @@ class QueryParser:
             'week', 'quarter', 'hour', 'minute', 'second'
         ]
 
-    def parse(self, query: str, available_columns: List[str] = None) -> ParsedQuery:
+    def parse(self, query: str, available_columns: list[str] = None) -> ParsedQuery:
         """
         Parse natural language query.
 
@@ -214,7 +214,7 @@ class QueryParser:
 
         return Intent.UNKNOWN, 0.0
 
-    def _pattern_score(self, text: str, patterns: List[str]) -> float:
+    def _pattern_score(self, text: str, patterns: list[str]) -> float:
         """Calculate pattern match score."""
         score = 0.0
         for pattern in patterns:
@@ -222,7 +222,7 @@ class QueryParser:
                 score += 0.3  # Each pattern match adds 0.3
         return min(score, 1.0)
 
-    def _extract_metrics(self, query: str, columns: List[str] = None) -> List[str]:
+    def _extract_metrics(self, query: str, columns: list[str] = None) -> list[str]:
         """Extract metric (numeric) columns mentioned in query."""
         if not columns:
             # Try to extract from query
@@ -241,7 +241,7 @@ class QueryParser:
 
         return metrics
 
-    def _extract_dimensions(self, query: str, columns: List[str] = None) -> List[str]:
+    def _extract_dimensions(self, query: str, columns: list[str] = None) -> list[str]:
         """Extract dimension (categorical) columns mentioned in query."""
         if not columns:
             return self._extract_column_names(query)
@@ -258,7 +258,7 @@ class QueryParser:
 
         return dimensions
 
-    def _extract_time_column(self, query: str, columns: List[str] = None) -> Optional[str]:
+    def _extract_time_column(self, query: str, columns: list[str] = None) -> str | None:
         """Extract time-based column."""
         if not columns:
             # Look for time keywords in query
@@ -275,7 +275,7 @@ class QueryParser:
 
         return None
 
-    def _extract_filters(self, query: str) -> List[Dict[str, Any]]:
+    def _extract_filters(self, query: str) -> list[dict[str, Any]]:
         """Extract filter conditions."""
         filters = []
 
@@ -301,14 +301,14 @@ class QueryParser:
 
         return filters
 
-    def _extract_aggregation(self, query: str) -> Optional[Aggregation]:
+    def _extract_aggregation(self, query: str) -> Aggregation | None:
         """Extract aggregation type."""
         for pattern, agg_type in self.aggregation_patterns:
             if re.search(pattern, query, re.IGNORECASE):
                 return agg_type
         return None
 
-    def _extract_limit(self, query: str) -> Optional[int]:
+    def _extract_limit(self, query: str) -> int | None:
         """Extract TOP N limit."""
         # Look for "top 10", "first 5", etc.
         top_pattern = r'\b(top|bottom|first|last)\s+(\d+)\b'
@@ -318,7 +318,7 @@ class QueryParser:
 
         return None
 
-    def _extract_keywords(self, query: str) -> List[str]:
+    def _extract_keywords(self, query: str) -> list[str]:
         """Extract important keywords."""
         # Remove common words
         stopwords = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at',
@@ -330,7 +330,7 @@ class QueryParser:
 
         return keywords
 
-    def _extract_column_names(self, query: str) -> List[str]:
+    def _extract_column_names(self, query: str) -> list[str]:
         """Extract potential column names from query."""
         # Look for capitalized words or quoted strings
         column_pattern = r'[A-Z][a-z]+|"([^"]+)"|\'([^\']+)\''
@@ -343,8 +343,8 @@ class QueryParser:
                 columns.append(match)
         return columns
 
-    def _suggest_chart(self, intent: Intent, metrics: List[str],
-                      dimensions: List[str], time_column: Optional[str]) -> Optional[str]:
+    def _suggest_chart(self, intent: Intent, metrics: list[str],
+                      dimensions: list[str], time_column: str | None) -> str | None:
         """Suggest appropriate chart type based on intent and data."""
 
         if intent == Intent.TREND and time_column:

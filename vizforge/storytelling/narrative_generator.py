@@ -6,9 +6,9 @@ NO API required - template-based story generation!
 """
 
 from dataclasses import dataclass
-from typing import List, Dict, Optional
-import pandas as pd
 from datetime import datetime
+
+import pandas as pd
 
 from .insight_discovery import Insight, InsightType, discover_insights
 
@@ -29,9 +29,9 @@ class DataStory:
     title: str
     summary: str
     narrative: str
-    insights: List[Insight]
-    recommendations: List[str]
-    metadata: Dict
+    insights: list[Insight]
+    recommendations: list[str]
+    metadata: dict
 
 
 class NarrativeGenerator:
@@ -50,7 +50,7 @@ class NarrativeGenerator:
     def __init__(
         self,
         data: pd.DataFrame,
-        title: Optional[str] = None,
+        title: str | None = None,
         tone: str = 'professional',  # 'professional', 'casual', 'technical'
     ):
         """
@@ -115,7 +115,7 @@ class NarrativeGenerator:
             metadata=metadata
         )
 
-    def _generate_title(self, insights: List[Insight]) -> str:
+    def _generate_title(self, insights: list[Insight]) -> str:
         """Generate story title."""
         if self.custom_title:
             return self.custom_title
@@ -133,7 +133,7 @@ class NarrativeGenerator:
 
         return "Data Analysis Report"
 
-    def _generate_summary(self, insights: List[Insight]) -> str:
+    def _generate_summary(self, insights: list[Insight]) -> str:
         """Generate executive summary."""
         if not insights:
             return "No significant insights discovered in the data."
@@ -166,7 +166,7 @@ class NarrativeGenerator:
 
         return "".join(summary_parts)
 
-    def _generate_narrative(self, insights: List[Insight]) -> str:
+    def _generate_narrative(self, insights: list[Insight]) -> str:
         """Generate full narrative."""
         if not insights:
             return "No significant patterns or insights were discovered in the data."
@@ -225,7 +225,7 @@ class NarrativeGenerator:
 
         return intro
 
-    def _generate_section(self, insight_type: InsightType, insights: List[Insight]) -> str:
+    def _generate_section(self, insight_type: InsightType, insights: list[Insight]) -> str:
         """Generate section for specific insight type."""
         if not insights:
             return ""
@@ -257,7 +257,7 @@ class NarrativeGenerator:
         }
         return titles.get(insight_type, insight_type.value.title())
 
-    def _generate_conclusion(self, insights: List[Insight]) -> str:
+    def _generate_conclusion(self, insights: list[Insight]) -> str:
         """Generate conclusion paragraph."""
         if not insights:
             return ""
@@ -284,7 +284,7 @@ class NarrativeGenerator:
 
         return conclusion
 
-    def _extract_recommendations(self, insights: List[Insight]) -> List[str]:
+    def _extract_recommendations(self, insights: list[Insight]) -> list[str]:
         """Extract recommendations from insights."""
         recommendations = []
 
@@ -304,7 +304,7 @@ class NarrativeGenerator:
 
 def generate_story(
     data: pd.DataFrame,
-    title: Optional[str] = None,
+    title: str | None = None,
     max_insights: int = 10,
     tone: str = 'professional',
 ) -> DataStory:

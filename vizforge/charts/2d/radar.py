@@ -1,9 +1,9 @@
 """Radar (spider) chart implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
 from ...core.theme import Theme
@@ -18,11 +18,11 @@ class RadarChart(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict]] = None,
-        r: Optional[Union[str, list, np.ndarray]] = None,
-        theta: Optional[Union[str, list]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | dict | None = None,
+        r: str | list | np.ndarray | None = None,
+        theta: str | list | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         fill: str = "toself",
         **kwargs
     ):
@@ -46,10 +46,10 @@ class RadarChart(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict],
-        r: Optional[Union[str, list, np.ndarray]] = None,
-        theta: Optional[Union[str, list]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict,
+        r: str | list | np.ndarray | None = None,
+        theta: str | list | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'RadarChart':
         """Plot radar chart data."""
@@ -116,14 +116,14 @@ class RadarChart(BaseChart):
 
 
 def radar(
-    data: Union[pd.DataFrame, dict],
-    r: Optional[Union[str, list, np.ndarray]] = None,
-    theta: Optional[Union[str, list]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict,
+    r: str | list | np.ndarray | None = None,
+    theta: str | list | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     fill: str = "toself",
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> RadarChart:
     """

@@ -1,8 +1,8 @@
 """Base chart class for all VizForge visualizations."""
 
-from typing import Any, Optional
 import plotly.graph_objects as go
-from .theme import get_theme, Theme
+
+from .theme import Theme, get_theme
 
 
 class BaseChart:
@@ -15,10 +15,10 @@ class BaseChart:
 
     def __init__(
         self,
-        title: Optional[str] = None,
-        theme: Optional[str | Theme] = None,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
+        width: int | None = None,
+        height: int | None = None,
         **kwargs
     ):
         """
@@ -35,10 +35,10 @@ class BaseChart:
         self._theme = self._resolve_theme(theme)
         self.width = width
         self.height = height
-        self.fig: Optional[go.Figure] = None
+        self.fig: go.Figure | None = None
         self._kwargs = kwargs
 
-    def _resolve_theme(self, theme: Optional[str | Theme]) -> Theme:
+    def _resolve_theme(self, theme: str | Theme | None) -> Theme:
         """Resolve theme to Theme object."""
         if theme is None:
             return get_theme()
@@ -158,7 +158,7 @@ class BaseChart:
 
         try:
             self.fig.show()
-        except (OSError, RuntimeError, Exception) as e:
+        except (OSError, RuntimeError, Exception):
             # If show() fails (e.g., no browser, permission error), silently skip
             # This prevents crashes in restricted environments
             pass
@@ -166,9 +166,9 @@ class BaseChart:
     def export(
         self,
         filename: str,
-        format: Optional[str] = None,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
+        format: str | None = None,
+        width: int | None = None,
+        height: int | None = None,
         scale: float = 1.0
     ) -> None:
         """
@@ -209,8 +209,8 @@ class BaseChart:
         self,
         filename: str,
         format: str,
-        width: Optional[int],
-        height: Optional[int],
+        width: int | None,
+        height: int | None,
         scale: float
     ) -> None:
         """Export to static image format."""

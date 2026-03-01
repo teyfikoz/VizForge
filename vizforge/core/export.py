@@ -1,7 +1,7 @@
 """Export utilities for VizForge charts."""
 
 import os
-from typing import Optional, Union, Literal
+
 import plotly.graph_objects as go
 
 # Try to import kaleido for static exports
@@ -38,10 +38,10 @@ class ChartExporter:
     def export(
         self,
         filepath: str,
-        width: Optional[int] = None,
-        height: Optional[int] = None,
+        width: int | None = None,
+        height: int | None = None,
         scale: float = 1.0,
-        format: Optional[str] = None
+        format: str | None = None
     ) -> None:
         """
         Export chart to file.
@@ -94,8 +94,8 @@ class ChartExporter:
         self,
         filepath: str,
         format: str,
-        width: Optional[int],
-        height: Optional[int],
+        width: int | None,
+        height: int | None,
         scale: float
     ) -> None:
         """
@@ -128,10 +128,10 @@ class ChartExporter:
 def export_chart(
     figure: go.Figure,
     filepath: str,
-    width: Optional[int] = None,
-    height: Optional[int] = None,
+    width: int | None = None,
+    height: int | None = None,
     scale: float = 1.0,
-    format: Optional[str] = None
+    format: str | None = None
 ) -> None:
     """
     Export a Plotly figure to file.
@@ -172,8 +172,8 @@ class BatchExporter:
         self,
         output_dir: str,
         format: str = 'html',
-        width: Optional[int] = None,
-        height: Optional[int] = None,
+        width: int | None = None,
+        height: int | None = None,
         scale: float = 1.0
     ) -> None:
         """

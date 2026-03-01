@@ -1,9 +1,9 @@
 """Area chart implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
 from ...core.theme import Theme
@@ -18,12 +18,12 @@ class AreaChart(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict, list]] = None,
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
-        stackgroup: Optional[str] = None,
+        data: pd.DataFrame | dict | list | None = None,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
+        stackgroup: str | None = None,
         **kwargs
     ):
         """
@@ -46,10 +46,10 @@ class AreaChart(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'AreaChart':
         """Plot area chart data."""
@@ -112,14 +112,14 @@ class AreaChart(BaseChart):
 
 
 def area(
-    data: Union[pd.DataFrame, dict, list],
-    x: Optional[Union[str, list, np.ndarray]] = None,
-    y: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict | list,
+    x: str | list | np.ndarray | None = None,
+    y: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     stacked: bool = False,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> AreaChart:
     """

@@ -1,13 +1,10 @@
 """Parallel Coordinates Plot implementation for VizForge."""
 
-from typing import Optional, List, Union
-import plotly.graph_objects as go
-import plotly.express as px
-import pandas as pd
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ParallelCoordinates(BaseChart):
@@ -38,10 +35,10 @@ class ParallelCoordinates(BaseChart):
     def __init__(
         self,
         data: pd.DataFrame,
-        dimensions: Optional[List[str]] = None,
-        color: Optional[str] = None,
+        dimensions: list[str] | None = None,
+        color: str | None = None,
         colorscale: str = 'Viridis',
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -119,13 +116,13 @@ class ParallelCoordinates(BaseChart):
 
 def parallel_coordinates(
     data: pd.DataFrame,
-    dimensions: Optional[List[str]] = None,
-    color: Optional[str] = None,
+    dimensions: list[str] | None = None,
+    color: str | None = None,
     colorscale: str = 'Viridis',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ParallelCoordinates:
     """

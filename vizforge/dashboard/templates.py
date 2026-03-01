@@ -5,11 +5,13 @@ Pre-built dashboard templates for common use cases.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Callable
 from dataclasses import dataclass
+from typing import Any
+
 import pandas as pd
 import plotly.graph_objects as go
-from .layout import SmartLayoutEngine, LayoutType, create_grid_layout, create_sidebar_layout
+
+from .layout import LayoutType, SmartLayoutEngine, create_grid_layout, create_sidebar_layout
 
 
 @dataclass
@@ -50,11 +52,11 @@ class DashboardTemplate:
             config: Template configuration
         """
         self.config = config
-        self.layout_engine: Optional[SmartLayoutEngine] = None
-        self.components: List[Any] = []
+        self.layout_engine: SmartLayoutEngine | None = None
+        self.components: list[Any] = []
         self.theme = self._get_color_scheme(config.color_scheme)
 
-    def _get_color_scheme(self, scheme: str) -> Dict[str, str]:
+    def _get_color_scheme(self, scheme: str) -> dict[str, str]:
         """Get color scheme configuration."""
         schemes = {
             'default': {
@@ -155,7 +157,7 @@ class KPIDashboard(DashboardTemplate):
 
         return self
 
-    def _create_kpi_cards(self, data: pd.DataFrame) -> List[Dict[str, Any]]:
+    def _create_kpi_cards(self, data: pd.DataFrame) -> list[dict[str, Any]]:
         """Create KPI cards."""
         # Example KPI extraction (customize based on data)
         kpis = []
@@ -230,14 +232,14 @@ class KPIDashboard(DashboardTemplate):
 
         return fig
 
-    def _create_detail_table(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _create_detail_table(self, data: pd.DataFrame) -> dict[str, Any]:
         """Create detailed metrics table."""
         return {
             'type': 'table',
             'data': data.head(10),
         }
 
-    def render(self) -> Dict[str, Any]:
+    def render(self) -> dict[str, Any]:
         """Render KPI dashboard."""
         return {
             'template': 'kpi_dashboard',
@@ -292,7 +294,7 @@ class AnalyticsDashboard(DashboardTemplate):
 
         return self
 
-    def _create_filter_panel(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _create_filter_panel(self, data: pd.DataFrame) -> dict[str, Any]:
         """Create filter panel."""
         return {
             'type': 'filter_panel',
@@ -362,7 +364,7 @@ class AnalyticsDashboard(DashboardTemplate):
         fig.update_layout(title='Scatter Plot', height=250)
         return fig
 
-    def render(self) -> Dict[str, Any]:
+    def render(self) -> dict[str, Any]:
         """Render analytics dashboard."""
         return {
             'template': 'analytics_dashboard',
@@ -409,7 +411,7 @@ class ExecutiveDashboard(DashboardTemplate):
 
         return self
 
-    def _create_executive_kpis(self, data: pd.DataFrame) -> List[Dict[str, Any]]:
+    def _create_executive_kpis(self, data: pd.DataFrame) -> list[dict[str, Any]]:
         """Create executive KPIs."""
         kpis = []
         numeric_cols = data.select_dtypes(include=['number']).columns
@@ -448,7 +450,7 @@ class ExecutiveDashboard(DashboardTemplate):
         fig.update_layout(title='Revenue Trend', height=300, showlegend=False)
         return fig
 
-    def _create_summary_card(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _create_summary_card(self, data: pd.DataFrame) -> dict[str, Any]:
         """Create executive summary card."""
         return {
             'type': 'summary',
@@ -471,7 +473,7 @@ class ExecutiveDashboard(DashboardTemplate):
         fig.update_layout(title='Regional Performance', height=250)
         return fig
 
-    def _create_top_performers(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _create_top_performers(self, data: pd.DataFrame) -> dict[str, Any]:
         """Create top performers table."""
         return {
             'type': 'table',
@@ -479,7 +481,7 @@ class ExecutiveDashboard(DashboardTemplate):
             'data': data.head(5),
         }
 
-    def render(self) -> Dict[str, Any]:
+    def render(self) -> dict[str, Any]:
         """Render executive dashboard."""
         return {
             'template': 'executive_dashboard',

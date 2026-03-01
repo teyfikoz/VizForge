@@ -7,12 +7,14 @@ Detects time series patterns, correlations, clusters, anomalies, and distributio
 Part of VizForge v1.2.0 - ULTRA Intelligence Features
 """
 
-from typing import List, Dict, Tuple, Optional, Union, Any
-import numpy as np
-import pandas as pd
+import warnings
 from dataclasses import dataclass
 from enum import Enum
-import warnings
+from typing import Any
+
+import numpy as np
+import pandas as pd
+
 warnings.filterwarnings('ignore')
 
 
@@ -42,8 +44,8 @@ class Pattern:
     pattern_type: PatternType
     confidence: float  # 0-1
     description: str
-    location: Optional[Union[int, Tuple[int, int]]] = None
-    metadata: Dict[str, Any] = None
+    location: int | tuple[int, int] | None = None
+    metadata: dict[str, Any] = None
 
     def __post_init__(self):
         if self.metadata is None:
@@ -73,7 +75,7 @@ class PatternDetector:
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, pd.Series, np.ndarray],
+        data: pd.DataFrame | pd.Series | np.ndarray,
         confidence_threshold: float = 0.7
     ):
         """
@@ -85,9 +87,9 @@ class PatternDetector:
         """
         self.data = self._prepare_data(data)
         self.confidence_threshold = confidence_threshold
-        self.patterns: List[Pattern] = []
+        self.patterns: list[Pattern] = []
 
-    def _prepare_data(self, data: Union[pd.DataFrame, pd.Series, np.ndarray]) -> pd.DataFrame:
+    def _prepare_data(self, data: pd.DataFrame | pd.Series | np.ndarray) -> pd.DataFrame:
         """Convert input to DataFrame."""
         if isinstance(data, pd.DataFrame):
             return data
@@ -103,7 +105,7 @@ class PatternDetector:
 
     # ==================== TIME SERIES PATTERNS ====================
 
-    def detect_trend(self, column: str = None, method: str = 'linear') -> List[Pattern]:
+    def detect_trend(self, column: str = None, method: str = 'linear') -> list[Pattern]:
         """
         Detect trends in time series data.
 
@@ -167,7 +169,7 @@ class PatternDetector:
 
         return patterns
 
-    def detect_seasonality(self, column: str = None, periods: List[int] = None) -> List[Pattern]:
+    def detect_seasonality(self, column: str = None, periods: list[int] = None) -> list[Pattern]:
         """
         Detect seasonal patterns using autocorrelation.
 
@@ -218,7 +220,7 @@ class PatternDetector:
 
         return patterns
 
-    def detect_spikes_and_dips(self, column: str = None, threshold: float = 3.0) -> List[Pattern]:
+    def detect_spikes_and_dips(self, column: str = None, threshold: float = 3.0) -> list[Pattern]:
         """
         Detect sudden spikes and dips in data.
 
@@ -280,7 +282,7 @@ class PatternDetector:
 
         return patterns
 
-    def detect_volatility(self, column: str = None, window: int = 20) -> List[Pattern]:
+    def detect_volatility(self, column: str = None, window: int = 20) -> list[Pattern]:
         """
         Detect high/low volatility periods.
 
@@ -342,7 +344,7 @@ class PatternDetector:
 
     # ==================== CORRELATION PATTERNS ====================
 
-    def detect_correlations(self, method: str = 'pearson', threshold: float = 0.7) -> List[Pattern]:
+    def detect_correlations(self, method: str = 'pearson', threshold: float = 0.7) -> list[Pattern]:
         """
         Detect strong correlations between variables.
 
@@ -397,7 +399,7 @@ class PatternDetector:
 
     # ==================== CLUSTER PATTERNS ====================
 
-    def detect_clusters(self, columns: List[str] = None, max_clusters: int = 10) -> List[Pattern]:
+    def detect_clusters(self, columns: list[str] = None, max_clusters: int = 10) -> list[Pattern]:
         """
         Detect natural clusters in data.
 
@@ -462,7 +464,7 @@ class PatternDetector:
 
     # ==================== ANOMALY PATTERNS ====================
 
-    def detect_anomalies(self, column: str = None, method: str = 'zscore') -> List[Pattern]:
+    def detect_anomalies(self, column: str = None, method: str = 'zscore') -> list[Pattern]:
         """
         Detect anomalies/outliers in data.
 
@@ -537,7 +539,7 @@ class PatternDetector:
 
     # ==================== DISTRIBUTION PATTERNS ====================
 
-    def detect_distribution(self, column: str = None) -> List[Pattern]:
+    def detect_distribution(self, column: str = None) -> list[Pattern]:
         """
         Detect distribution characteristics.
 
@@ -599,7 +601,7 @@ class PatternDetector:
 
     # ==================== HELPER METHODS ====================
 
-    def detect_all_patterns(self, verbose: bool = False) -> List[Pattern]:
+    def detect_all_patterns(self, verbose: bool = False) -> list[Pattern]:
         """
         Detect all patterns in data.
 
@@ -695,7 +697,7 @@ class PatternDetector:
 
         return summary
 
-    def _get_numeric_columns(self) -> List[str]:
+    def _get_numeric_columns(self) -> list[str]:
         """Get list of numeric column names."""
         return self.data.select_dtypes(include=[np.number]).columns.tolist()
 
@@ -719,10 +721,10 @@ class PatternDetector:
 # ==================== CONVENIENCE FUNCTIONS ====================
 
 def detect_patterns(
-    data: Union[pd.DataFrame, pd.Series, np.ndarray],
+    data: pd.DataFrame | pd.Series | np.ndarray,
     confidence_threshold: float = 0.7,
     verbose: bool = False
-) -> List[Pattern]:
+) -> list[Pattern]:
     """
     Quick pattern detection function.
 
@@ -744,7 +746,7 @@ def detect_patterns(
 
 
 def get_pattern_summary(
-    data: Union[pd.DataFrame, pd.Series, np.ndarray],
+    data: pd.DataFrame | pd.Series | np.ndarray,
     confidence_threshold: float = 0.7
 ) -> str:
     """

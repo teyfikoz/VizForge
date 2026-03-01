@@ -1,12 +1,9 @@
 """Sankey Diagram implementation for VizForge."""
 
-from typing import Optional, List, Dict, Union
+
 import plotly.graph_objects as go
-import pandas as pd
-import numpy as np
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class SankeyDiagram(BaseChart):
@@ -30,13 +27,13 @@ class SankeyDiagram(BaseChart):
 
     def __init__(
         self,
-        nodes: Union[List[str], Dict],
-        sources: List[int],
-        targets: List[int],
-        values: List[float],
-        node_colors: Optional[List[str]] = None,
-        link_colors: Optional[List[str]] = None,
-        title: Optional[str] = None,
+        nodes: list[str] | dict,
+        sources: list[int],
+        targets: list[int],
+        values: list[float],
+        node_colors: list[str] | None = None,
+        link_colors: list[str] | None = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -61,13 +58,13 @@ class SankeyDiagram(BaseChart):
         self.node_colors = node_colors or self._generate_node_colors(len(self.node_labels))
         self.link_colors = link_colors or self._generate_link_colors(len(sources))
 
-    def _generate_node_colors(self, n: int) -> List[str]:
+    def _generate_node_colors(self, n: int) -> list[str]:
         """Generate colors for nodes."""
         colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6',
                   '#1abc9c', '#e67e22', '#34495e', '#16a085', '#c0392b']
         return [colors[i % len(colors)] for i in range(n)]
 
-    def _generate_link_colors(self, n: int) -> List[str]:
+    def _generate_link_colors(self, n: int) -> list[str]:
         """Generate semi-transparent colors for links."""
         base_colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6']
         return [f'rgba({int(base_colors[i % len(base_colors)][1:3], 16)}, '
@@ -109,16 +106,16 @@ class SankeyDiagram(BaseChart):
 
 
 def sankey(
-    nodes: Union[List[str], Dict],
-    sources: List[int],
-    targets: List[int],
-    values: List[float],
-    node_colors: Optional[List[str]] = None,
-    link_colors: Optional[List[str]] = None,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    nodes: list[str] | dict,
+    sources: list[int],
+    targets: list[int],
+    values: list[float],
+    node_colors: list[str] | None = None,
+    link_colors: list[str] | None = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> SankeyDiagram:
     """

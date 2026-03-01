@@ -1,13 +1,10 @@
 """Violin Plot implementation for VizForge."""
 
-from typing import Optional, List, Union, Dict
-import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
-import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ViolinPlot(BaseChart):
@@ -37,13 +34,13 @@ class ViolinPlot(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, Dict],
-        x: Optional[str] = None,
-        y: Optional[str] = None,
-        color: Optional[str] = None,
+        data: pd.DataFrame | dict,
+        x: str | None = None,
+        y: str | None = None,
+        color: str | None = None,
         box_visible: bool = True,
         points: str = 'outliers',  # 'all', 'outliers', False
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -87,16 +84,16 @@ class ViolinPlot(BaseChart):
 
 
 def violin(
-    data: Union[pd.DataFrame, Dict],
-    x: Optional[str] = None,
-    y: Optional[str] = None,
-    color: Optional[str] = None,
+    data: pd.DataFrame | dict,
+    x: str | None = None,
+    y: str | None = None,
+    color: str | None = None,
     box_visible: bool = True,
     points: str = 'outliers',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ViolinPlot:
     """

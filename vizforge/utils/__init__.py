@@ -1,19 +1,18 @@
 """Utility functions for VizForge."""
 
-from .data import (
-    clean_data,
-    aggregate_data,
-    resample_timeseries,
-    detect_outliers,
-    normalize_data,
-    bin_data,
-)
-
 from .colors import (
-    generate_color_palette,
     color_scale,
+    generate_color_palette,
     hex_to_rgb,
     rgb_to_hex,
+)
+from .data import (
+    aggregate_data,
+    bin_data,
+    clean_data,
+    detect_outliers,
+    normalize_data,
+    resample_timeseries,
 )
 
 __all__ = [

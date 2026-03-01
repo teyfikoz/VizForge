@@ -5,9 +5,10 @@ All connectors inherit from BaseConnector and implement standard methods.
 """
 
 from abc import ABC, abstractmethod
-from enum import Enum
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, List
+from enum import Enum
+from typing import Any
+
 import pandas as pd
 
 
@@ -26,16 +27,16 @@ class DataSourceType(Enum):
 class ConnectionConfig:
     """Configuration for a data source connection."""
     source_type: DataSourceType
-    host: Optional[str] = None
-    port: Optional[int] = None
-    database: Optional[str] = None
-    username: Optional[str] = None
-    password: Optional[str] = None
-    api_key: Optional[str] = None
-    bucket: Optional[str] = None
-    path: Optional[str] = None
-    url: Optional[str] = None
-    options: Dict[str, Any] = None
+    host: str | None = None
+    port: int | None = None
+    database: str | None = None
+    username: str | None = None
+    password: str | None = None
+    api_key: str | None = None
+    bucket: str | None = None
+    path: str | None = None
+    url: str | None = None
+    options: dict[str, Any] = None
 
     def __post_init__(self):
         if self.options is None:
@@ -49,7 +50,7 @@ class DataSource:
     type: DataSourceType
     connector: 'BaseConnector'
     config: ConnectionConfig
-    metadata: Dict[str, Any] = None
+    metadata: dict[str, Any] = None
 
     def __post_init__(self):
         if self.metadata is None:
@@ -150,7 +151,7 @@ class BaseConnector(ABC):
         """
         raise NotImplementedError(f"{self.__class__.__name__} does not support queries")
 
-    def list_tables(self) -> List[str]:
+    def list_tables(self) -> list[str]:
         """
         List available tables/collections (optional, only for structured sources).
 
@@ -159,7 +160,7 @@ class BaseConnector(ABC):
         """
         raise NotImplementedError(f"{self.__class__.__name__} does not support listing tables")
 
-    def get_schema(self, table: str = None) -> Dict[str, Any]:
+    def get_schema(self, table: str = None) -> dict[str, Any]:
         """
         Get schema information (optional).
 
@@ -213,7 +214,7 @@ class CachedConnector(BaseConnector):
         """Generate cache key."""
         return f"{query}:{str(kwargs)}"
 
-    def _get_cached(self, key: str) -> Optional[pd.DataFrame]:
+    def _get_cached(self, key: str) -> pd.DataFrame | None:
         """Get cached result."""
         return self._cache.get(key)
 

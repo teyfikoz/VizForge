@@ -5,11 +5,11 @@ Advanced scientific 3D charts: vector fields, isosurfaces, volume rendering, mol
 Part of VizForge v1.1.0 - Super AGI 3D Features.
 """
 
-from typing import Optional, List, Tuple, Callable, Union
+from collections.abc import Callable
+from dataclasses import dataclass
+
 import numpy as np
 import plotly.graph_objects as go
-from dataclasses import dataclass
-import pandas as pd
 
 
 @dataclass
@@ -19,7 +19,7 @@ class Scientific3DConfig:
     color_scheme: str = 'viridis'
     opacity: float = 0.8
     arrow_scale: float = 1.0
-    camera_angle: Tuple[float, float, float] = (1.5, 1.5, 1.5)
+    camera_angle: tuple[float, float, float] = (1.5, 1.5, 1.5)
 
 
 class VectorField3D:
@@ -45,8 +45,8 @@ class VectorField3D:
     def __init__(
         self,
         vector_func: Callable,
-        bounds: Tuple[float, float] = (-5, 5),
-        config: Optional[Scientific3DConfig] = None
+        bounds: tuple[float, float] = (-5, 5),
+        config: Scientific3DConfig | None = None
     ):
         """
         Initialize vector field.
@@ -63,7 +63,7 @@ class VectorField3D:
         # Generate vector field
         self.points, self.vectors = self._generate_vector_field()
 
-    def _generate_vector_field(self) -> Tuple[np.ndarray, np.ndarray]:
+    def _generate_vector_field(self) -> tuple[np.ndarray, np.ndarray]:
         """Generate vector field data."""
         n = self.config.resolution
         x = np.linspace(self.bounds[0], self.bounds[1], n)
@@ -177,9 +177,9 @@ class Isosurface3D:
     def __init__(
         self,
         scalar_func: Callable,
-        levels: List[float],
-        bounds: Tuple[float, float] = (-5, 5),
-        config: Optional[Scientific3DConfig] = None
+        levels: list[float],
+        bounds: tuple[float, float] = (-5, 5),
+        config: Scientific3DConfig | None = None
     ):
         """
         Initialize isosurface.
@@ -198,7 +198,7 @@ class Isosurface3D:
         # Generate volume data
         self.X, self.Y, self.Z, self.values = self._generate_volume()
 
-    def _generate_volume(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_volume(self) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """Generate 3D volume data."""
         n = self.config.resolution * 2  # Higher resolution for smooth isosurfaces
         x = np.linspace(self.bounds[0], self.bounds[1], n)
@@ -282,7 +282,7 @@ class VolumeRender3D:
     def __init__(
         self,
         volume: np.ndarray,
-        config: Optional[Scientific3DConfig] = None
+        config: Scientific3DConfig | None = None
     ):
         """
         Initialize volume rendering.
@@ -385,9 +385,9 @@ class MolecularStructure3D:
 
     def __init__(
         self,
-        atoms: List[Tuple[str, List[float]]],
-        bonds: Optional[List[Tuple[int, int]]] = None,
-        config: Optional[Scientific3DConfig] = None
+        atoms: list[tuple[str, list[float]]],
+        bonds: list[tuple[int, int]] | None = None,
+        config: Scientific3DConfig | None = None
     ):
         """
         Initialize molecular structure.
@@ -522,7 +522,7 @@ class MolecularStructure3D:
 
 def create_vector_field(
     vector_func: Callable,
-    bounds: Tuple[float, float] = (-5, 5),
+    bounds: tuple[float, float] = (-5, 5),
     mode: str = 'cone',
     resolution: int = 10
 ) -> go.Figure:
@@ -552,8 +552,8 @@ def create_vector_field(
 
 def create_isosurface(
     scalar_func: Callable,
-    levels: List[float],
-    bounds: Tuple[float, float] = (-5, 5),
+    levels: list[float],
+    bounds: tuple[float, float] = (-5, 5),
     color: str = 'viridis'
 ) -> go.Figure:
     """

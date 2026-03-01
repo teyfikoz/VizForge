@@ -1,8 +1,8 @@
 """Configuration system for VizForge."""
 
-import os
-from typing import Optional, Dict, Any
 import json
+import os
+from typing import Any
 
 
 class Config:
@@ -118,7 +118,7 @@ class Config:
         Args:
             filepath: Path to JSON config file
         """
-        with open(filepath, 'r') as f:
+        with open(filepath) as f:
             config = json.load(f)
             self._config.update(config)
 
@@ -134,7 +134,7 @@ class Config:
 
     def __repr__(self) -> str:
         """String representation."""
-        return f"VizForge Configuration:\n" + "\n".join(
+        return "VizForge Configuration:\n" + "\n".join(
             f"  {k}: {v}" for k, v in self._config.items()
         )
 

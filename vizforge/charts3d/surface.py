@@ -5,11 +5,12 @@ Advanced 3D surface visualizations: parametric, implicit, mesh surfaces.
 Part of VizForge v1.1.0 - Super AGI 3D Features.
 """
 
-from typing import Optional, List, Tuple, Callable, Union
-import numpy as np
-import plotly.graph_objects as go
+from collections.abc import Callable
 from dataclasses import dataclass
+
+import numpy as np
 import pandas as pd
+import plotly.graph_objects as go
 
 
 @dataclass
@@ -21,7 +22,7 @@ class Surface3DConfig:
     contour_color: str = 'white'
     opacity: float = 0.9
     lighting: dict = None
-    camera_angle: Tuple[float, float, float] = (1.25, 1.25, 1.25)
+    camera_angle: tuple[float, float, float] = (1.25, 1.25, 1.25)
     wireframe: bool = False
 
 
@@ -46,11 +47,11 @@ class Surface3D:
 
     def __init__(
         self,
-        function: Optional[Callable] = None,
-        data: Optional[Union[np.ndarray, pd.DataFrame]] = None,
-        x_range: Tuple[float, float] = (-10, 10),
-        y_range: Tuple[float, float] = (-10, 10),
-        config: Optional[Surface3DConfig] = None
+        function: Callable | None = None,
+        data: np.ndarray | pd.DataFrame | None = None,
+        x_range: tuple[float, float] = (-10, 10),
+        y_range: tuple[float, float] = (-10, 10),
+        config: Surface3DConfig | None = None
     ):
         """
         Initialize 3D Surface.
@@ -71,7 +72,7 @@ class Surface3D:
         # Generate surface
         self.x, self.y, self.z = self._generate_surface()
 
-    def _generate_surface(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_surface(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Generate surface mesh."""
         x = np.linspace(self.x_range[0], self.x_range[1], self.config.resolution)
         y = np.linspace(self.y_range[0], self.y_range[1], self.config.resolution)
@@ -184,9 +185,9 @@ class ParametricSurface3D:
     def __init__(
         self,
         parametric_func: Callable,
-        u_range: Tuple[float, float] = (0, 2 * np.pi),
-        v_range: Tuple[float, float] = (0, 2 * np.pi),
-        config: Optional[Surface3DConfig] = None
+        u_range: tuple[float, float] = (0, 2 * np.pi),
+        v_range: tuple[float, float] = (0, 2 * np.pi),
+        config: Surface3DConfig | None = None
     ):
         """
         Initialize parametric surface.
@@ -205,7 +206,7 @@ class ParametricSurface3D:
         # Generate surface
         self.x, self.y, self.z = self._generate_parametric_surface()
 
-    def _generate_parametric_surface(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_parametric_surface(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Generate parametric surface mesh."""
         u = np.linspace(self.u_range[0], self.u_range[1], self.config.resolution)
         v = np.linspace(self.v_range[0], self.v_range[1], self.config.resolution)
@@ -279,8 +280,8 @@ class ImplicitSurface3D:
         self,
         implicit_func: Callable,
         level: float = 0.0,
-        bounds: Tuple[float, float] = (-5, 5),
-        config: Optional[Surface3DConfig] = None
+        bounds: tuple[float, float] = (-5, 5),
+        config: Surface3DConfig | None = None
     ):
         """
         Initialize implicit surface.
@@ -299,7 +300,7 @@ class ImplicitSurface3D:
         # Generate volume and extract isosurface
         self.vertices, self.faces = self._extract_isosurface()
 
-    def _extract_isosurface(self) -> Tuple[np.ndarray, np.ndarray]:
+    def _extract_isosurface(self) -> tuple[np.ndarray, np.ndarray]:
         """
         Extract isosurface using marching cubes algorithm.
 
@@ -399,8 +400,8 @@ class MeshSurface3D:
         self,
         vertices: np.ndarray,
         faces: np.ndarray,
-        vertex_colors: Optional[np.ndarray] = None,
-        config: Optional[Surface3DConfig] = None
+        vertex_colors: np.ndarray | None = None,
+        config: Surface3DConfig | None = None
     ):
         """
         Initialize mesh surface.
@@ -501,8 +502,8 @@ class MeshSurface3D:
 
 def create_surface(
     function: Callable,
-    x_range: Tuple[float, float] = (-10, 10),
-    y_range: Tuple[float, float] = (-10, 10),
+    x_range: tuple[float, float] = (-10, 10),
+    y_range: tuple[float, float] = (-10, 10),
     color: str = 'viridis',
     resolution: int = 100
 ) -> go.Figure:
@@ -530,8 +531,8 @@ def create_surface(
 
 def create_parametric_surface(
     parametric_func: Callable,
-    u_range: Tuple[float, float] = (0, 2 * np.pi),
-    v_range: Tuple[float, float] = (0, 2 * np.pi),
+    u_range: tuple[float, float] = (0, 2 * np.pi),
+    v_range: tuple[float, float] = (0, 2 * np.pi),
     color: str = 'viridis'
 ) -> go.Figure:
     """

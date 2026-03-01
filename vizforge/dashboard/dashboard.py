@@ -1,12 +1,10 @@
 """Dashboard builder for VizForge."""
 
-from typing import List, Dict, Optional, Union, Tuple
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import pandas as pd
 
 from ..core.base import BaseChart
-from ..core.theme import Theme, get_theme
+from ..core.theme import get_theme
 
 
 class DashboardLayout:
@@ -45,10 +43,10 @@ class Dashboard:
         title: str = "Dashboard",
         rows: int = 2,
         cols: int = 2,
-        theme: Optional[str] = None,
+        theme: str | None = None,
         layout: str = DashboardLayout.GRID,
         height: int = 800,
-        width: Optional[int] = None,
+        width: int | None = None,
         **kwargs
     ):
         """
@@ -119,10 +117,10 @@ class Dashboard:
 
     def add_chart(
         self,
-        chart: Union[BaseChart, go.Figure],
+        chart: BaseChart | go.Figure,
         row: int,
         col: int,
-        title: Optional[str] = None
+        title: str | None = None
     ):
         """
         Add chart to dashboard.
@@ -158,10 +156,10 @@ class Dashboard:
     def add_kpi(
         self,
         label: str,
-        value: Union[str, float, int],
+        value: str | float | int,
         row: int,
         col: int,
-        delta: Optional[Union[str, float]] = None,
+        delta: str | float | None = None,
         delta_color: str = "green"
     ):
         """
@@ -223,7 +221,7 @@ class Dashboard:
             font=dict(size=font_size)
         )
 
-    def set_column_widths(self, widths: List[float]):
+    def set_column_widths(self, widths: list[float]):
         """
         Set custom column widths.
 
@@ -239,7 +237,7 @@ class Dashboard:
             grid={'columns': self.cols, 'rows': self.rows}
         )
 
-    def set_row_heights(self, heights: List[float]):
+    def set_row_heights(self, heights: list[float]):
         """
         Set custom row heights.
 
@@ -312,9 +310,9 @@ class Dashboard:
 
     def callback(
         self,
-        outputs: Union[str, List[str]],
-        inputs: Union[str, List[str]],
-        state: Union[str, List[str], None] = None
+        outputs: str | list[str],
+        inputs: str | list[str],
+        state: str | list[str] | None = None
     ):
         """
         Dash-style callback decorator.
@@ -397,7 +395,7 @@ class Dashboard:
     def add_filter(
         self,
         filter: 'Filter',
-        apply_to: Optional[List[str]] = None
+        apply_to: list[str] | None = None
     ) -> 'Dashboard':
         """
         Add filter to dashboard.
@@ -477,7 +475,7 @@ def create_dashboard(
     title: str = "Dashboard",
     rows: int = 2,
     cols: int = 2,
-    theme: Optional[str] = None,
+    theme: str | None = None,
     **kwargs
 ) -> Dashboard:
     """

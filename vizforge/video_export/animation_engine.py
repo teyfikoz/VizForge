@@ -4,8 +4,9 @@ Animation engine for smooth chart transitions.
 Provides easing functions and transition effects for video exports.
 """
 
+from collections.abc import Callable
 from enum import Enum
-from typing import List, Callable
+
 import numpy as np
 
 
@@ -112,7 +113,7 @@ class AnimationEngine:
         end_value: float,
         steps: int,
         animation_type: AnimationType = AnimationType.SMOOTH
-    ) -> List[float]:
+    ) -> list[float]:
         """
         Interpolate between two values with easing.
 
@@ -143,7 +144,7 @@ class AnimationEngine:
         end_data: np.ndarray,
         n_frames: int,
         animation_type: AnimationType = AnimationType.SMOOTH
-    ) -> List[np.ndarray]:
+    ) -> list[np.ndarray]:
         """
         Generate transition frames between two data states.
 
@@ -175,7 +176,7 @@ class AnimationEngine:
         opacity_start: float,
         opacity_end: float,
         n_frames: int
-    ) -> List[float]:
+    ) -> list[float]:
         """
         Generate opacity values for fade effect.
 
@@ -240,26 +241,26 @@ class TransitionConfig:
 
 # Convenience functions
 
-def smooth_transition(start: float, end: float, steps: int) -> List[float]:
+def smooth_transition(start: float, end: float, steps: int) -> list[float]:
     """Create smooth transition between two values."""
     return AnimationEngine.interpolate_values(start, end, steps, AnimationType.SMOOTH)
 
 
-def elastic_transition(start: float, end: float, steps: int) -> List[float]:
+def elastic_transition(start: float, end: float, steps: int) -> list[float]:
     """Create elastic (spring-like) transition."""
     return AnimationEngine.interpolate_values(start, end, steps, AnimationType.ELASTIC)
 
 
-def bounce_transition(start: float, end: float, steps: int) -> List[float]:
+def bounce_transition(start: float, end: float, steps: int) -> list[float]:
     """Create bounce transition."""
     return AnimationEngine.interpolate_values(start, end, steps, AnimationType.BOUNCE)
 
 
-def fade_in(n_frames: int) -> List[float]:
+def fade_in(n_frames: int) -> list[float]:
     """Generate fade-in opacity values."""
     return AnimationEngine.apply_fade_effect(0.0, 1.0, n_frames)
 
 
-def fade_out(n_frames: int) -> List[float]:
+def fade_out(n_frames: int) -> list[float]:
     """Generate fade-out opacity values."""
     return AnimationEngine.apply_fade_effect(1.0, 0.0, n_frames)

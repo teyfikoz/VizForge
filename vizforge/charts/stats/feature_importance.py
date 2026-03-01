@@ -1,12 +1,10 @@
 """Feature Importance Plot implementation for VizForge."""
 
-from typing import Optional, List, Union, Dict
-import plotly.graph_objects as go
-import pandas as pd
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class FeatureImportance(BaseChart):
@@ -30,12 +28,12 @@ class FeatureImportance(BaseChart):
 
     def __init__(
         self,
-        features: Union[List[str], pd.Series],
-        importance: Union[List[float], np.ndarray, pd.Series],
+        features: list[str] | pd.Series,
+        importance: list[float] | np.ndarray | pd.Series,
         orientation: str = 'h',  # 'h' or 'v'
-        top_n: Optional[int] = None,
+        top_n: int | None = None,
         show_values: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -131,12 +129,12 @@ class PermutationImportance(BaseChart):
 
     def __init__(
         self,
-        features: List[str],
-        importance_mean: Union[List[float], np.ndarray],
-        importance_std: Union[List[float], np.ndarray],
+        features: list[str],
+        importance_mean: list[float] | np.ndarray,
+        importance_std: list[float] | np.ndarray,
         orientation: str = 'h',
-        top_n: Optional[int] = None,
-        title: Optional[str] = None,
+        top_n: int | None = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Permutation Importance plot."""
@@ -201,15 +199,15 @@ class PermutationImportance(BaseChart):
 
 
 def feature_importance(
-    features: Union[List[str], pd.Series],
-    importance: Union[List[float], np.ndarray, pd.Series],
+    features: list[str] | pd.Series,
+    importance: list[float] | np.ndarray | pd.Series,
     orientation: str = 'h',
-    top_n: Optional[int] = None,
+    top_n: int | None = None,
     show_values: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> FeatureImportance:
     """
@@ -267,15 +265,15 @@ def feature_importance(
 
 
 def permutation_importance(
-    features: List[str],
-    importance_mean: Union[List[float], np.ndarray],
-    importance_std: Union[List[float], np.ndarray],
+    features: list[str],
+    importance_mean: list[float] | np.ndarray,
+    importance_std: list[float] | np.ndarray,
     orientation: str = 'h',
-    top_n: Optional[int] = None,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    top_n: int | None = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> PermutationImportance:
     """

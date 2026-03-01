@@ -6,8 +6,8 @@ NO API required - Statistical seasonality detection!
 """
 
 from dataclasses import dataclass
-from typing import Union, Optional, List, Dict
 from enum import Enum
+
 import numpy as np
 import pandas as pd
 
@@ -41,9 +41,9 @@ class SeasonalPattern:
     period: int
     strength: float
     confidence: float
-    peak_indices: List[int]
-    trough_indices: List[int]
-    decomposition: Dict[str, np.ndarray]
+    peak_indices: list[int]
+    trough_indices: list[int]
+    decomposition: dict[str, np.ndarray]
 
 
 class SeasonalityAnalyzer:
@@ -63,8 +63,8 @@ class SeasonalityAnalyzer:
 
     def __init__(
         self,
-        data: Union[pd.Series, np.ndarray, list],
-        max_period: Optional[int] = None,
+        data: pd.Series | np.ndarray | list,
+        max_period: int | None = None,
     ):
         """
         Initialize seasonality analyzer.
@@ -200,7 +200,7 @@ class SeasonalityAnalyzer:
         else:
             return SeasonalityType.CUSTOM
 
-    def _decompose(self, period: int) -> Dict[str, np.ndarray]:
+    def _decompose(self, period: int) -> dict[str, np.ndarray]:
         """Decompose time series into trend + seasonal + residual."""
         if period <= 1:
             # No seasonality, just trend + residual
@@ -253,7 +253,7 @@ class SeasonalityAnalyzer:
 
         return seasonal
 
-    def _find_peaks(self, data: np.ndarray) -> List[int]:
+    def _find_peaks(self, data: np.ndarray) -> list[int]:
         """Find peak indices in data."""
         peaks = []
 
@@ -263,7 +263,7 @@ class SeasonalityAnalyzer:
 
         return peaks
 
-    def _find_troughs(self, data: np.ndarray) -> List[int]:
+    def _find_troughs(self, data: np.ndarray) -> list[int]:
         """Find trough indices in data."""
         troughs = []
 
@@ -277,8 +277,8 @@ class SeasonalityAnalyzer:
 # ==================== Convenience Function ====================
 
 def analyze_seasonality(
-    data: Union[pd.Series, np.ndarray, list],
-    max_period: Optional[int] = None
+    data: pd.Series | np.ndarray | list,
+    max_period: int | None = None
 ) -> SeasonalPattern:
     """
     Analyze seasonality in time series (one-liner!).

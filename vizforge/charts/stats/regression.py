@@ -1,14 +1,12 @@
 """Regression Plot implementation for VizForge."""
 
-from typing import Optional, List, Union, Dict
-import plotly.graph_objects as go
-import plotly.express as px
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 from scipy import stats
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class RegressionPlot(BaseChart):
@@ -35,13 +33,13 @@ class RegressionPlot(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, Dict],
+        data: pd.DataFrame | dict,
         x: str,
         y: str,
         order: int = 1,  # Polynomial order
         ci: int = 95,  # Confidence interval
         show_equation: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -96,7 +94,7 @@ class RegressionPlot(BaseChart):
         self.ci_lower = self.y_pred - z_score * std_error
         self.ci_upper = self.y_pred + z_score * std_error
 
-    def create_trace(self) -> List[go.Scatter]:
+    def create_trace(self) -> list[go.Scatter]:
         """Create regression plot traces."""
         traces = []
 
@@ -171,16 +169,16 @@ class RegressionPlot(BaseChart):
 
 
 def regression(
-    data: Union[pd.DataFrame, Dict],
+    data: pd.DataFrame | dict,
     x: str,
     y: str,
     order: int = 1,
     ci: int = 95,
     show_equation: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> RegressionPlot:
     """

@@ -1,7 +1,6 @@
 """Theme system for VizForge visualizations."""
 
 from dataclasses import dataclass, field
-from typing import Optional
 
 
 @dataclass
@@ -200,7 +199,7 @@ _THEMES = {
 _CURRENT_THEME = DEFAULT_THEME
 
 
-def get_theme(name: Optional[str] = None) -> Theme:
+def get_theme(name: str | None = None) -> Theme:
     """
     Get a theme by name or return current theme.
 

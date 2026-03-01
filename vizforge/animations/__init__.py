@@ -5,35 +5,35 @@ Modern animations, transitions, and gestures for stunning visualizations.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from .transitions import (
-    TransitionConfig,
-    TransitionType,
-    AnimationEngine,
-    apply_transition,
-    create_transition
-)
 from .easing import (
     EasingFunction,
-    linear,
+    bezier,
     ease_in,
-    ease_out,
-    ease_in_out,
-    ease_in_cubic,
-    ease_out_cubic,
-    ease_in_out_cubic,
-    ease_in_elastic,
-    ease_out_elastic,
     ease_in_bounce,
+    ease_in_cubic,
+    ease_in_elastic,
+    ease_in_out,
+    ease_in_out_cubic,
+    ease_out,
     ease_out_bounce,
-    bezier
+    ease_out_cubic,
+    ease_out_elastic,
+    linear,
 )
 from .gestures import (
-    GestureType,
     GestureConfig,
     GestureHandler,
+    GestureType,
     TouchEvent,
+    enable_mobile_gestures,
     setup_gestures,
-    enable_mobile_gestures
+)
+from .transitions import (
+    AnimationEngine,
+    TransitionConfig,
+    TransitionType,
+    apply_transition,
+    create_transition,
 )
 
 __all__ = [

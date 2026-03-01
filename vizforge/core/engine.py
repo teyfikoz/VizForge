@@ -5,9 +5,9 @@ Provides performance optimizations and animation support for charts.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
+
 import plotly.graph_objects as go
-import numpy as np
 
 
 class RenderingEngine:
@@ -83,7 +83,7 @@ class RenderingEngine:
         return fig
 
     @staticmethod
-    def estimate_performance(n_points: int) -> Dict[str, Any]:
+    def estimate_performance(n_points: int) -> dict[str, Any]:
         """
         Estimate rendering performance for given dataset size.
 
@@ -162,7 +162,7 @@ class AnimationConfig:
         self.easing = easing
         self.delay = delay
 
-    def to_plotly_config(self) -> Dict[str, Any]:
+    def to_plotly_config(self) -> dict[str, Any]:
         """
         Convert to Plotly animation configuration.
 

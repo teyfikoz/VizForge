@@ -1,14 +1,16 @@
 """Statistical chart types for VizForge."""
 
-from .violin import ViolinPlot, violin
-from .kde import KDEPlot, KDE2D, kde, kde2d
-from .regression import RegressionPlot, regression
 from .correlation import CorrelationMatrix, correlation_matrix
-from .roc import ROCCurve, MultiROCCurve, roc_curve_plot, multi_roc_curve
 from .feature_importance import (
-    FeatureImportance, PermutationImportance,
-    feature_importance, permutation_importance
+    FeatureImportance,
+    PermutationImportance,
+    feature_importance,
+    permutation_importance,
 )
+from .kde import KDE2D, KDEPlot, kde, kde2d
+from .regression import RegressionPlot, regression
+from .roc import MultiROCCurve, ROCCurve, multi_roc_curve, roc_curve_plot
+from .violin import ViolinPlot, violin
 
 __all__ = [
     # Classes

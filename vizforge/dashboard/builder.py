@@ -5,9 +5,10 @@ Dash integration for interactive dashboards.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Callable
-import pandas as pd
 from datetime import date
+from typing import Any
+
+import pandas as pd
 
 
 class DashboardServer:
@@ -51,8 +52,8 @@ class DashboardServer:
             ImportError: If Dash is not installed
         """
         try:
-            from dash import Dash, html, dcc
             import dash_bootstrap_components as dbc
+            from dash import Dash, dcc, html
         except ImportError:
             raise ImportError(
                 "Dash and dash-bootstrap-components are required for interactive dashboards.\n"
@@ -76,8 +77,8 @@ class DashboardServer:
 
     def _build_layout(self) -> Any:
         """Build Dash layout from dashboard configuration."""
-        from dash import html, dcc
         import dash_bootstrap_components as dbc
+        from dash import html
 
         # Build header
         header = html.Div([
@@ -109,8 +110,8 @@ class DashboardServer:
 
     def _build_widgets_row(self) -> Any:
         """Build row of widgets."""
-        from dash import html
         import dash_bootstrap_components as dbc
+        from dash import html
 
         widget_cols = []
 
@@ -132,8 +133,8 @@ class DashboardServer:
 
     def _build_charts_grid(self) -> Any:
         """Build grid of charts."""
-        from dash import html, dcc
         import dash_bootstrap_components as dbc
+        from dash import dcc, html
 
         if not hasattr(self.dashboard, 'charts') or not self.dashboard.charts:
             return html.Div("No charts to display")
@@ -181,7 +182,7 @@ class DashboardServer:
 
         return html.Div(grid_rows)
 
-    def _find_chart_at_position(self, row: int, col: int) -> Optional[Dict[str, Any]]:
+    def _find_chart_at_position(self, row: int, col: int) -> dict[str, Any] | None:
         """Find chart at grid position."""
         if not hasattr(self.dashboard, 'charts'):
             return None
@@ -198,7 +199,6 @@ class DashboardServer:
             return
 
         from dash import Input, Output, State
-        from dash.dependencies import ALL
 
         callback_manager = self.dashboard.callback_manager
 
@@ -252,10 +252,10 @@ class DashboardServer:
         if self.dash_app is None:
             self.build()
 
-        print(f"\n🚀 VizForge Dashboard Server")
+        print("\n🚀 VizForge Dashboard Server")
         print(f"   Running on http://{host}:{port}/")
         print(f"   Debug mode: {debug}")
-        print(f"\nPress CTRL+C to quit\n")
+        print("\nPress CTRL+C to quit\n")
 
         self.dash_app.run_server(
             host=host,
@@ -296,8 +296,8 @@ class DashboardTemplate:
 
     @staticmethod
     def kpi_dashboard(
-        kpis: Dict[str, float],
-        charts: Optional[List[Any]] = None,
+        kpis: dict[str, float],
+        charts: list[Any] | None = None,
         title: str = "KPI Dashboard"
     ) -> 'Dashboard':
         """
@@ -401,8 +401,8 @@ class DashboardTemplate:
     @staticmethod
     def analytics_dashboard(
         data: pd.DataFrame,
-        metrics: List[str],
-        dimensions: List[str]
+        metrics: list[str],
+        dimensions: list[str]
     ) -> 'Dashboard':
         """
         Create general analytics dashboard.
@@ -459,8 +459,8 @@ class QuickDashboard:
     @staticmethod
     def from_dataframe(
         data: pd.DataFrame,
-        x: Optional[str] = None,
-        y: Optional[List[str]] = None,
+        x: str | None = None,
+        y: list[str] | None = None,
         title: str = "Dashboard"
     ) -> DashboardServer:
         """
@@ -516,9 +516,9 @@ class QuickDashboard:
     @staticmethod
     def single_chart(
         data: pd.DataFrame,
-        chart_type: Optional[str] = None,
-        x: Optional[str] = None,
-        y: Optional[str] = None,
+        chart_type: str | None = None,
+        x: str | None = None,
+        y: str | None = None,
         title: str = "Chart"
     ) -> DashboardServer:
         """

@@ -13,9 +13,9 @@ Features:
 - Data upload/preview
 """
 
-from .designer_app import DesignerApp, launch_designer
 from .chart_config import ChartConfig, ChartType, PropertyType
 from .code_generator import CodeGenerator
+from .designer_app import DesignerApp, launch_designer
 
 __all__ = [
     # Main entry point

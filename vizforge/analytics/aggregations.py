@@ -5,10 +5,10 @@ Advanced aggregation functions and window operations.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, List, Optional, Callable, Union
 from enum import Enum
+from typing import Any
+
 import pandas as pd
-import numpy as np
 
 
 class AggregationType(Enum):
@@ -59,8 +59,8 @@ class Aggregation:
         self,
         agg_type: AggregationType,
         field: str,
-        group_by: Optional[List[str]] = None,
-        name: Optional[str] = None
+        group_by: list[str] | None = None,
+        name: str | None = None
     ):
         """
         Initialize aggregation.
@@ -76,7 +76,7 @@ class Aggregation:
         self.group_by = group_by or []
         self.name = name or f"{agg_type.value}_{field}"
 
-    def apply(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
+    def apply(self, data: pd.DataFrame) -> pd.DataFrame | pd.Series:
         """
         Apply aggregation to data.
 
@@ -172,9 +172,9 @@ class WindowFunction:
         self,
         window_type: WindowType,
         field: str,
-        partition_by: Optional[List[str]] = None,
-        order_by: Optional[str] = None,
-        window_size: Optional[int] = None,
+        partition_by: list[str] | None = None,
+        order_by: str | None = None,
+        window_size: int | None = None,
         offset: int = 1
     ):
         """
@@ -287,8 +287,8 @@ class AggregationEngine:
 
     def __init__(self):
         """Initialize aggregation engine."""
-        self.aggregations: List[Aggregation] = []
-        self.window_functions: List[WindowFunction] = []
+        self.aggregations: list[Aggregation] = []
+        self.window_functions: list[WindowFunction] = []
 
     def add_aggregation(self, aggregation: Aggregation) -> 'AggregationEngine':
         """
@@ -350,8 +350,8 @@ def quick_aggregation(
     data: pd.DataFrame,
     agg_type: str,
     field: str,
-    group_by: Optional[List[str]] = None
-) -> Union[pd.DataFrame, pd.Series]:
+    group_by: list[str] | None = None
+) -> pd.DataFrame | pd.Series:
     """
     Quick aggregation helper.
 

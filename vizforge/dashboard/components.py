@@ -1,14 +1,17 @@
 """Dashboard components for VizForge."""
 
-from typing import Optional, List, Dict, Any, Callable
+from collections.abc import Callable
+from typing import Any
+
 import plotly.graph_objects as go
+
 from ..core.base import BaseChart
 
 
 class DashboardComponent:
     """Base class for dashboard components."""
 
-    def __init__(self, title: Optional[str] = None):
+    def __init__(self, title: str | None = None):
         """Initialize component."""
         self.title = title
 
@@ -24,7 +27,7 @@ class ChartComponent(DashboardComponent):
     Wraps a VizForge chart for dashboard use.
     """
 
-    def __init__(self, chart: BaseChart, title: Optional[str] = None):
+    def __init__(self, chart: BaseChart, title: str | None = None):
         """
         Initialize chart component.
 
@@ -51,8 +54,8 @@ class KPICard(DashboardComponent):
         self,
         label: str,
         value: Any,
-        delta: Optional[float] = None,
-        delta_reference: Optional[float] = None,
+        delta: float | None = None,
+        delta_reference: float | None = None,
         prefix: str = "",
         suffix: str = "",
         format: str = ".2f"
@@ -116,10 +119,10 @@ class FilterComponent(DashboardComponent):
     def __init__(
         self,
         label: str,
-        options: List[Any],
-        default: Optional[Any] = None,
+        options: list[Any],
+        default: Any | None = None,
         multi_select: bool = False,
-        callback: Optional[Callable] = None
+        callback: Callable | None = None
     ):
         """
         Initialize filter component.
@@ -144,7 +147,7 @@ class FilterComponent(DashboardComponent):
         if self.callback:
             self.callback(value)
 
-    def render(self) -> Dict:
+    def render(self) -> dict:
         """Render filter metadata."""
         return {
             'type': 'filter',
@@ -165,7 +168,7 @@ class TextComponent(DashboardComponent):
     def __init__(
         self,
         text: str,
-        title: Optional[str] = None,
+        title: str | None = None,
         font_size: int = 14,
         align: str = "left"
     ):
@@ -218,8 +221,8 @@ class MetricCard(KPICard):
         self,
         label: str,
         value: Any,
-        trend: Optional[List[float]] = None,
-        delta: Optional[float] = None,
+        trend: list[float] | None = None,
+        delta: float | None = None,
         **kwargs
     ):
         """

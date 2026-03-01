@@ -6,8 +6,8 @@ NO API required - Statistical trend analysis!
 """
 
 from dataclasses import dataclass
-from typing import Union, Optional, Tuple
 from enum import Enum
+
 import numpy as np
 import pandas as pd
 
@@ -63,7 +63,7 @@ class TrendDetector:
         >>> print(f"Strength: {result.strength:.2%}")
     """
 
-    def __init__(self, data: Union[pd.Series, np.ndarray, list]):
+    def __init__(self, data: pd.Series | np.ndarray | list):
         """
         Initialize trend detector.
 
@@ -116,7 +116,7 @@ class TrendDetector:
             turning_points=turning_points
         )
 
-    def _calculate_linear_trend(self) -> Tuple[float, float]:
+    def _calculate_linear_trend(self) -> tuple[float, float]:
         """Calculate linear trend slope and R-squared."""
         x = np.arange(len(self.data))
         y = self.data
@@ -244,7 +244,7 @@ class TrendDetector:
 
 # ==================== Convenience Function ====================
 
-def detect_trend(data: Union[pd.Series, np.ndarray, list]) -> TrendResult:
+def detect_trend(data: pd.Series | np.ndarray | list) -> TrendResult:
     """
     Detect trend in time series (one-liner!).
 

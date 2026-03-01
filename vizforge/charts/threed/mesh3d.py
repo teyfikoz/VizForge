@@ -1,12 +1,10 @@
 """3D Mesh plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class Mesh3D(BaseChart):
@@ -32,15 +30,15 @@ class Mesh3D(BaseChart):
 
     def __init__(
         self,
-        vertices: Union[List, np.ndarray],
-        faces: Optional[Union[List, np.ndarray]] = None,
-        x: Optional[Union[List, np.ndarray]] = None,
-        y: Optional[Union[List, np.ndarray]] = None,
-        z: Optional[Union[List, np.ndarray]] = None,
-        i: Optional[Union[List, np.ndarray]] = None,
-        j: Optional[Union[List, np.ndarray]] = None,
-        k: Optional[Union[List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        vertices: list | np.ndarray,
+        faces: list | np.ndarray | None = None,
+        x: list | np.ndarray | None = None,
+        y: list | np.ndarray | None = None,
+        z: list | np.ndarray | None = None,
+        i: list | np.ndarray | None = None,
+        j: list | np.ndarray | None = None,
+        k: list | np.ndarray | None = None,
+        title: str | None = None,
         colorscale: str = "Viridis",
         opacity: float = 0.8,
         flatshading: bool = False,
@@ -130,15 +128,15 @@ class Mesh3D(BaseChart):
 
 
 def mesh3d(
-    vertices: Union[List, np.ndarray],
-    faces: Optional[Union[List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    vertices: list | np.ndarray,
+    faces: list | np.ndarray | None = None,
+    title: str | None = None,
     colorscale: str = "Viridis",
     opacity: float = 0.8,
     flatshading: bool = False,
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Mesh3D:
     """

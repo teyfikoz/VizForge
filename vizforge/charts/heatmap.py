@@ -1,9 +1,9 @@
 """Heatmap implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ..core.base import BaseChart
 from ..core.theme import Theme
@@ -18,12 +18,12 @@ class Heatmap(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, np.ndarray, list]] = None,
-        x: Optional[Union[str, list]] = None,
-        y: Optional[Union[str, list]] = None,
-        z: Optional[Union[str, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | np.ndarray | list | None = None,
+        x: str | list | None = None,
+        y: str | list | None = None,
+        z: str | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         colorscale: str = "Viridis",
         show_values: bool = False,
         **kwargs
@@ -51,10 +51,10 @@ class Heatmap(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, np.ndarray, list],
-        x: Optional[Union[str, list]] = None,
-        y: Optional[Union[str, list]] = None,
-        z: Optional[Union[str, np.ndarray]] = None,
+        data: pd.DataFrame | np.ndarray | list,
+        x: str | list | None = None,
+        y: str | list | None = None,
+        z: str | np.ndarray | None = None,
         **kwargs
     ) -> 'Heatmap':
         """Plot heatmap data."""
@@ -132,16 +132,16 @@ class Heatmap(BaseChart):
 
 
 def heatmap(
-    data: Union[pd.DataFrame, np.ndarray, list],
-    x: Optional[Union[str, list]] = None,
-    y: Optional[Union[str, list]] = None,
-    z: Optional[Union[str, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | np.ndarray | list,
+    x: str | list | None = None,
+    y: str | list | None = None,
+    z: str | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     colorscale: str = "Viridis",
     show_values: bool = False,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Heatmap:
     """

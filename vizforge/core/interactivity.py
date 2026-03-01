@@ -12,11 +12,11 @@ Plotly limitation: Basic mouse-only interactions.
 VizForge innovation: Full touch, gesture, and 3D control.
 """
 
-import numpy as np
-from typing import Dict, List, Optional, Callable, Any, Tuple
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-import time
+
+import numpy as np
 
 
 class GestureType(Enum):
@@ -49,12 +49,12 @@ class TouchPoint:
 class GestureEvent:
     """Gesture event data."""
     gesture_type: GestureType
-    start_points: List[TouchPoint]
-    end_points: List[TouchPoint]
+    start_points: list[TouchPoint]
+    end_points: list[TouchPoint]
     duration: float
-    velocity: Optional[Tuple[float, float]] = None
-    scale: Optional[float] = None
-    rotation: Optional[float] = None
+    velocity: tuple[float, float] | None = None
+    scale: float | None = None
+    rotation: float | None = None
 
 
 class GestureRecognizer:
@@ -83,8 +83,8 @@ class GestureRecognizer:
         self.swipe_threshold = swipe_threshold
         self.pinch_threshold = pinch_threshold
 
-        self.active_touches: Dict[int, TouchPoint] = {}
-        self.gesture_callbacks: Dict[GestureType, List[Callable]] = {}
+        self.active_touches: dict[int, TouchPoint] = {}
+        self.gesture_callbacks: dict[GestureType, list[Callable]] = {}
 
     def on_touch_start(self, touch: TouchPoint):
         """Handle touch start event."""
@@ -122,7 +122,7 @@ class GestureRecognizer:
                                 duration: float,
                                 dx: float,
                                 dy: float,
-                                distance: float) -> Optional[GestureEvent]:
+                                distance: float) -> GestureEvent | None:
         """Recognize single-touch gesture."""
 
         # Tap or Long Press
@@ -168,7 +168,7 @@ class GestureRecognizer:
 
         return None
 
-    def recognize_multi_touch(self, touches: List[TouchPoint]) -> Optional[GestureEvent]:
+    def recognize_multi_touch(self, touches: list[TouchPoint]) -> GestureEvent | None:
         """Recognize multi-touch gestures (pinch, rotate)."""
         if len(touches) < 2:
             return None
@@ -375,7 +375,7 @@ class SemanticZoom:
         """
         self.levels = levels
         self.current_level = levels // 2
-        self.level_callbacks: Dict[int, List[Callable]] = {}
+        self.level_callbacks: dict[int, list[Callable]] = {}
 
     def zoom_in(self):
         """Increase detail level."""

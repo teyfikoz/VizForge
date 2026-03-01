@@ -5,12 +5,13 @@ Tableau-style calculated fields with expression parsing.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Callable, Union
-from dataclasses import dataclass
-import pandas as pd
-import numpy as np
 import re
+from dataclasses import dataclass
 from enum import Enum
+from typing import Any
+
+import numpy as np
+import pandas as pd
 
 
 class ExpressionType(Enum):
@@ -37,8 +38,8 @@ class Expression:
     """
     raw: str
     type: ExpressionType
-    fields: List[str]
-    functions: List[str]
+    fields: list[str]
+    functions: list[str]
     is_aggregation: bool = False
 
 
@@ -114,14 +115,14 @@ class ExpressionParser:
             is_aggregation=is_agg
         )
 
-    def _extract_fields(self, expression: str) -> List[str]:
+    def _extract_fields(self, expression: str) -> list[str]:
         """Extract field names from expression."""
         # Pattern: [FieldName]
         pattern = r'\[([^\]]+)\]'
         matches = re.findall(pattern, expression)
         return list(set(matches))  # Remove duplicates
 
-    def _extract_functions(self, expression: str) -> List[str]:
+    def _extract_functions(self, expression: str) -> list[str]:
         """Extract function names from expression."""
         functions = []
 
@@ -132,7 +133,7 @@ class ExpressionParser:
 
         return functions
 
-    def _determine_type(self, expression: str, functions: List[str]) -> ExpressionType:
+    def _determine_type(self, expression: str, functions: list[str]) -> ExpressionType:
         """Determine expression type."""
         # Aggregation if has aggregation function
         if any(func in self.AGGREGATION_FUNCTIONS for func in functions):
@@ -157,7 +158,7 @@ class ExpressionParser:
         # Default: arithmetic
         return ExpressionType.ARITHMETIC
 
-    def validate(self, expression: str) -> tuple[bool, Optional[str]]:
+    def validate(self, expression: str) -> tuple[bool, str | None]:
         """
         Validate expression syntax.
 
@@ -219,7 +220,7 @@ class CalculatedField:
         name: str,
         expression: str,
         description: str = "",
-        data_type: Optional[str] = None
+        data_type: str | None = None
     ):
         """
         Initialize calculated field.
@@ -287,7 +288,7 @@ class CalculatedField:
         except Exception as e:
             raise RuntimeError(f"Error evaluating expression '{self.expression_str}': {e}")
 
-    def _build_context(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def _build_context(self, data: pd.DataFrame) -> dict[str, Any]:
         """Build evaluation context with safe functions."""
         context = {}
 
@@ -356,7 +357,7 @@ class CalculatedField:
 
         return expr
 
-    def get_dependencies(self) -> List[str]:
+    def get_dependencies(self) -> list[str]:
         """
         Get list of fields this calculated field depends on.
 
@@ -393,7 +394,7 @@ class CalculatedFieldManager:
 
     def __init__(self):
         """Initialize manager."""
-        self.fields: Dict[str, CalculatedField] = {}
+        self.fields: dict[str, CalculatedField] = {}
 
     def add_field(self, field: CalculatedField) -> 'CalculatedFieldManager':
         """
@@ -413,7 +414,7 @@ class CalculatedFieldManager:
         if name in self.fields:
             del self.fields[name]
 
-    def get_field(self, name: str) -> Optional[CalculatedField]:
+    def get_field(self, name: str) -> CalculatedField | None:
         """Get calculated field by name."""
         return self.fields.get(name)
 
@@ -446,7 +447,7 @@ class CalculatedFieldManager:
 
         return result
 
-    def _topological_sort(self) -> List[str]:
+    def _topological_sort(self) -> list[str]:
         """
         Sort fields by dependency order.
 
@@ -477,7 +478,7 @@ class CalculatedFieldManager:
 
         return order
 
-    def get_summary(self) -> List[Dict[str, Any]]:
+    def get_summary(self) -> list[dict[str, Any]]:
         """
         Get summary of all calculated fields.
 

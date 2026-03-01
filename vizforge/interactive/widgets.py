@@ -5,11 +5,12 @@ Streamlit-style widgets for interactive dashboards.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Optional, List, Callable, Union, Dict
-from dataclasses import dataclass, field
-from datetime import datetime, date
-from abc import ABC, abstractmethod
 import uuid
+from abc import ABC, abstractmethod
+from collections.abc import Callable
+from dataclasses import dataclass
+from datetime import date
+from typing import Any
 
 
 @dataclass
@@ -31,8 +32,8 @@ class WidgetConfig:
     value: Any
     default: Any
     disabled: bool = False
-    help_text: Optional[str] = None
-    on_change: Optional[Callable] = None
+    help_text: str | None = None
+    on_change: Callable | None = None
 
 
 class Widget(ABC):
@@ -44,12 +45,12 @@ class Widget(ABC):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         default: Any = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         """
         Initialize widget.
@@ -129,15 +130,15 @@ class Slider(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         min_value: float = 0.0,
         max_value: float = 100.0,
-        default: Optional[float] = None,
+        default: float | None = None,
         step: float = 1.0,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         """
         Initialize slider widget.
@@ -198,15 +199,15 @@ class RangeSlider(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         min_value: float = 0.0,
         max_value: float = 100.0,
-        default: Optional[List[float]] = None,
+        default: list[float] | None = None,
         step: float = 1.0,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if default is None:
             default = [min_value, max_value]
@@ -252,13 +253,13 @@ class SelectBox(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
-        options: List[Any] = None,
-        default: Optional[Any] = None,
+        options: list[Any] = None,
+        default: Any | None = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if options is None:
             options = []
@@ -302,13 +303,13 @@ class MultiSelect(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
-        options: List[Any] = None,
-        default: Optional[List[Any]] = None,
+        options: list[Any] = None,
+        default: list[Any] | None = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if options is None:
             options = []
@@ -351,14 +352,14 @@ class DatePicker(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
-        default: Optional[date] = None,
-        min_date: Optional[date] = None,
-        max_date: Optional[date] = None,
+        default: date | None = None,
+        min_date: date | None = None,
+        max_date: date | None = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if default is None:
             default = date.today()
@@ -399,14 +400,14 @@ class DateRangePicker(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
-        default: Optional[List[date]] = None,
-        min_date: Optional[date] = None,
-        max_date: Optional[date] = None,
+        default: list[date] | None = None,
+        min_date: date | None = None,
+        max_date: date | None = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if default is None:
             default = [date.today(), date.today()]
@@ -449,13 +450,13 @@ class TextInput(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         default: str = "",
         placeholder: str = "",
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         super().__init__(widget_id, label, default, disabled, help_text, on_change)
 
@@ -494,15 +495,15 @@ class NumberInput(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         default: float = 0.0,
-        min_value: Optional[float] = None,
-        max_value: Optional[float] = None,
+        min_value: float | None = None,
+        max_value: float | None = None,
         step: float = 1.0,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         super().__init__(widget_id, label, default, disabled, help_text, on_change)
 
@@ -543,12 +544,12 @@ class Checkbox(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         default: bool = False,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         super().__init__(widget_id, label, default, disabled, help_text, on_change)
 
@@ -583,13 +584,13 @@ class RadioButtons(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
-        options: List[Any] = None,
-        default: Optional[Any] = None,
+        options: list[Any] = None,
+        default: Any | None = None,
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         if options is None:
             options = []
@@ -631,11 +632,11 @@ class Button(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "Click",
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_click: Optional[Callable] = None
+        help_text: str | None = None,
+        on_click: Callable | None = None
     ):
         super().__init__(widget_id, label, False, disabled, help_text, on_click)
 
@@ -676,12 +677,12 @@ class ColorPicker(Widget):
 
     def __init__(
         self,
-        widget_id: Optional[str] = None,
+        widget_id: str | None = None,
         label: str = "",
         default: str = "#000000",
         disabled: bool = False,
-        help_text: Optional[str] = None,
-        on_change: Optional[Callable] = None
+        help_text: str | None = None,
+        on_change: Callable | None = None
     ):
         super().__init__(widget_id, label, default, disabled, help_text, on_change)
 
@@ -713,7 +714,7 @@ class WidgetFactory:
         widget_id: str = 'year',
         min_year: int = 2020,
         max_year: int = 2024,
-        default: Optional[int] = None
+        default: int | None = None
     ) -> Slider:
         """Create a year slider widget."""
         if default is None:
@@ -747,9 +748,9 @@ class WidgetFactory:
     @staticmethod
     def category_select(
         widget_id: str,
-        categories: List[str],
+        categories: list[str],
         label: str = 'Category',
-        default: Optional[str] = None
+        default: str | None = None
     ) -> SelectBox:
         """Create a category select box."""
         return SelectBox(

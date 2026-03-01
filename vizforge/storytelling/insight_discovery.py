@@ -6,9 +6,9 @@ NO API required - intelligent statistical analysis!
 """
 
 from dataclasses import dataclass
-from typing import List, Dict, Any, Optional, Union
 from enum import Enum
-import numpy as np
+from typing import Any
+
 import pandas as pd
 
 
@@ -42,8 +42,8 @@ class Insight:
     title: str
     description: str
     importance: float
-    data: Dict[str, Any]
-    recommendation: Optional[str] = None
+    data: dict[str, Any]
+    recommendation: str | None = None
 
 
 class InsightDiscovery:
@@ -62,8 +62,8 @@ class InsightDiscovery:
     def __init__(
         self,
         data: pd.DataFrame,
-        target_column: Optional[str] = None,
-        time_column: Optional[str] = None,
+        target_column: str | None = None,
+        time_column: str | None = None,
         min_importance: float = 0.5,
     ):
         """
@@ -85,7 +85,7 @@ class InsightDiscovery:
         self.categorical_cols = self._get_categorical_columns()
         self.datetime_cols = self._get_datetime_columns()
 
-    def discover(self, max_insights: int = 10) -> List[Insight]:
+    def discover(self, max_insights: int = 10) -> list[Insight]:
         """
         Discover key insights from data.
 
@@ -131,7 +131,7 @@ class InsightDiscovery:
         insights.sort(key=lambda x: x.importance, reverse=True)
         return insights[:max_insights]
 
-    def _discover_summary(self) -> List[Insight]:
+    def _discover_summary(self) -> list[Insight]:
         """Discover summary insights."""
         insights = []
 
@@ -193,7 +193,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_trends(self) -> List[Insight]:
+    def _discover_trends(self) -> list[Insight]:
         """Discover trend insights."""
         insights = []
 
@@ -235,7 +235,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_correlations(self) -> List[Insight]:
+    def _discover_correlations(self) -> list[Insight]:
         """Discover correlation insights."""
         insights = []
 
@@ -280,7 +280,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_anomalies(self) -> List[Insight]:
+    def _discover_anomalies(self) -> list[Insight]:
         """Discover anomaly insights."""
         insights = []
 
@@ -327,7 +327,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_extremes(self) -> List[Insight]:
+    def _discover_extremes(self) -> list[Insight]:
         """Discover extreme value insights."""
         insights = []
 
@@ -364,7 +364,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_distributions(self) -> List[Insight]:
+    def _discover_distributions(self) -> list[Insight]:
         """Discover distribution insights."""
         insights = []
 
@@ -398,7 +398,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_seasonality(self) -> List[Insight]:
+    def _discover_seasonality(self) -> list[Insight]:
         """Discover seasonality insights."""
         insights = []
 
@@ -438,7 +438,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_comparisons(self) -> List[Insight]:
+    def _discover_comparisons(self) -> list[Insight]:
         """Discover comparison insights."""
         insights = []
 
@@ -480,7 +480,7 @@ class InsightDiscovery:
 
         return insights
 
-    def _discover_changes(self) -> List[Insight]:
+    def _discover_changes(self) -> list[Insight]:
         """Discover change insights."""
         insights = []
 
@@ -527,17 +527,17 @@ class InsightDiscovery:
 
         return insights
 
-    def _get_numeric_columns(self) -> List[str]:
+    def _get_numeric_columns(self) -> list[str]:
         """Get numeric column names."""
         return [col for col in self.data.columns if pd.api.types.is_numeric_dtype(self.data[col])]
 
-    def _get_categorical_columns(self) -> List[str]:
+    def _get_categorical_columns(self) -> list[str]:
         """Get categorical column names."""
         return [col for col in self.data.columns
                 if pd.api.types.is_categorical_dtype(self.data[col]) or
                 pd.api.types.is_object_dtype(self.data[col])]
 
-    def _get_datetime_columns(self) -> List[str]:
+    def _get_datetime_columns(self) -> list[str]:
         """Get datetime column names."""
         return [col for col in self.data.columns if pd.api.types.is_datetime64_any_dtype(self.data[col])]
 
@@ -546,11 +546,11 @@ class InsightDiscovery:
 
 def discover_insights(
     data: pd.DataFrame,
-    target_column: Optional[str] = None,
-    time_column: Optional[str] = None,
+    target_column: str | None = None,
+    time_column: str | None = None,
     max_insights: int = 10,
     min_importance: float = 0.5,
-) -> List[Insight]:
+) -> list[Insight]:
     """
     Discover key insights from data (one-liner!).
 

@@ -4,7 +4,8 @@ Python code generator for Visual Designer.
 Converts chart configurations into executable VizForge Python code.
 """
 
-from typing import Dict, Any, List
+from typing import Any
+
 from .chart_config import ChartConfig, ChartType
 
 
@@ -55,7 +56,7 @@ class CodeGenerator:
 
         return "\n".join(code_lines)
 
-    def _generate_imports(self, config: ChartConfig) -> List[str]:
+    def _generate_imports(self, config: ChartConfig) -> list[str]:
         """Generate import statements."""
         imports = [
             "import vizforge as vz",
@@ -68,7 +69,7 @@ class CodeGenerator:
 
         return imports
 
-    def _generate_data_loading(self, config: ChartConfig) -> List[str]:
+    def _generate_data_loading(self, config: ChartConfig) -> list[str]:
         """Generate data loading code."""
         data_source = config.data_source
 
@@ -88,7 +89,7 @@ class CodeGenerator:
 
         return lines
 
-    def _generate_filters(self, filters: List[Dict[str, Any]]) -> List[str]:
+    def _generate_filters(self, filters: list[dict[str, Any]]) -> list[str]:
         """Generate data filtering code."""
         lines = ["# Apply filters"]
 
@@ -125,7 +126,7 @@ class CodeGenerator:
 
         return lines
 
-    def _generate_chart_creation(self, config: ChartConfig) -> List[str]:
+    def _generate_chart_creation(self, config: ChartConfig) -> list[str]:
         """Generate chart creation code."""
         lines = ["# Create chart"]
 
@@ -224,7 +225,7 @@ class CodeGenerator:
         # Apply theme if specified
         if 'theme' in props and props['theme'] and props['theme'] != 'default':
             lines.append("")
-            lines.append(f"# Apply theme")
+            lines.append("# Apply theme")
             lines.append(f"vz.set_theme('{props['theme']}')")
 
         return lines
@@ -264,7 +265,7 @@ class CodeGenerator:
 
         return mapping.get(chart_type, 'line')
 
-    def generate_notebook(self, configs: List[ChartConfig]) -> str:
+    def generate_notebook(self, configs: list[ChartConfig]) -> str:
         """
         Generate Jupyter notebook code for multiple charts.
 

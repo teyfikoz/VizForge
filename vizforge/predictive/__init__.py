@@ -17,28 +17,25 @@ Examples:
     >>> print(f"Found {len(anomalies)} anomalies")
 """
 
-from .forecaster import (
-    TimeSeriesForecaster,
-    forecast,
-    ForecastResult,
-)
-
-from .trend_detector import (
-    TrendDetector,
-    detect_trend,
-    TrendType,
-)
-
 from .anomaly_detector import (
+    Anomaly,
     AnomalyDetector,
     detect_anomalies,
-    Anomaly,
 )
-
+from .forecaster import (
+    ForecastResult,
+    TimeSeriesForecaster,
+    forecast,
+)
 from .seasonality import (
     SeasonalityAnalyzer,
-    analyze_seasonality,
     SeasonalPattern,
+    analyze_seasonality,
+)
+from .trend_detector import (
+    TrendDetector,
+    TrendType,
+    detect_trend,
 )
 
 __all__ = [

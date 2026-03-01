@@ -5,8 +5,8 @@ Streamlit-style session state for maintaining state across dashboard interaction
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, Optional
 import threading
+from typing import Any
 
 
 class SessionState:
@@ -25,7 +25,7 @@ class SessionState:
         >>> print(state['counter'])  # 1
     """
 
-    def __init__(self, session_id: Optional[str] = None):
+    def __init__(self, session_id: str | None = None):
         """
         Initialize session state.
 
@@ -33,7 +33,7 @@ class SessionState:
             session_id: Unique session identifier (auto-generated if None)
         """
         self._session_id = session_id or self._generate_session_id()
-        self._state: Dict[str, Any] = {}
+        self._state: dict[str, Any] = {}
         self._lock = threading.Lock()
 
     @staticmethod
@@ -120,7 +120,7 @@ class SessionState:
         with self._lock:
             return self._state.items()
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Export state as dictionary.
 
@@ -137,11 +137,11 @@ class SessionState:
 
 
 # Global session store (per-session state management)
-_session_store: Dict[str, SessionState] = {}
+_session_store: dict[str, SessionState] = {}
 _store_lock = threading.Lock()
 
 
-def get_session_state(session_id: Optional[str] = None) -> SessionState:
+def get_session_state(session_id: str | None = None) -> SessionState:
     """
     Get or create session state for a session.
 

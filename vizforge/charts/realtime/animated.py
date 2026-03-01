@@ -1,13 +1,10 @@
 """Animated Chart implementation for VizForge."""
 
-from typing import Optional, List, Dict, Union
-import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
-import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class AnimatedScatter(BaseChart):
@@ -41,11 +38,11 @@ class AnimatedScatter(BaseChart):
         x: str,
         y: str,
         animation_frame: str,
-        size: Optional[str] = None,
-        color: Optional[str] = None,
-        hover_name: Optional[str] = None,
+        size: str | None = None,
+        color: str | None = None,
+        hover_name: str | None = None,
         animation_duration: int = 1000,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -113,10 +110,10 @@ class AnimatedBar(BaseChart):
         x: str,
         y: str,
         animation_frame: str,
-        color: Optional[str] = None,
+        color: str | None = None,
         orientation: str = 'v',
         animation_duration: int = 1000,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Animated Bar Chart."""
@@ -171,7 +168,7 @@ class AnimatedChoropleth(BaseChart):
         locationmode: str = "ISO-3",
         colorscale: str = "Viridis",
         scope: str = "world",
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Animated Choropleth."""
@@ -209,14 +206,14 @@ def animated_scatter(
     x: str,
     y: str,
     animation_frame: str,
-    size: Optional[str] = None,
-    color: Optional[str] = None,
-    hover_name: Optional[str] = None,
+    size: str | None = None,
+    color: str | None = None,
+    hover_name: str | None = None,
     animation_duration: int = 1000,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> AnimatedScatter:
     """
@@ -289,13 +286,13 @@ def animated_bar(
     x: str,
     y: str,
     animation_frame: str,
-    color: Optional[str] = None,
+    color: str | None = None,
     orientation: str = 'v',
     animation_duration: int = 1000,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> AnimatedBar:
     """
@@ -363,10 +360,10 @@ def animated_choropleth(
     locationmode: str = "ISO-3",
     colorscale: str = "Viridis",
     scope: str = "world",
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> AnimatedChoropleth:
     """

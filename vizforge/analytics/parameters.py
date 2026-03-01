@@ -5,10 +5,11 @@ Tableau-style parameters for interactive dashboards.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, List, Optional, Union, Callable
+from collections.abc import Callable
 from dataclasses import dataclass
-from enum import Enum
 from datetime import date, datetime
+from enum import Enum
+from typing import Any
 
 
 class ParameterType(Enum):
@@ -31,10 +32,10 @@ class ParameterConstraint:
         allowed_values: List of allowed values
         pattern: Regex pattern (for strings)
     """
-    min_value: Optional[Any] = None
-    max_value: Optional[Any] = None
-    allowed_values: Optional[List[Any]] = None
-    pattern: Optional[str] = None
+    min_value: Any | None = None
+    max_value: Any | None = None
+    allowed_values: list[Any] | None = None
+    pattern: str | None = None
 
 
 class Parameter:
@@ -68,10 +69,10 @@ class Parameter:
         param_type: ParameterType,
         default_value: Any,
         description: str = "",
-        min_value: Optional[Any] = None,
-        max_value: Optional[Any] = None,
-        allowed_values: Optional[List[Any]] = None,
-        on_change: Optional[Callable] = None
+        min_value: Any | None = None,
+        max_value: Any | None = None,
+        allowed_values: list[Any] | None = None,
+        on_change: Callable | None = None
     ):
         """
         Initialize parameter.
@@ -196,7 +197,7 @@ class ParameterManager:
     def __init__(self):
         """Initialize parameter manager."""
         self.parameters: dict[str, Parameter] = {}
-        self._change_listeners: List[Callable] = []
+        self._change_listeners: list[Callable] = []
 
     def add_parameter(self, parameter: Parameter) -> 'ParameterManager':
         """
@@ -216,7 +217,7 @@ class ParameterManager:
         if name in self.parameters:
             del self.parameters[name]
 
-    def get_parameter(self, name: str) -> Optional[Parameter]:
+    def get_parameter(self, name: str) -> Parameter | None:
         """Get parameter by name."""
         return self.parameters.get(name)
 
@@ -316,7 +317,7 @@ class ParameterManager:
             except Exception as e:
                 print(f"Error in change listener: {e}")
 
-    def get_summary(self) -> List[dict[str, Any]]:
+    def get_summary(self) -> list[dict[str, Any]]:
         """
         Get summary of all parameters.
 
@@ -345,8 +346,8 @@ class ParameterManager:
 def create_numeric_parameter(
     name: str,
     default_value: float,
-    min_value: Optional[float] = None,
-    max_value: Optional[float] = None,
+    min_value: float | None = None,
+    max_value: float | None = None,
     description: str = ""
 ) -> Parameter:
     """
@@ -369,7 +370,7 @@ def create_numeric_parameter(
 
 def create_list_parameter(
     name: str,
-    allowed_values: List[Any],
+    allowed_values: list[Any],
     default_value: Any,
     description: str = ""
 ) -> Parameter:
@@ -393,8 +394,8 @@ def create_list_parameter(
 def create_date_parameter(
     name: str,
     default_value: date,
-    min_date: Optional[date] = None,
-    max_date: Optional[date] = None,
+    min_date: date | None = None,
+    max_date: date | None = None,
     description: str = ""
 ) -> Parameter:
     """

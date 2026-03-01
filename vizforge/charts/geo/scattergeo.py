@@ -1,12 +1,11 @@
 """Scatter geo map implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ScatterGeoMap(BaseChart):
@@ -33,13 +32,13 @@ class ScatterGeoMap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        lat: Optional[Union[str, List, np.ndarray]] = None,
-        lon: Optional[Union[str, List, np.ndarray]] = None,
-        size: Optional[Union[str, List, np.ndarray]] = None,
-        color: Optional[Union[str, List, np.ndarray]] = None,
-        text: Optional[Union[str, List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        data: pd.DataFrame | dict | None = None,
+        lat: str | list | np.ndarray | None = None,
+        lon: str | list | np.ndarray | None = None,
+        size: str | list | np.ndarray | None = None,
+        color: str | list | np.ndarray | None = None,
+        text: str | list | np.ndarray | None = None,
+        title: str | None = None,
         marker_size: int = 8,
         colorscale: str = "Viridis",
         scope: str = "world",
@@ -137,20 +136,20 @@ class ScatterGeoMap(BaseChart):
 
 
 def scattergeo(
-    data: Union[pd.DataFrame, dict, None] = None,
-    lat: Optional[Union[str, List, np.ndarray]] = None,
-    lon: Optional[Union[str, List, np.ndarray]] = None,
-    size: Optional[Union[str, List, np.ndarray]] = None,
-    color: Optional[Union[str, List, np.ndarray]] = None,
-    text: Optional[Union[str, List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    data: pd.DataFrame | dict | None = None,
+    lat: str | list | np.ndarray | None = None,
+    lon: str | list | np.ndarray | None = None,
+    size: str | list | np.ndarray | None = None,
+    color: str | list | np.ndarray | None = None,
+    text: str | list | np.ndarray | None = None,
+    title: str | None = None,
     marker_size: int = 8,
     colorscale: str = "Viridis",
     scope: str = "world",
     projection: str = "natural earth",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ScatterGeoMap:
     """

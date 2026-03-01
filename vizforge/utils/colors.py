@@ -1,10 +1,8 @@
 """Color utility functions for VizForge."""
 
-from typing import List, Tuple, Optional
-import numpy as np
 
 
-def hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
+def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
     """
     Convert hex color to RGB.
 
@@ -44,7 +42,7 @@ def rgb_to_hex(r: int, g: int, b: int) -> str:
 def generate_color_palette(
     n_colors: int,
     palette: str = 'default'
-) -> List[str]:
+) -> list[str]:
     """
     Generate color palette.
 
@@ -90,7 +88,7 @@ def color_scale(
     n_steps: int,
     start_color: str,
     end_color: str
-) -> List[str]:
+) -> list[str]:
     """
     Generate color scale between two colors.
 

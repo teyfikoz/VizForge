@@ -1,12 +1,11 @@
 """Choropleth map implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ChoroplethMap(BaseChart):
@@ -32,11 +31,11 @@ class ChoroplethMap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        locations: Optional[Union[str, List]] = None,
-        values: Optional[Union[str, List, np.ndarray]] = None,
+        data: pd.DataFrame | dict | None = None,
+        locations: str | list | None = None,
+        values: str | list | np.ndarray | None = None,
         locationmode: str = "ISO-3",
-        title: Optional[str] = None,
+        title: str | None = None,
         colorscale: str = "Viridis",
         show_colorbar: bool = True,
         scope: str = "world",
@@ -117,18 +116,18 @@ class ChoroplethMap(BaseChart):
 
 
 def choropleth(
-    data: Union[pd.DataFrame, dict, None] = None,
-    locations: Optional[Union[str, List]] = None,
-    values: Optional[Union[str, List, np.ndarray]] = None,
+    data: pd.DataFrame | dict | None = None,
+    locations: str | list | None = None,
+    values: str | list | np.ndarray | None = None,
     locationmode: str = "ISO-3",
-    title: Optional[str] = None,
+    title: str | None = None,
     colorscale: str = "Viridis",
     show_colorbar: bool = True,
     scope: str = "world",
     projection: str = "natural earth",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ChoroplethMap:
     """

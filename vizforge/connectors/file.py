@@ -1,7 +1,8 @@
 """File format connectors."""
 
 import pandas as pd
-from .base import BaseConnector, ConnectionConfig
+
+from .base import BaseConnector
 
 
 class ExcelConnector(BaseConnector):

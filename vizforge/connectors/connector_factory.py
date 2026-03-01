@@ -4,14 +4,12 @@ Connector factory for easy connector creation.
 Unified interface for all data sources.
 """
 
-from typing import Union, Dict, Any
+from .api import GraphQLConnector, RESTConnector
 from .base import ConnectionConfig, DataSource, DataSourceType
-from .database import PostgreSQLConnector, MySQLConnector, SQLiteConnector, MongoDBConnector
-from .cloud import S3Connector, GCSConnector, AzureBlobConnector
-from .api import RESTConnector, GraphQLConnector
-from .file import ExcelConnector, ParquetConnector, HDF5Connector
+from .cloud import AzureBlobConnector, GCSConnector, S3Connector
+from .database import MongoDBConnector, MySQLConnector, PostgreSQLConnector, SQLiteConnector
+from .file import ExcelConnector, HDF5Connector, ParquetConnector
 from .web import HTMLTableConnector, WebScraperConnector
-
 
 # Connector registry
 CONNECTORS = {
@@ -144,7 +142,7 @@ def connect(
     return data_source
 
 
-def list_connectors() -> Dict[str, str]:
+def list_connectors() -> dict[str, str]:
     """
     List all available connectors.
 

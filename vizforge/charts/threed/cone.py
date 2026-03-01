@@ -1,12 +1,10 @@
 """Cone plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ConePlot(BaseChart):
@@ -31,13 +29,13 @@ class ConePlot(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
-        z: Union[np.ndarray, List],
-        u: Union[np.ndarray, List],
-        v: Union[np.ndarray, List],
-        w: Union[np.ndarray, List],
-        title: Optional[str] = None,
+        x: np.ndarray | list,
+        y: np.ndarray | list,
+        z: np.ndarray | list,
+        u: np.ndarray | list,
+        v: np.ndarray | list,
+        w: np.ndarray | list,
+        title: str | None = None,
         colorscale: str = "Viridis",
         sizemode: str = "absolute",
         sizeref: float = 1.0,
@@ -109,18 +107,18 @@ class ConePlot(BaseChart):
 
 
 def cone(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
-    z: Union[np.ndarray, List],
-    u: Union[np.ndarray, List],
-    v: Union[np.ndarray, List],
-    w: Union[np.ndarray, List],
-    title: Optional[str] = None,
+    x: np.ndarray | list,
+    y: np.ndarray | list,
+    z: np.ndarray | list,
+    u: np.ndarray | list,
+    v: np.ndarray | list,
+    w: np.ndarray | list,
+    title: str | None = None,
     colorscale: str = "Viridis",
     sizemode: str = "absolute",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ConePlot:
     """

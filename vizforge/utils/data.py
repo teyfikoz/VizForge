@@ -1,16 +1,15 @@
 """Data processing utilities for VizForge."""
 
-from typing import Optional, List, Union, Tuple
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def clean_data(
     df: pd.DataFrame,
     drop_duplicates: bool = True,
-    fill_na: Optional[Union[str, float]] = None,
+    fill_na: str | float | None = None,
     drop_na: bool = False,
-    columns: Optional[List[str]] = None
+    columns: list[str] | None = None
 ) -> pd.DataFrame:
     """
     Clean DataFrame for visualization.
@@ -56,7 +55,7 @@ def clean_data(
 
 def aggregate_data(
     df: pd.DataFrame,
-    group_by: Union[str, List[str]],
+    group_by: str | list[str],
     agg_column: str,
     agg_func: str = 'sum'
 ) -> pd.DataFrame:
@@ -151,7 +150,7 @@ def detect_outliers(
 
 def normalize_data(
     df: pd.DataFrame,
-    columns: Optional[List[str]] = None,
+    columns: list[str] | None = None,
     method: str = 'minmax'
 ) -> pd.DataFrame:
     """
@@ -190,8 +189,8 @@ def normalize_data(
 def bin_data(
     df: pd.DataFrame,
     column: str,
-    bins: Union[int, List[float]],
-    labels: Optional[List[str]] = None
+    bins: int | list[float],
+    labels: list[str] | None = None
 ) -> pd.DataFrame:
     """
     Bin continuous data into categories.

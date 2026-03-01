@@ -5,13 +5,13 @@ Automatic statistical insights generation (NO API costs).
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
-import pandas as pd
+from typing import Any
+
 import numpy as np
+import pandas as pd
 from scipy import stats
-from datetime import datetime, timedelta
 
 
 class InsightType(Enum):
@@ -55,9 +55,9 @@ class Insight:
     title: str
     description: str
     confidence: float
-    data: Dict[str, Any]
-    visualization_hint: Optional[str] = None
-    affected_columns: List[str] = None
+    data: dict[str, Any]
+    visualization_hint: str | None = None
+    affected_columns: list[str] = None
 
     def __post_init__(self):
         if self.affected_columns is None:
@@ -105,9 +105,9 @@ class InsightsEngine:
     def generate_insights(
         self,
         data: pd.DataFrame,
-        target_column: Optional[str] = None,
-        insight_types: Optional[List[InsightType]] = None
-    ) -> List[Insight]:
+        target_column: str | None = None,
+        insight_types: list[InsightType] | None = None
+    ) -> list[Insight]:
         """
         Generate insights for dataset.
 
@@ -163,8 +163,8 @@ class InsightsEngine:
     def _detect_trends(
         self,
         data: pd.DataFrame,
-        target_column: Optional[str]
-    ) -> List[Insight]:
+        target_column: str | None
+    ) -> list[Insight]:
         """Detect trends in time series or sequential data."""
         insights = []
 
@@ -233,8 +233,8 @@ class InsightsEngine:
     def _detect_correlations(
         self,
         data: pd.DataFrame,
-        target_column: Optional[str]
-    ) -> List[Insight]:
+        target_column: str | None
+    ) -> list[Insight]:
         """Detect correlations between numeric columns."""
         insights = []
 
@@ -286,8 +286,8 @@ class InsightsEngine:
     def _detect_anomalies(
         self,
         data: pd.DataFrame,
-        target_column: Optional[str]
-    ) -> List[Insight]:
+        target_column: str | None
+    ) -> list[Insight]:
         """Detect anomalies using statistical methods."""
         insights = []
 
@@ -336,7 +336,7 @@ class InsightsEngine:
 
         return insights
 
-    def _analyze_distributions(self, data: pd.DataFrame) -> List[Insight]:
+    def _analyze_distributions(self, data: pd.DataFrame) -> list[Insight]:
         """Analyze distribution characteristics."""
         insights = []
 
@@ -397,7 +397,7 @@ class InsightsEngine:
 
         return insights
 
-    def _detect_outliers(self, data: pd.DataFrame) -> List[Insight]:
+    def _detect_outliers(self, data: pd.DataFrame) -> list[Insight]:
         """Detect outliers using IQR method."""
         insights = []
 
@@ -447,7 +447,7 @@ class InsightsEngine:
 
         return insights
 
-    def _detect_dominance(self, data: pd.DataFrame) -> List[Insight]:
+    def _detect_dominance(self, data: pd.DataFrame) -> list[Insight]:
         """Detect dominant values/categories."""
         insights = []
 
@@ -485,7 +485,7 @@ class InsightsEngine:
 
         return insights
 
-    def summarize_insights(self, insights: List[Insight]) -> str:
+    def summarize_insights(self, insights: list[Insight]) -> str:
         """
         Generate human-readable summary of insights.
 
@@ -533,7 +533,7 @@ class InsightsEngine:
 
     def export_insights(
         self,
-        insights: List[Insight],
+        insights: list[Insight],
         format: str = 'dict'
     ) -> Any:
         """

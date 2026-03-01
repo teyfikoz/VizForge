@@ -11,8 +11,8 @@ Examples:
 """
 
 from .engine import NLQEngine, ask
-from .query_parser import QueryParser, Intent
-from .entity_extractor import EntityExtractor, Entity
+from .entity_extractor import Entity, EntityExtractor
+from .query_parser import Intent, QueryParser
 
 __all__ = [
     'NLQEngine',

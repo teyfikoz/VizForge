@@ -5,12 +5,14 @@ Multi-level data filtering with cascading support.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, List, Optional, Callable, Dict, Union
-from dataclasses import dataclass, field
-from enum import Enum
-from datetime import date, datetime
-import pandas as pd
 from abc import ABC, abstractmethod
+from collections.abc import Callable
+from dataclasses import dataclass
+from datetime import date
+from enum import Enum
+from typing import Any
+
+import pandas as pd
 
 
 class FilterType(Enum):
@@ -113,8 +115,8 @@ class RangeFilter(Filter):
         self,
         filter_id: str,
         column: str,
-        min_value: Optional[float] = None,
-        max_value: Optional[float] = None,
+        min_value: float | None = None,
+        max_value: float | None = None,
         enabled: bool = True
     ):
         """
@@ -173,7 +175,7 @@ class ListFilter(Filter):
         self,
         filter_id: str,
         column: str,
-        values: List[Any],
+        values: list[Any],
         operator: str = 'in',
         enabled: bool = True
     ):
@@ -305,8 +307,8 @@ class DateRangeFilter(Filter):
         self,
         filter_id: str,
         column: str,
-        start_date: Optional[date] = None,
-        end_date: Optional[date] = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
         enabled: bool = True
     ):
         """
@@ -479,8 +481,8 @@ class FilterContext:
 
     def __init__(self):
         """Initialize filter context."""
-        self.filters: Dict[str, Filter] = {}
-        self.filter_order: List[str] = []
+        self.filters: dict[str, Filter] = {}
+        self.filter_order: list[str] = []
 
     def add_filter(self, filter: Filter) -> 'FilterContext':
         """
@@ -504,7 +506,7 @@ class FilterContext:
             self.filter_order.remove(filter_id)
         return self
 
-    def get_filter(self, filter_id: str) -> Optional[Filter]:
+    def get_filter(self, filter_id: str) -> Filter | None:
         """Get filter by ID."""
         return self.filters.get(filter_id)
 
@@ -579,7 +581,7 @@ class FilterContext:
 
             return data[combined_mask]
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """
         Get summary of all filters.
 
@@ -604,7 +606,7 @@ class FilterContext:
         self.filters.clear()
         self.filter_order.clear()
 
-    def export_configs(self) -> List[FilterConfig]:
+    def export_configs(self) -> list[FilterConfig]:
         """Export all filter configurations."""
         return [
             self.filters[filter_id].to_config()
@@ -629,9 +631,9 @@ class CrossFilter:
 
     def __init__(self):
         """Initialize cross-filter."""
-        self.charts: Dict[str, Any] = {}
-        self.links: List[Dict[str, Any]] = []
-        self.active_filters: Dict[str, FilterContext] = {}
+        self.charts: dict[str, Any] = {}
+        self.links: list[dict[str, Any]] = []
+        self.active_filters: dict[str, FilterContext] = {}
 
     def add_chart(self, chart_id: str, chart: Any):
         """
@@ -670,8 +672,8 @@ class CrossFilter:
     def apply_selection(
         self,
         source_chart: str,
-        selected_values: List[Any]
-    ) -> Dict[str, pd.DataFrame]:
+        selected_values: list[Any]
+    ) -> dict[str, pd.DataFrame]:
         """
         Apply selection from source chart to linked charts.
 
@@ -707,7 +709,7 @@ class CrossFilter:
 
         return results
 
-    def clear_filters(self, chart_id: Optional[str] = None):
+    def clear_filters(self, chart_id: str | None = None):
         """
         Clear filters for specific chart or all charts.
 

@@ -1,8 +1,9 @@
 """API connectors for REST and GraphQL."""
 
+
 import pandas as pd
 import requests
-from typing import Dict, Any, List
+
 from .base import BaseConnector, ConnectionConfig
 
 
@@ -47,7 +48,7 @@ class RESTConnector(BaseConnector):
         except:
             return False
 
-    def read(self, endpoint: str = '', params: Dict = None, **kwargs) -> pd.DataFrame:
+    def read(self, endpoint: str = '', params: dict = None, **kwargs) -> pd.DataFrame:
         """Fetch data from REST API."""
         if not self.is_connected:
             self.connect()
@@ -111,7 +112,7 @@ class GraphQLConnector(BaseConnector):
         except:
             return False
 
-    def read(self, query: str, variables: Dict = None, **kwargs) -> pd.DataFrame:
+    def read(self, query: str, variables: dict = None, **kwargs) -> pd.DataFrame:
         """Execute GraphQL query."""
         if not self.is_connected:
             self.connect()

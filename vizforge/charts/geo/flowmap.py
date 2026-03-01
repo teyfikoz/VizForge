@@ -1,12 +1,11 @@
 """Flow map implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class FlowMap(BaseChart):
@@ -38,13 +37,13 @@ class FlowMap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        origin_lat: Optional[Union[str, List, np.ndarray]] = None,
-        origin_lon: Optional[Union[str, List, np.ndarray]] = None,
-        dest_lat: Optional[Union[str, List, np.ndarray]] = None,
-        dest_lon: Optional[Union[str, List, np.ndarray]] = None,
-        flow: Optional[Union[str, List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        data: pd.DataFrame | dict | None = None,
+        origin_lat: str | list | np.ndarray | None = None,
+        origin_lon: str | list | np.ndarray | None = None,
+        dest_lat: str | list | np.ndarray | None = None,
+        dest_lon: str | list | np.ndarray | None = None,
+        flow: str | list | np.ndarray | None = None,
+        title: str | None = None,
         line_color: str = 'blue',
         opacity: float = 0.6,
         scope: str = "world",
@@ -100,7 +99,7 @@ class FlowMap(BaseChart):
         else:
             return col
 
-    def create_trace(self) -> List[go.Scattergeo]:
+    def create_trace(self) -> list[go.Scattergeo]:
         """Create Plotly Scattergeo traces for flows."""
 
         traces = []
@@ -159,20 +158,20 @@ class FlowMap(BaseChart):
 
 
 def flowmap(
-    data: Union[pd.DataFrame, dict, None] = None,
-    origin_lat: Optional[Union[str, List, np.ndarray]] = None,
-    origin_lon: Optional[Union[str, List, np.ndarray]] = None,
-    dest_lat: Optional[Union[str, List, np.ndarray]] = None,
-    dest_lon: Optional[Union[str, List, np.ndarray]] = None,
-    flow: Optional[Union[str, List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    data: pd.DataFrame | dict | None = None,
+    origin_lat: str | list | np.ndarray | None = None,
+    origin_lon: str | list | np.ndarray | None = None,
+    dest_lat: str | list | np.ndarray | None = None,
+    dest_lon: str | list | np.ndarray | None = None,
+    flow: str | list | np.ndarray | None = None,
+    title: str | None = None,
     line_color: str = 'blue',
     opacity: float = 0.6,
     scope: str = "world",
     projection: str = "natural earth",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> FlowMap:
     """

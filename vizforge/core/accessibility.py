@@ -5,9 +5,9 @@ Ensures charts are accessible to users with disabilities.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
+
 import plotly.graph_objects as go
-import colorsys
 
 
 class AccessibilityLevel:
@@ -81,11 +81,11 @@ class AccessibilityHelper:
             >>> AccessibilityHelper.calculate_contrast_ratio('#FFFFFF', '#000000')
             21.0  # Maximum contrast (white on black)
         """
-        def hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
+        def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
             hex_color = hex_color.lstrip('#')
             return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
-        def relative_luminance(rgb: Tuple[int, int, int]) -> float:
+        def relative_luminance(rgb: tuple[int, int, int]) -> float:
             """Calculate relative luminance (WCAG formula)."""
             r, g, b = [x / 255.0 for x in rgb]
 
@@ -113,7 +113,7 @@ class AccessibilityHelper:
         color1: str,
         color2: str,
         level: str = AccessibilityLevel.AA
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Check if color combination meets WCAG contrast requirements.
 
@@ -147,7 +147,7 @@ class AccessibilityHelper:
         }
 
     @staticmethod
-    def get_safe_palette(mode: str = ColorBlindMode.NORMAL, n_colors: int = 8) -> List[str]:
+    def get_safe_palette(mode: str = ColorBlindMode.NORMAL, n_colors: int = 8) -> list[str]:
         """
         Get color-blind safe palette.
 
@@ -260,7 +260,7 @@ class AccessibilityHelper:
         return fig
 
     @staticmethod
-    def validate_accessibility(fig: go.Figure, level: str = AccessibilityLevel.AA) -> Dict[str, Any]:
+    def validate_accessibility(fig: go.Figure, level: str = AccessibilityLevel.AA) -> dict[str, Any]:
         """
         Validate figure accessibility compliance.
 
