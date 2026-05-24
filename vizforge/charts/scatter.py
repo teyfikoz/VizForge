@@ -1,9 +1,10 @@
 """Scatter plot implementation for VizForge."""
 
-from typing import Any, Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+from typing import Any
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ..core.base import BaseChart
 from ..core.theme import Theme
@@ -18,15 +19,15 @@ class ScatterPlot(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict, list]] = None,
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        z: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
-        size: Optional[Union[str, list, np.ndarray, int]] = None,
-        color: Optional[Union[str, list, np.ndarray]] = None,
-        text: Optional[Union[str, list, np.ndarray]] = None,
+        data: pd.DataFrame | dict | list | None = None,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        z: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
+        size: str | list | np.ndarray | int | None = None,
+        color: str | list | np.ndarray | None = None,
+        text: str | list | np.ndarray | None = None,
         **kwargs
     ):
         """
@@ -62,10 +63,10 @@ class ScatterPlot(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'ScatterPlot':
         """
@@ -121,11 +122,11 @@ class ScatterPlot(BaseChart):
 
     def plot_3d(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        z: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        z: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'ScatterPlot':
         """
@@ -180,9 +181,9 @@ class ScatterPlot(BaseChart):
 
     def _parse_data_2d(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]],
-        y: Optional[Union[str, list, np.ndarray]]
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None,
+        y: str | list | np.ndarray | None
     ) -> tuple[Any, Any, Any, Any, Any]:
         """Parse 2D data and extract x, y, size, color, text."""
 
@@ -219,10 +220,10 @@ class ScatterPlot(BaseChart):
 
     def _parse_data_3d(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]],
-        y: Optional[Union[str, list, np.ndarray]],
-        z: Optional[Union[str, list, np.ndarray]]
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None,
+        y: str | list | np.ndarray | None,
+        z: str | list | np.ndarray | None
     ) -> tuple[Any, Any, Any, Any, Any, Any]:
         """Parse 3D data and extract x, y, z, size, color, text."""
 
@@ -261,17 +262,17 @@ class ScatterPlot(BaseChart):
 
 
 def scatter(
-    data: Union[pd.DataFrame, dict, list],
-    x: Optional[Union[str, list, np.ndarray]] = None,
-    y: Optional[Union[str, list, np.ndarray]] = None,
-    z: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
-    size: Optional[Union[str, list, np.ndarray, int]] = None,
-    color: Optional[Union[str, list, np.ndarray]] = None,
-    text: Optional[Union[str, list, np.ndarray]] = None,
+    data: pd.DataFrame | dict | list,
+    x: str | list | np.ndarray | None = None,
+    y: str | list | np.ndarray | None = None,
+    z: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
+    size: str | list | np.ndarray | int | None = None,
+    color: str | list | np.ndarray | None = None,
+    text: str | list | np.ndarray | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ScatterPlot:
     """

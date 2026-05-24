@@ -11,22 +11,22 @@ Targets:
 - Memory: < 100MB (typical dashboard)
 """
 
-import pytest
-import pandas as pd
-import numpy as np
-import time
-import psutil
 import os
-from datetime import datetime, timedelta
+import time
+
+import numpy as np
+import pandas as pd
+import psutil
+import pytest
+
+from ..analytics.aggregations import WindowFunction, WindowType
+from ..analytics.calculated_fields import CalculatedField, CalculatedFieldManager
 
 # Import VizForge components for benchmarking
 from ..intelligence.chart_selector import ChartSelector
 from ..intelligence.data_profiler import DataProfiler
 from ..intelligence.insights_engine import InsightsEngine
-from ..analytics.calculated_fields import CalculatedField, CalculatedFieldManager
-from ..analytics.aggregations import WindowFunction, WindowType
-from ..interactive.filters import FilterContext, RangeFilter, ListFilter
-
+from ..interactive.filters import FilterContext, ListFilter, RangeFilter
 
 # ==================== Fixtures ====================
 
@@ -407,7 +407,7 @@ class TestBenchmarkSummary:
         _, time_small, _ = benchmark(selector.recommend, small_dataset, x='date', y='value')
         _, time_large, _ = benchmark(selector.recommend, large_dataset, x='date', y='value')
 
-        print(f"\n📊 Chart Selection:")
+        print("\n📊 Chart Selection:")
         print(f"  - Small dataset (1k):   {time_small:.2f}ms")
         print(f"  - Large dataset (100k): {time_large:.2f}ms")
 
@@ -417,7 +417,7 @@ class TestBenchmarkSummary:
         _, time_10k, mem_10k = benchmark(profiler.profile, medium_dataset)
         _, time_100k, mem_100k = benchmark(profiler.profile, large_dataset)
 
-        print(f"\n📈 Data Profiling:")
+        print("\n📈 Data Profiling:")
         print(f"  - 1k rows:    {time_1k:.2f}ms (mem: {mem_1k:.2f}MB)")
         print(f"  - 10k rows:   {time_10k:.2f}ms (mem: {mem_10k:.2f}MB)")
         print(f"  - 100k rows:  {time_100k:.2f}ms (mem: {mem_100k:.2f}MB)")
@@ -426,14 +426,14 @@ class TestBenchmarkSummary:
         engine = InsightsEngine()
         _, time_insights, _ = benchmark(engine.generate_insights, small_dataset, 'value')
 
-        print(f"\n💡 Insights Generation:")
+        print("\n💡 Insights Generation:")
         print(f"  - Small dataset: {time_insights:.2f}ms")
 
         # Window Functions
         window = WindowFunction(WindowType.RUNNING_TOTAL, 'value')
         _, time_window, _ = benchmark(window.apply, medium_dataset)
 
-        print(f"\n🔢 Window Functions:")
+        print("\n🔢 Window Functions:")
         print(f"  - Running total (10k): {time_window:.2f}ms")
 
         print("\n" + "="*60)

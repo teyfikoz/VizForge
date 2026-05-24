@@ -5,18 +5,17 @@ Tests for chart selection, data profiling, insights, and color optimization.
 Target: 95%+ coverage for intelligence module.
 """
 
-import pytest
-import pandas as pd
+
 import numpy as np
-from datetime import date, datetime, timedelta
+import pandas as pd
+import pytest
 
 # Import intelligence module components
-from ..intelligence.chart_selector import ChartSelector, ChartRecommendation
-from ..intelligence.data_profiler import DataProfiler, DataProfile, DataQualityScorer
-from ..intelligence.insights_engine import InsightsEngine, Insight, InsightType, Severity
+from ..intelligence.chart_selector import ChartSelector
 from ..intelligence.color_optimizer import ColorOptimizer
-from ..intelligence.recommendation import RecommendationEngine, Recommendation, RecommendationType
-
+from ..intelligence.data_profiler import DataProfiler, DataQualityScorer
+from ..intelligence.insights_engine import InsightsEngine, InsightType, Severity
+from ..intelligence.recommendation import RecommendationEngine
 
 # ==================== Fixtures ====================
 

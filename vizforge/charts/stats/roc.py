@@ -1,13 +1,11 @@
 """ROC Curve implementation for VizForge."""
 
-from typing import Optional, List, Union, Tuple
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
-from sklearn.metrics import roc_curve, auc, roc_auc_score
+import plotly.graph_objects as go
+from sklearn.metrics import auc, roc_curve
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class ROCCurve(BaseChart):
@@ -30,11 +28,11 @@ class ROCCurve(BaseChart):
 
     def __init__(
         self,
-        y_true: Union[np.ndarray, List],
-        y_scores: Union[np.ndarray, List],
+        y_true: np.ndarray | list,
+        y_scores: np.ndarray | list,
         model_name: str = 'Model',
         show_diagonal: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -59,7 +57,7 @@ class ROCCurve(BaseChart):
         self.fpr, self.tpr, self.thresholds = roc_curve(self.y_true, self.y_scores)
         self.auc_score = auc(self.fpr, self.tpr)
 
-    def create_trace(self) -> List[go.Scatter]:
+    def create_trace(self) -> list[go.Scatter]:
         """Create ROC curve traces."""
         traces = []
 
@@ -124,9 +122,9 @@ class MultiROCCurve(BaseChart):
 
     def __init__(
         self,
-        models: List[Tuple[str, np.ndarray, np.ndarray]],  # (name, y_true, y_scores)
+        models: list[tuple[str, np.ndarray, np.ndarray]],  # (name, y_true, y_scores)
         show_diagonal: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Multiple ROC Curves."""
@@ -142,7 +140,7 @@ class MultiROCCurve(BaseChart):
             auc_score = auc(fpr, tpr)
             self.roc_data.append((name, fpr, tpr, auc_score))
 
-    def create_trace(self) -> List[go.Scatter]:
+    def create_trace(self) -> list[go.Scatter]:
         """Create multiple ROC curve traces."""
         traces = []
 
@@ -191,14 +189,14 @@ class MultiROCCurve(BaseChart):
 
 
 def roc_curve_plot(
-    y_true: Union[np.ndarray, List],
-    y_scores: Union[np.ndarray, List],
+    y_true: np.ndarray | list,
+    y_scores: np.ndarray | list,
     model_name: str = 'Model',
     show_diagonal: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ROCCurve:
     """
@@ -254,12 +252,12 @@ def roc_curve_plot(
 
 
 def multi_roc_curve(
-    models: List[Tuple[str, np.ndarray, np.ndarray]],
+    models: list[tuple[str, np.ndarray, np.ndarray]],
     show_diagonal: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> MultiROCCurve:
     """

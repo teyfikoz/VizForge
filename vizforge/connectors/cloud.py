@@ -4,9 +4,10 @@ Cloud storage connectors.
 Supports: AWS S3, Google Cloud Storage, Azure Blob Storage
 """
 
-import pandas as pd
 import io
-from typing import List, Dict, Any
+
+import pandas as pd
+
 from .base import BaseConnector, ConnectionConfig
 
 
@@ -121,7 +122,7 @@ class S3Connector(BaseConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to S3: {e}")
 
-    def list_tables(self, bucket: str = None, prefix: str = '') -> List[str]:
+    def list_tables(self, bucket: str = None, prefix: str = '') -> list[str]:
         """List files in S3 bucket."""
         bucket = bucket or self.config.bucket
         if not bucket:
@@ -236,7 +237,7 @@ class GCSConnector(BaseConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to GCS: {e}")
 
-    def list_tables(self, bucket: str = None, prefix: str = '') -> List[str]:
+    def list_tables(self, bucket: str = None, prefix: str = '') -> list[str]:
         """List files in GCS bucket."""
         bucket_name = bucket or self.config.bucket
         if not bucket_name:
@@ -358,7 +359,7 @@ class AzureBlobConnector(BaseConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to Azure Blob: {e}")
 
-    def list_tables(self, container: str = None, prefix: str = '') -> List[str]:
+    def list_tables(self, container: str = None, prefix: str = '') -> list[str]:
         """List files in Azure container."""
         container_name = container or self.config.bucket
         if not container_name:

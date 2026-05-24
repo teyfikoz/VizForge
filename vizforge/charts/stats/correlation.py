@@ -1,13 +1,10 @@
 """Correlation Matrix implementation for VizForge."""
 
-from typing import Optional, List, Union
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
 import pandas as pd
-import numpy as np
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class CorrelationMatrix(BaseChart):
@@ -40,7 +37,7 @@ class CorrelationMatrix(BaseChart):
         colorscale: str = 'RdBu',
         show_values: bool = True,
         dendrograms: bool = False,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -129,10 +126,10 @@ def correlation_matrix(
     colorscale: str = 'RdBu',
     show_values: bool = True,
     dendrograms: bool = False,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> CorrelationMatrix:
     """

@@ -1,12 +1,12 @@
 """Dashboard builder for VizForge."""
 
-from .dashboard import Dashboard, DashboardLayout, create_dashboard
 from .components import (
     ChartComponent,
-    KPICard,
     FilterComponent,
+    KPICard,
     TextComponent,
 )
+from .dashboard import Dashboard, DashboardLayout, create_dashboard
 
 __all__ = [
     "Dashboard",

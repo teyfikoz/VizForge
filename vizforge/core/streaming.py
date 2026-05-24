@@ -12,13 +12,14 @@ Key Features:
 - Real-time data streams
 """
 
-import numpy as np
-import pandas as pd
-from typing import Iterator, Optional, Callable, Any, Dict, List
-from dataclasses import dataclass
-import time
-from concurrent.futures import ThreadPoolExecutor
 import queue
+import time
+from collections.abc import Iterator
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from typing import Any
+
+import pandas as pd
 
 
 @dataclass
@@ -38,7 +39,7 @@ class DataStream:
     Unlike Plotly's all-at-once loading, this allows infinite data.
     """
 
-    def __init__(self, data_source: Any, config: Optional[StreamConfig] = None):
+    def __init__(self, data_source: Any, config: StreamConfig | None = None):
         """
         Initialize data stream.
 
@@ -74,7 +75,7 @@ class DataStream:
                 break
             yield chunk
 
-    def _get_next_chunk(self) -> Optional[pd.DataFrame]:
+    def _get_next_chunk(self) -> pd.DataFrame | None:
         """Get next data chunk with prefetching."""
         # Try to get from prefetch queue
         try:
@@ -114,7 +115,7 @@ class DataStream:
             time.sleep(0.1)  # Prevent busy waiting
             chunk_id = self.current_chunk
 
-    def _load_chunk(self, chunk_id: int) -> Optional[pd.DataFrame]:
+    def _load_chunk(self, chunk_id: int) -> pd.DataFrame | None:
         """
         Load specific chunk from data source.
 
@@ -189,7 +190,7 @@ class DataStream:
         self._streaming = False
         self._executor.shutdown(wait=False)
 
-    def get_total_size(self) -> Optional[int]:
+    def get_total_size(self) -> int | None:
         """Get total number of points (if known)."""
         if isinstance(self.data_source, pd.DataFrame):
             return len(self.data_source)
@@ -327,7 +328,7 @@ def stream_from_database(connection, query: str, chunk_size: int = 10_000) -> Da
     return DataStream(loader, config)
 
 
-def stream_from_api(url: str, params: Dict, chunk_size: int = 1000) -> DataStream:
+def stream_from_api(url: str, params: dict, chunk_size: int = 1000) -> DataStream:
     """
     Create data stream from paginated API.
 

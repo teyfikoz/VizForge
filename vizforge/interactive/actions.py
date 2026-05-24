@@ -5,10 +5,10 @@ Set actions and interactive behaviors for dashboards.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, List, Optional, Callable, Dict, Union
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from enum import Enum
-import pandas as pd
+from typing import Any
 
 
 class ActionType(Enum):
@@ -49,9 +49,9 @@ class ActionConfig:
     type: ActionType
     trigger: TriggerEvent
     source_chart: str
-    target_charts: List[str] = field(default_factory=list)
+    target_charts: list[str] = field(default_factory=list)
     enabled: bool = True
-    options: Dict[str, Any] = field(default_factory=dict)
+    options: dict[str, Any] = field(default_factory=dict)
 
 
 class Action:
@@ -67,7 +67,7 @@ class Action:
         action_type: ActionType,
         trigger: TriggerEvent,
         source_chart: str,
-        target_charts: Optional[List[str]] = None,
+        target_charts: list[str] | None = None,
         enabled: bool = True
     ):
         """
@@ -88,7 +88,7 @@ class Action:
         self.target_charts = target_charts or []
         self.enabled = enabled
 
-    def execute(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def execute(self, context: dict[str, Any]) -> dict[str, Any]:
         """
         Execute action.
 
@@ -103,7 +103,7 @@ class Action:
 
         return self._execute_impl(context)
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Implementation-specific execution logic."""
         raise NotImplementedError
 
@@ -135,7 +135,7 @@ class FilterAction(Action):
         self,
         action_id: str,
         source_chart: str,
-        target_charts: List[str],
+        target_charts: list[str],
         filter_column: str,
         trigger: TriggerEvent = TriggerEvent.CLICK,
         clear_on_deselect: bool = True,
@@ -157,7 +157,7 @@ class FilterAction(Action):
         self.filter_column = filter_column
         self.clear_on_deselect = clear_on_deselect
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute filter action."""
         selected_values = context.get('selected_values', [])
 
@@ -196,7 +196,7 @@ class HighlightAction(Action):
         self,
         action_id: str,
         source_chart: str,
-        target_charts: List[str],
+        target_charts: list[str],
         highlight_column: str,
         trigger: TriggerEvent = TriggerEvent.HOVER,
         highlight_color: str = '#FFD700',
@@ -218,7 +218,7 @@ class HighlightAction(Action):
         self.highlight_column = highlight_column
         self.highlight_color = highlight_color
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute highlight action."""
         selected_values = context.get('selected_values', [])
 
@@ -252,7 +252,7 @@ class URLAction(Action):
         action_id: str,
         source_chart: str,
         url_template: str,
-        parameters: Dict[str, str],
+        parameters: dict[str, str],
         trigger: TriggerEvent = TriggerEvent.CLICK,
         open_in_new_tab: bool = True,
         enabled: bool = True
@@ -274,7 +274,7 @@ class URLAction(Action):
         self.parameters = parameters
         self.open_in_new_tab = open_in_new_tab
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute URL action."""
         selected_data = context.get('selected_data', {})
 
@@ -310,7 +310,7 @@ class DrillDownAction(Action):
         self,
         action_id: str,
         source_chart: str,
-        hierarchy: List[str],
+        hierarchy: list[str],
         trigger: TriggerEvent = TriggerEvent.DOUBLE_CLICK,
         enabled: bool = True
     ):
@@ -328,7 +328,7 @@ class DrillDownAction(Action):
         self.hierarchy = hierarchy
         self.current_level = 0
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute drill-down action."""
         if self.current_level >= len(self.hierarchy) - 1:
             return {
@@ -351,7 +351,7 @@ class DrillDownAction(Action):
             }
         }
 
-    def drill_up(self) -> Dict[str, Any]:
+    def drill_up(self) -> dict[str, Any]:
         """Navigate up one level in hierarchy."""
         if self.current_level == 0:
             return {
@@ -417,7 +417,7 @@ class ParameterAction(Action):
         self.parameter_name = parameter_name
         self.value_column = value_column
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute parameter action."""
         selected_data = context.get('selected_data', {})
         value = selected_data.get(self.value_column)
@@ -450,7 +450,7 @@ class CustomAction(Action):
         self,
         action_id: str,
         source_chart: str,
-        callback: Callable[[Dict[str, Any]], Dict[str, Any]],
+        callback: Callable[[dict[str, Any]], dict[str, Any]],
         trigger: TriggerEvent = TriggerEvent.CLICK,
         enabled: bool = True
     ):
@@ -467,7 +467,7 @@ class CustomAction(Action):
         super().__init__(action_id, ActionType.CUSTOM, trigger, source_chart, [], enabled)
         self.callback = callback
 
-    def _execute_impl(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_impl(self, context: dict[str, Any]) -> dict[str, Any]:
         """Execute custom action."""
         return self.callback(context)
 
@@ -487,8 +487,8 @@ class ActionManager:
 
     def __init__(self):
         """Initialize action manager."""
-        self.actions: Dict[str, Action] = {}
-        self.action_history: List[Dict[str, Any]] = []
+        self.actions: dict[str, Action] = {}
+        self.action_history: list[dict[str, Any]] = []
 
     def register_action(self, action: Action) -> 'ActionManager':
         """
@@ -508,7 +508,7 @@ class ActionManager:
         if action_id in self.actions:
             del self.actions[action_id]
 
-    def get_action(self, action_id: str) -> Optional[Action]:
+    def get_action(self, action_id: str) -> Action | None:
         """Get action by ID."""
         return self.actions.get(action_id)
 
@@ -516,8 +516,8 @@ class ActionManager:
         self,
         source_chart: str,
         event: TriggerEvent,
-        context: Dict[str, Any]
-    ) -> List[Dict[str, Any]]:
+        context: dict[str, Any]
+    ) -> list[dict[str, Any]]:
         """
         Trigger actions for a chart event.
 
@@ -556,7 +556,7 @@ class ActionManager:
         """Clear action history."""
         self.action_history.clear()
 
-    def get_actions_for_chart(self, chart_id: str) -> List[Action]:
+    def get_actions_for_chart(self, chart_id: str) -> list[Action]:
         """Get all actions for a chart."""
         return [
             action for action in self.actions.values()

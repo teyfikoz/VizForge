@@ -5,9 +5,10 @@ Intelligent dashboard layout optimization with responsive design.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Tuple, Union
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
+from typing import Any
+
 import plotly.graph_objects as go
 
 
@@ -45,11 +46,11 @@ class LayoutConstraint:
         aspect_ratio: Aspect ratio (width:height)
         fixed_size: Whether size is fixed
     """
-    min_width: Optional[Union[int, str]] = None
-    max_width: Optional[Union[int, str]] = None
-    min_height: Optional[Union[int, str]] = None
-    max_height: Optional[Union[int, str]] = None
-    aspect_ratio: Optional[float] = None
+    min_width: int | str | None = None
+    max_width: int | str | None = None
+    min_height: int | str | None = None
+    max_height: int | str | None = None
+    aspect_ratio: float | None = None
     fixed_size: bool = False
 
 
@@ -71,7 +72,7 @@ class GridCell:
     row_span: int = 1
     col_span: int = 1
     component: Any = None
-    constraints: Optional[LayoutConstraint] = None
+    constraints: LayoutConstraint | None = None
 
 
 class SmartLayoutEngine:
@@ -120,7 +121,7 @@ class SmartLayoutEngine:
         self.gap = gap
 
         # Grid cells
-        self.cells: List[GridCell] = []
+        self.cells: list[GridCell] = []
 
         # Responsive breakpoints
         self.breakpoints = {
@@ -138,7 +139,7 @@ class SmartLayoutEngine:
         col: int,
         row_span: int = 1,
         col_span: int = 1,
-        constraints: Optional[LayoutConstraint] = None
+        constraints: LayoutConstraint | None = None
     ) -> 'SmartLayoutEngine':
         """
         Add component to layout.
@@ -169,7 +170,7 @@ class SmartLayoutEngine:
         self.cells.append(cell)
         return self
 
-    def generate_layout(self) -> Dict[str, Any]:
+    def generate_layout(self) -> dict[str, Any]:
         """
         Generate optimized layout configuration.
 
@@ -191,7 +192,7 @@ class SmartLayoutEngine:
         else:
             return self._generate_grid_layout()
 
-    def _generate_grid_layout(self) -> Dict[str, Any]:
+    def _generate_grid_layout(self) -> dict[str, Any]:
         """Generate CSS Grid layout."""
         # Calculate optimal row/column sizes
         row_heights = self._calculate_row_heights()
@@ -237,7 +238,7 @@ class SmartLayoutEngine:
 
         return layout
 
-    def _generate_flex_layout(self) -> Dict[str, Any]:
+    def _generate_flex_layout(self) -> dict[str, Any]:
         """Generate Flexbox layout."""
         layout = {
             'display': 'flex',
@@ -267,7 +268,7 @@ class SmartLayoutEngine:
 
         return layout
 
-    def _generate_masonry_layout(self) -> Dict[str, Any]:
+    def _generate_masonry_layout(self) -> dict[str, Any]:
         """Generate Masonry (Pinterest-style) layout."""
         layout = {
             'display': 'grid',
@@ -293,7 +294,7 @@ class SmartLayoutEngine:
 
         return layout
 
-    def _generate_sidebar_layout(self) -> Dict[str, Any]:
+    def _generate_sidebar_layout(self) -> dict[str, Any]:
         """Generate sidebar + content layout."""
         layout = {
             'display': 'grid',
@@ -322,7 +323,7 @@ class SmartLayoutEngine:
 
         return layout
 
-    def _calculate_row_heights(self) -> List[str]:
+    def _calculate_row_heights(self) -> list[str]:
         """Calculate optimal row heights."""
         row_heights = []
 
@@ -343,7 +344,7 @@ class SmartLayoutEngine:
 
         return row_heights
 
-    def _calculate_col_widths(self) -> List[str]:
+    def _calculate_col_widths(self) -> list[str]:
         """Calculate optimal column widths."""
         col_widths = []
 
@@ -364,7 +365,7 @@ class SmartLayoutEngine:
 
         return col_widths
 
-    def _generate_responsive_rules(self) -> Dict[str, Any]:
+    def _generate_responsive_rules(self) -> dict[str, Any]:
         """Generate responsive breakpoint rules."""
         rules = {}
 
@@ -449,10 +450,10 @@ class SmartLayoutEngine:
 
     def _find_best_position(
         self,
-        occupied: List[List[bool]],
+        occupied: list[list[bool]],
         row_span: int,
         col_span: int
-    ) -> Tuple[int, int]:
+    ) -> tuple[int, int]:
         """Find best position for component."""
         # Try to place from top-left
         for row in range(self.rows):
@@ -465,7 +466,7 @@ class SmartLayoutEngine:
 
     def _can_place(
         self,
-        occupied: List[List[bool]],
+        occupied: list[list[bool]],
         row: int,
         col: int,
         row_span: int,

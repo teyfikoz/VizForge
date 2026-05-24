@@ -8,11 +8,11 @@ Author: VizForge Team
 """
 
 from dataclasses import dataclass
-from typing import List, Dict, Any, Optional, Tuple
+from datetime import datetime
 from enum import Enum
+
 import numpy as np
 import pandas as pd
-from datetime import datetime
 
 
 class ChartCategory(Enum):
@@ -83,12 +83,12 @@ class ChartRecommendation:
 
     # Reasoning
     reasoning: str
-    pros: List[str]
-    cons: List[str]
+    pros: list[str]
+    cons: list[str]
 
     # Requirements & recommendations
-    required_columns: Dict[str, str]  # role -> column type
-    optional_features: List[str]
+    required_columns: dict[str, str]  # role -> column type
+    optional_features: list[str]
 
     # Usage example
     example_code: str
@@ -180,7 +180,7 @@ class SmartChartRecommender:
 
         return False
 
-    def recommend(self, top_n: int = 3, min_confidence: float = 0.5) -> List[ChartRecommendation]:
+    def recommend(self, top_n: int = 3, min_confidence: float = 0.5) -> list[ChartRecommendation]:
         """
         Get top N chart recommendations.
 
@@ -216,7 +216,7 @@ class SmartChartRecommender:
 
         return recommendations[:top_n]
 
-    def _recommend_time_series(self) -> List[ChartRecommendation]:
+    def _recommend_time_series(self) -> list[ChartRecommendation]:
         """Recommend time series charts."""
         recommendations = []
 
@@ -298,7 +298,7 @@ class SmartChartRecommender:
 
         return recommendations
 
-    def _recommend_comparison(self) -> List[ChartRecommendation]:
+    def _recommend_comparison(self) -> list[ChartRecommendation]:
         """Recommend comparison charts."""
         recommendations = []
 
@@ -353,7 +353,7 @@ class SmartChartRecommender:
 
         return recommendations
 
-    def _recommend_distribution(self) -> List[ChartRecommendation]:
+    def _recommend_distribution(self) -> list[ChartRecommendation]:
         """Recommend distribution charts."""
         recommendations = []
 
@@ -436,7 +436,7 @@ class SmartChartRecommender:
 
         return recommendations
 
-    def _recommend_relationship(self) -> List[ChartRecommendation]:
+    def _recommend_relationship(self) -> list[ChartRecommendation]:
         """Recommend relationship/correlation charts."""
         recommendations = []
 
@@ -519,7 +519,7 @@ class SmartChartRecommender:
 
         return recommendations
 
-    def _recommend_composition(self) -> List[ChartRecommendation]:
+    def _recommend_composition(self) -> list[ChartRecommendation]:
         """Recommend composition/part-to-whole charts."""
         recommendations = []
 
@@ -570,7 +570,7 @@ class SmartChartRecommender:
 
         return recommendations
 
-    def _recommend_statistical(self) -> List[ChartRecommendation]:
+    def _recommend_statistical(self) -> list[ChartRecommendation]:
         """Recommend statistical analysis charts."""
         recommendations = []
 
@@ -739,7 +739,7 @@ RECOMMENDATIONS
 
 # ==================== Convenience Functions ====================
 
-def recommend_chart(data: pd.DataFrame, top_n: int = 3, verbose: bool = False) -> List[ChartRecommendation]:
+def recommend_chart(data: pd.DataFrame, top_n: int = 3, verbose: bool = False) -> list[ChartRecommendation]:
     """
     Quick chart recommendation (one-liner).
 

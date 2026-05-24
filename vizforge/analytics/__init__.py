@@ -5,10 +5,10 @@ Tableau-style analytics features for professional data analysis.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
+from .aggregations import Aggregation, AggregationEngine, WindowFunction
 from .calculated_fields import CalculatedField, Expression, ExpressionParser
-from .hierarchies import Hierarchy, DrillPath, HierarchyManager
-from .aggregations import Aggregation, WindowFunction, AggregationEngine
-from .parameters import Parameter, ParameterType, ParameterManager
+from .hierarchies import DrillPath, Hierarchy, HierarchyManager
+from .parameters import Parameter, ParameterManager, ParameterType
 
 __all__ = [
     # Calculated Fields

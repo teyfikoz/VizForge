@@ -5,8 +5,9 @@ Tableau-style hierarchical drill-down paths.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, field
+from typing import Any
+
 import pandas as pd
 
 
@@ -25,8 +26,8 @@ class DrillPath:
     """
     hierarchy_name: str
     current_level: int = 0
-    level_filters: Dict[int, Any] = field(default_factory=dict)
-    breadcrumb: List[Dict[str, Any]] = field(default_factory=list)
+    level_filters: dict[int, Any] = field(default_factory=dict)
+    breadcrumb: list[dict[str, Any]] = field(default_factory=list)
 
 
 class Hierarchy:
@@ -52,7 +53,7 @@ class Hierarchy:
     def __init__(
         self,
         name: str,
-        levels: List[str],
+        levels: list[str],
         description: str = ""
     ):
         """
@@ -82,13 +83,13 @@ class Hierarchy:
         """Get current drill level name."""
         return self.levels[self.current_level]
 
-    def get_next_level(self) -> Optional[str]:
+    def get_next_level(self) -> str | None:
         """Get next drill level name."""
         if self.current_level < len(self.levels) - 1:
             return self.levels[self.current_level + 1]
         return None
 
-    def get_previous_level(self) -> Optional[str]:
+    def get_previous_level(self) -> str | None:
         """Get previous drill level name."""
         if self.current_level > 0:
             return self.levels[self.current_level - 1]
@@ -105,7 +106,7 @@ class Hierarchy:
     def drill_down(
         self,
         selected_value: Any,
-        filters: Optional[Dict[str, Any]] = None
+        filters: dict[str, Any] | None = None
     ) -> DrillPath:
         """
         Drill down one level.
@@ -219,8 +220,8 @@ class HierarchyManager:
 
     def __init__(self):
         """Initialize hierarchy manager."""
-        self.hierarchies: Dict[str, Hierarchy] = {}
-        self.drill_paths: Dict[str, DrillPath] = {}
+        self.hierarchies: dict[str, Hierarchy] = {}
+        self.drill_paths: dict[str, DrillPath] = {}
 
     def add_hierarchy(self, hierarchy: Hierarchy) -> 'HierarchyManager':
         """
@@ -245,7 +246,7 @@ class HierarchyManager:
             del self.hierarchies[name]
             del self.drill_paths[name]
 
-    def get_hierarchy(self, name: str) -> Optional[Hierarchy]:
+    def get_hierarchy(self, name: str) -> Hierarchy | None:
         """Get hierarchy by name."""
         return self.hierarchies.get(name)
 
@@ -301,7 +302,7 @@ class HierarchyManager:
 
         return path
 
-    def reset(self, hierarchy_name: Optional[str] = None):
+    def reset(self, hierarchy_name: str | None = None):
         """
         Reset hierarchy to top level.
 
@@ -331,7 +332,7 @@ class HierarchyManager:
 
         return self.hierarchies[hierarchy_name].get_current_level()
 
-    def get_breadcrumb(self, hierarchy_name: str) -> List[Dict[str, Any]]:
+    def get_breadcrumb(self, hierarchy_name: str) -> list[dict[str, Any]]:
         """
         Get drill-down breadcrumb for hierarchy.
 
@@ -354,7 +355,7 @@ class HierarchyManager:
     def apply_filters(
         self,
         data: pd.DataFrame,
-        hierarchy_name: Optional[str] = None
+        hierarchy_name: str | None = None
     ) -> pd.DataFrame:
         """
         Apply hierarchy filters to data.
@@ -394,7 +395,7 @@ class HierarchyManager:
 
         return result
 
-    def get_summary(self) -> List[Dict[str, Any]]:
+    def get_summary(self) -> list[dict[str, Any]]:
         """
         Get summary of all hierarchies.
 

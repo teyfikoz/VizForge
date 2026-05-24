@@ -1,14 +1,12 @@
 """Real-time Streaming Chart implementation for VizForge."""
 
-from typing import Optional, List, Dict, Callable, Union
-import plotly.graph_objects as go
-import pandas as pd
+from collections.abc import Callable
+
 import numpy as np
-from datetime import datetime, timedelta
-import time
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class StreamingLine(BaseChart):
@@ -33,15 +31,15 @@ class StreamingLine(BaseChart):
 
     def __init__(
         self,
-        data_source: Optional[Callable] = None,
-        initial_data: Optional[Union[List, pd.Series]] = None,
+        data_source: Callable | None = None,
+        initial_data: list | pd.Series | None = None,
         window_size: int = 100,
         update_interval: int = 1000,  # milliseconds
         x_label: str = 'Time',
         y_label: str = 'Value',
         line_color: str = '#3498db',
         fill_area: bool = False,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -161,11 +159,11 @@ class LiveHeatmap(BaseChart):
 
     def __init__(
         self,
-        data_source: Optional[Callable] = None,
-        initial_data: Optional[np.ndarray] = None,
+        data_source: Callable | None = None,
+        initial_data: np.ndarray | None = None,
         colorscale: str = 'Viridis',
         update_interval: int = 1000,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Live Heatmap."""
@@ -207,18 +205,18 @@ class LiveHeatmap(BaseChart):
 
 
 def streaming_line(
-    data_source: Optional[Callable] = None,
-    initial_data: Optional[Union[List, pd.Series]] = None,
+    data_source: Callable | None = None,
+    initial_data: list | pd.Series | None = None,
     window_size: int = 100,
     update_interval: int = 1000,
     x_label: str = 'Time',
     y_label: str = 'Value',
     line_color: str = '#3498db',
     fill_area: bool = False,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> StreamingLine:
     """
@@ -282,14 +280,14 @@ def streaming_line(
 
 
 def live_heatmap(
-    data_source: Optional[Callable] = None,
-    initial_data: Optional[np.ndarray] = None,
+    data_source: Callable | None = None,
+    initial_data: np.ndarray | None = None,
     colorscale: str = 'Viridis',
     update_interval: int = 1000,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> LiveHeatmap:
     """

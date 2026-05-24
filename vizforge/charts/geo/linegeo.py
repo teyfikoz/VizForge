@@ -1,12 +1,11 @@
 """Line geo map implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class LineGeoMap(BaseChart):
@@ -34,12 +33,12 @@ class LineGeoMap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        start_lat: Optional[Union[str, List, np.ndarray]] = None,
-        start_lon: Optional[Union[str, List, np.ndarray]] = None,
-        end_lat: Optional[Union[str, List, np.ndarray]] = None,
-        end_lon: Optional[Union[str, List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        data: pd.DataFrame | dict | None = None,
+        start_lat: str | list | np.ndarray | None = None,
+        start_lon: str | list | np.ndarray | None = None,
+        end_lat: str | list | np.ndarray | None = None,
+        end_lon: str | list | np.ndarray | None = None,
+        title: str | None = None,
         line_width: int = 2,
         line_color: str = 'red',
         scope: str = "world",
@@ -86,7 +85,7 @@ class LineGeoMap(BaseChart):
         else:
             return col
 
-    def create_trace(self) -> List[go.Scattergeo]:
+    def create_trace(self) -> list[go.Scattergeo]:
         """Create Plotly Scattergeo traces for lines."""
 
         traces = []
@@ -124,19 +123,19 @@ class LineGeoMap(BaseChart):
 
 
 def linegeo(
-    data: Union[pd.DataFrame, dict, None] = None,
-    start_lat: Optional[Union[str, List, np.ndarray]] = None,
-    start_lon: Optional[Union[str, List, np.ndarray]] = None,
-    end_lat: Optional[Union[str, List, np.ndarray]] = None,
-    end_lon: Optional[Union[str, List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    data: pd.DataFrame | dict | None = None,
+    start_lat: str | list | np.ndarray | None = None,
+    start_lon: str | list | np.ndarray | None = None,
+    end_lat: str | list | np.ndarray | None = None,
+    end_lon: str | list | np.ndarray | None = None,
+    title: str | None = None,
     line_width: int = 2,
     line_color: str = 'red',
     scope: str = "world",
     projection: str = "natural earth",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> LineGeoMap:
     """

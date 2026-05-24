@@ -3,10 +3,10 @@ VizForge Insight Provenance Engine v2.0
 
 Track evidence and reasoning behind every insight.
 """
+from dataclasses import dataclass
+
 import numpy as np
 from scipy import stats
-from typing import Dict, List
-from dataclasses import dataclass
 
 
 @dataclass
@@ -15,9 +15,9 @@ class Insight:
     type: str  # "trend", "anomaly", "correlation", "distribution"
     description: str
     confidence: float
-    evidence: List[Dict]
-    alternative_explanations: List[Dict]
-    recommended_actions: List[str]
+    evidence: list[dict]
+    alternative_explanations: list[dict]
+    recommended_actions: list[str]
 
 
 class InsightProvenanceEngine:
@@ -83,7 +83,7 @@ class InsightProvenanceEngine:
             ]
         )
 
-    def detect_anomalies(self, data: np.ndarray, threshold: float = 3.0) -> List[Insight]:
+    def detect_anomalies(self, data: np.ndarray, threshold: float = 3.0) -> list[Insight]:
         """Detect anomalies with statistical evidence."""
         mean = np.mean(data)
         std = np.std(data)

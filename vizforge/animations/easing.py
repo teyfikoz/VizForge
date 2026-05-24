@@ -5,9 +5,8 @@ Mathematical easing functions for smooth animations.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Callable
 import math
-
+from collections.abc import Callable
 
 # Type alias for easing functions
 EasingFunction = Callable[[float], float]

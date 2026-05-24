@@ -5,12 +5,12 @@ Fast statistical profiling and data quality scoring (NO API costs).
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
-import pandas as pd
+from typing import Any
+
 import numpy as np
-from datetime import datetime
+import pandas as pd
 
 
 class DataQualityIssue(Enum):
@@ -53,9 +53,9 @@ class ProfileStats:
     cardinality: float
     most_common: Any = None
     most_common_freq: int = 0
-    numeric_stats: Optional[Dict[str, float]] = None
-    temporal_stats: Optional[Dict[str, Any]] = None
-    text_stats: Optional[Dict[str, float]] = None
+    numeric_stats: dict[str, float] | None = None
+    temporal_stats: dict[str, Any] | None = None
+    text_stats: dict[str, float] | None = None
 
 
 @dataclass
@@ -78,9 +78,9 @@ class DataQualityReport:
     consistency: float
     accuracy: float
     uniqueness: float
-    issues: List[Dict[str, Any]] = field(default_factory=list)
-    recommendations: List[str] = field(default_factory=list)
-    column_scores: Dict[str, float] = field(default_factory=dict)
+    issues: list[dict[str, Any]] = field(default_factory=list)
+    recommendations: list[str] = field(default_factory=list)
+    column_scores: dict[str, float] = field(default_factory=dict)
 
 
 class DataProfiler:
@@ -110,7 +110,7 @@ class DataProfiler:
     OUTLIER_Z_SCORE = 3.0  # Z-score threshold for outliers
     MISSING_WARNING_THRESHOLD = 0.10  # Warn if > 10% missing
 
-    def __init__(self, sample_size: Optional[int] = None):
+    def __init__(self, sample_size: int | None = None):
         """
         Initialize data profiler.
 
@@ -120,7 +120,7 @@ class DataProfiler:
         """
         self.sample_size = sample_size
 
-    def profile(self, data: pd.DataFrame) -> Dict[str, Any]:
+    def profile(self, data: pd.DataFrame) -> dict[str, Any]:
         """
         Generate comprehensive data profile.
 
@@ -159,7 +159,7 @@ class DataProfiler:
             'sample': sample_data
         }
 
-    def _profile_summary(self, df: pd.DataFrame, original_size: int) -> Dict[str, Any]:
+    def _profile_summary(self, df: pd.DataFrame, original_size: int) -> dict[str, Any]:
         """Generate dataset-level summary statistics."""
         return {
             'n_rows': original_size,
@@ -174,7 +174,7 @@ class DataProfiler:
             'temporal_cols': len(df.select_dtypes(include=['datetime64']).columns),
         }
 
-    def _profile_columns(self, df: pd.DataFrame) -> Dict[str, ProfileStats]:
+    def _profile_columns(self, df: pd.DataFrame) -> dict[str, ProfileStats]:
         """Generate per-column statistics."""
         profiles = {}
 
@@ -227,7 +227,7 @@ class DataProfiler:
 
         return profiles
 
-    def _profile_numeric(self, series: pd.Series) -> Dict[str, float]:
+    def _profile_numeric(self, series: pd.Series) -> dict[str, float]:
         """Profile numeric column."""
         clean_series = series.dropna()
 
@@ -248,7 +248,7 @@ class DataProfiler:
             'negatives': int((clean_series < 0).sum()),
         }
 
-    def _profile_temporal(self, series: pd.Series) -> Dict[str, Any]:
+    def _profile_temporal(self, series: pd.Series) -> dict[str, Any]:
         """Profile temporal column."""
         clean_series = series.dropna()
 
@@ -265,7 +265,7 @@ class DataProfiler:
             'range_days': range_days,
         }
 
-    def _profile_text(self, series: pd.Series) -> Dict[str, float]:
+    def _profile_text(self, series: pd.Series) -> dict[str, float]:
         """Profile text column."""
         clean_series = series.dropna()
 
@@ -281,7 +281,7 @@ class DataProfiler:
             'empty_strings': int((clean_series == '').sum()),
         }
 
-    def _profile_correlations(self, df: pd.DataFrame) -> Dict[str, Any]:
+    def _profile_correlations(self, df: pd.DataFrame) -> dict[str, Any]:
         """Calculate correlations between numeric columns."""
         numeric_cols = df.select_dtypes(include=[np.number]).columns
 
@@ -389,7 +389,7 @@ class DataQualityScorer:
             column_scores=column_scores
         )
 
-    def _score_completeness(self, data: pd.DataFrame, profile: Dict[str, Any]) -> float:
+    def _score_completeness(self, data: pd.DataFrame, profile: dict[str, Any]) -> float:
         """Score completeness (0-100) - penalize missing values."""
         missing_pct = profile['summary']['total_missing_pct']
 
@@ -401,7 +401,7 @@ class DataQualityScorer:
         else:
             return 100.0 - (missing_pct * 2)
 
-    def _score_consistency(self, data: pd.DataFrame, profile: Dict[str, Any]) -> float:
+    def _score_consistency(self, data: pd.DataFrame, profile: dict[str, Any]) -> float:
         """Score consistency (0-100) - check format and type consistency."""
         issues = 0
         total_checks = 0
@@ -424,7 +424,7 @@ class DataQualityScorer:
         consistency = ((total_checks - issues) / total_checks) * 100
         return max(0, consistency)
 
-    def _score_accuracy(self, data: pd.DataFrame, profile: Dict[str, Any]) -> float:
+    def _score_accuracy(self, data: pd.DataFrame, profile: dict[str, Any]) -> float:
         """Score accuracy (0-100) - detect outliers and invalid values."""
         total_outliers = 0
         total_values = 0
@@ -456,7 +456,7 @@ class DataQualityScorer:
         else:
             return 100.0 - (outlier_pct * 10)
 
-    def _score_uniqueness(self, data: pd.DataFrame, profile: Dict[str, Any]) -> float:
+    def _score_uniqueness(self, data: pd.DataFrame, profile: dict[str, Any]) -> float:
         """Score uniqueness (0-100) - penalize duplicate rows."""
         duplicate_pct = profile['summary']['duplicate_rows_pct']
 
@@ -468,7 +468,7 @@ class DataQualityScorer:
         else:
             return 100.0 - (duplicate_pct * 5)
 
-    def _detect_issues(self, data: pd.DataFrame, profile: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _detect_issues(self, data: pd.DataFrame, profile: dict[str, Any]) -> list[dict[str, Any]]:
         """Detect data quality issues."""
         issues = []
 
@@ -512,7 +512,7 @@ class DataQualityScorer:
 
         return issues
 
-    def _generate_recommendations(self, issues: List[Dict[str, Any]]) -> List[str]:
+    def _generate_recommendations(self, issues: list[dict[str, Any]]) -> list[str]:
         """Generate improvement recommendations based on detected issues."""
         recommendations = []
 
@@ -542,7 +542,7 @@ class DataQualityScorer:
 
         return recommendations
 
-    def _score_columns(self, data: pd.DataFrame, profile: Dict[str, Any]) -> Dict[str, float]:
+    def _score_columns(self, data: pd.DataFrame, profile: dict[str, Any]) -> dict[str, float]:
         """Calculate per-column quality scores."""
         column_scores = {}
 

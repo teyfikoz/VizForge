@@ -19,22 +19,20 @@ Examples:
 """
 
 from .insight_discovery import (
-    InsightDiscovery,
-    discover_insights,
     Insight,
+    InsightDiscovery,
     InsightType,
+    discover_insights,
 )
-
 from .narrative_generator import (
+    DataStory,
     NarrativeGenerator,
     generate_story,
-    DataStory,
 )
-
 from .report_generator import (
+    ReportFormat,
     ReportGenerator,
     generate_report,
-    ReportFormat,
 )
 
 __all__ = [

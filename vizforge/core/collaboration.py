@@ -14,12 +14,12 @@ Features:
 - Chat and comments
 """
 
-from typing import Dict, List, Optional, Callable, Any
-from dataclasses import dataclass, field
 import time
-import json
-from enum import Enum
 import uuid
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any
 
 
 class ChangeType(Enum):
@@ -39,9 +39,9 @@ class User:
     id: str
     name: str
     color: str  # For cursor/presence
-    email: Optional[str] = None
-    avatar_url: Optional[str] = None
-    cursor_position: Optional[Dict[str, float]] = None
+    email: str | None = None
+    avatar_url: str | None = None
+    cursor_position: dict[str, float] | None = None
     last_seen: float = field(default_factory=time.time)
 
 
@@ -53,7 +53,7 @@ class Change:
     timestamp: float
     type: ChangeType
     target_id: str  # ID of chart/component being changed
-    data: Dict[str, Any]
+    data: dict[str, Any]
     applied: bool = False
 
 
@@ -66,7 +66,7 @@ class Comment:
     target_id: str  # Chart or component ID
     text: str
     resolved: bool = False
-    replies: List['Comment'] = field(default_factory=list)
+    replies: list['Comment'] = field(default_factory=list)
 
 
 class CollaborationSession:
@@ -88,11 +88,11 @@ class CollaborationSession:
             session_id: Unique session identifier
         """
         self.session_id = session_id
-        self.users: Dict[str, User] = {}
-        self.changes: List[Change] = []
-        self.comments: Dict[str, Comment] = {}
-        self._change_callbacks: List[Callable] = []
-        self._presence_callbacks: List[Callable] = []
+        self.users: dict[str, User] = {}
+        self.changes: list[Change] = []
+        self.comments: dict[str, Comment] = {}
+        self._change_callbacks: list[Callable] = []
+        self._presence_callbacks: list[Callable] = []
 
     def join(self, user: User):
         """
@@ -150,7 +150,7 @@ class CollaborationSession:
         # Notify callbacks
         self._trigger_change_callback(change)
 
-    def _detect_conflicts(self, new_change: Change) -> List[Change]:
+    def _detect_conflicts(self, new_change: Change) -> list[Change]:
         """
         Detect conflicting changes.
 
@@ -172,7 +172,7 @@ class CollaborationSession:
 
         return conflicts
 
-    def _resolve_conflicts(self, new_change: Change, conflicts: List[Change]) -> Change:
+    def _resolve_conflicts(self, new_change: Change, conflicts: list[Change]) -> Change:
         """
         Resolve conflicts using operational transformation.
 
@@ -197,7 +197,7 @@ class CollaborationSession:
 
         return resolved
 
-    def update_cursor(self, user_id: str, position: Dict[str, float]):
+    def update_cursor(self, user_id: str, position: dict[str, float]):
         """
         Update user's cursor position.
 
@@ -270,7 +270,7 @@ class CollaborationSession:
             except Exception as e:
                 print(f"Change callback error: {e}")
 
-    def _trigger_presence_update(self, update: Dict[str, Any]):
+    def _trigger_presence_update(self, update: dict[str, Any]):
         """Trigger all presence update callbacks."""
         for callback in self._presence_callbacks:
             try:
@@ -278,7 +278,7 @@ class CollaborationSession:
             except Exception as e:
                 print(f"Presence callback error: {e}")
 
-    def get_state(self) -> Dict[str, Any]:
+    def get_state(self) -> dict[str, Any]:
         """
         Get current collaboration state.
 
@@ -308,7 +308,7 @@ class CollaborationServer:
             port: WebSocket server port
         """
         self.port = port
-        self.sessions: Dict[str, CollaborationSession] = {}
+        self.sessions: dict[str, CollaborationSession] = {}
 
     def create_session(self, dashboard_id: str) -> CollaborationSession:
         """
@@ -324,7 +324,7 @@ class CollaborationServer:
         self.sessions[dashboard_id] = session
         return session
 
-    def get_session(self, session_id: str) -> Optional[CollaborationSession]:
+    def get_session(self, session_id: str) -> CollaborationSession | None:
         """
         Get existing session.
 
@@ -336,7 +336,7 @@ class CollaborationServer:
         """
         return self.sessions.get(session_id)
 
-    def broadcast(self, session_id: str, message: Dict[str, Any], exclude_user: Optional[str] = None):
+    def broadcast(self, session_id: str, message: dict[str, Any], exclude_user: str | None = None):
         """
         Broadcast message to all users in session.
 
@@ -366,7 +366,7 @@ def get_collaboration_server(port: int = 8765) -> CollaborationServer:
 
 
 # Client-side collaboration helper
-def enable_collaboration(dashboard, user: User, session_id: Optional[str] = None) -> CollaborationSession:
+def enable_collaboration(dashboard, user: User, session_id: str | None = None) -> CollaborationSession:
     """
     Enable collaboration for a dashboard.
 
@@ -391,7 +391,7 @@ def enable_collaboration(dashboard, user: User, session_id: Optional[str] = None
     session.join(user)
 
     # Add dashboard change tracking
-    def track_change(change_type: ChangeType, target_id: str, data: Dict):
+    def track_change(change_type: ChangeType, target_id: str, data: dict):
         change = Change(
             id=str(uuid.uuid4()),
             user_id=user.id,

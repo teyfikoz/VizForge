@@ -5,9 +5,10 @@ Touch and gesture support for mobile-friendly visualizations.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from enum import Enum
+
 import plotly.graph_objects as go
 
 
@@ -63,7 +64,7 @@ class GestureConfig:
         pinch_threshold: Scale threshold for pinch
         rotation_threshold: Angle threshold for rotation (degrees)
     """
-    enabled_gestures: List[GestureType] = field(default_factory=lambda: [
+    enabled_gestures: list[GestureType] = field(default_factory=lambda: [
         GestureType.TAP,
         GestureType.DOUBLE_TAP,
         GestureType.PINCH,
@@ -89,7 +90,7 @@ class GestureHandler:
         >>> handler.on_pinch(lambda event: print(f"Pinch scale: {event.scale}"))
     """
 
-    def __init__(self, config: Optional[GestureConfig] = None):
+    def __init__(self, config: GestureConfig | None = None):
         """
         Initialize gesture handler.
 
@@ -97,13 +98,13 @@ class GestureHandler:
             config: Gesture configuration
         """
         self.config = config or GestureConfig()
-        self._tap_handlers: List[Callable[[TouchEvent], None]] = []
-        self._double_tap_handlers: List[Callable[[TouchEvent], None]] = []
-        self._long_press_handlers: List[Callable[[TouchEvent], None]] = []
-        self._swipe_handlers: List[Callable[[TouchEvent], None]] = []
-        self._pinch_handlers: List[Callable[[TouchEvent], None]] = []
-        self._rotate_handlers: List[Callable[[TouchEvent], None]] = []
-        self._pan_handlers: List[Callable[[TouchEvent], None]] = []
+        self._tap_handlers: list[Callable[[TouchEvent], None]] = []
+        self._double_tap_handlers: list[Callable[[TouchEvent], None]] = []
+        self._long_press_handlers: list[Callable[[TouchEvent], None]] = []
+        self._swipe_handlers: list[Callable[[TouchEvent], None]] = []
+        self._pinch_handlers: list[Callable[[TouchEvent], None]] = []
+        self._rotate_handlers: list[Callable[[TouchEvent], None]] = []
+        self._pan_handlers: list[Callable[[TouchEvent], None]] = []
 
     def on_tap(self, handler: Callable[[TouchEvent], None]) -> 'GestureHandler':
         """
@@ -237,7 +238,7 @@ class GestureHandler:
 
 def setup_gestures(
     fig: go.Figure,
-    enabled_gestures: Optional[List[GestureType]] = None
+    enabled_gestures: list[GestureType] | None = None
 ) -> go.Figure:
     """
     Enable gesture support on figure.

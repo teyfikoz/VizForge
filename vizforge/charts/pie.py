@@ -1,9 +1,10 @@
 """Pie chart implementation for VizForge."""
 
-from typing import Any, Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+from typing import Any
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ..core.base import BaseChart
 from ..core.theme import Theme
@@ -18,11 +19,11 @@ class PieChart(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict, list]] = None,
-        values: Optional[Union[str, list, np.ndarray]] = None,
-        names: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | dict | list | None = None,
+        values: str | list | np.ndarray | None = None,
+        names: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         hole: float = 0.0,
         **kwargs
     ):
@@ -50,9 +51,9 @@ class PieChart(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        values: Optional[Union[str, list, np.ndarray]] = None,
-        names: Optional[Union[str, list, np.ndarray]] = None,
+        data: pd.DataFrame | dict | list,
+        values: str | list | np.ndarray | None = None,
+        names: str | list | np.ndarray | None = None,
         **kwargs
     ) -> 'PieChart':
         """
@@ -94,9 +95,9 @@ class PieChart(BaseChart):
 
     def _parse_data(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        values: Optional[Union[str, list, np.ndarray]],
-        names: Optional[Union[str, list, np.ndarray]]
+        data: pd.DataFrame | dict | list,
+        values: str | list | np.ndarray | None,
+        names: str | list | np.ndarray | None
     ) -> tuple[Any, Any]:
         """Parse different data formats into values and names."""
 
@@ -122,14 +123,14 @@ class PieChart(BaseChart):
 
 
 def pie(
-    data: Union[pd.DataFrame, dict, list],
-    values: Optional[Union[str, list, np.ndarray]] = None,
-    names: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict | list,
+    values: str | list | np.ndarray | None = None,
+    names: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     hole: float = 0.0,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> PieChart:
     """
@@ -174,14 +175,14 @@ def pie(
 
 
 def donut(
-    data: Union[pd.DataFrame, dict, list],
-    values: Optional[Union[str, list, np.ndarray]] = None,
-    names: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict | list,
+    values: str | list | np.ndarray | None = None,
+    names: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     hole: float = 0.4,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> PieChart:
     """

@@ -5,11 +5,10 @@ Advanced 3D interaction: 360° rotation, camera controls, animations, VR/AR supp
 Part of VizForge v1.1.0 - Super AGI 3D Features.
 """
 
-from typing import Optional, List, Tuple, Dict, Any, Callable
+from dataclasses import dataclass
+
 import numpy as np
 import plotly.graph_objects as go
-from dataclasses import dataclass
-import json
 
 
 @dataclass
@@ -48,7 +47,7 @@ class RotationControl:
     def __init__(
         self,
         figure: go.Figure,
-        config: Optional[ControlConfig] = None
+        config: ControlConfig | None = None
     ):
         """
         Initialize rotation control.
@@ -217,7 +216,7 @@ class CameraControl:
     def __init__(
         self,
         figure: go.Figure,
-        config: Optional[ControlConfig] = None
+        config: ControlConfig | None = None
     ):
         """
         Initialize camera control.
@@ -248,9 +247,9 @@ class CameraControl:
 
     def set_custom_viewpoint(
         self,
-        eye: Tuple[float, float, float],
-        center: Tuple[float, float, float] = (0, 0, 0),
-        up: Tuple[float, float, float] = (0, 0, 1)
+        eye: tuple[float, float, float],
+        center: tuple[float, float, float] = (0, 0, 0),
+        up: tuple[float, float, float] = (0, 0, 1)
     ) -> 'CameraControl':
         """
         Set custom camera viewpoint.
@@ -329,7 +328,7 @@ class Animation3D:
     def __init__(
         self,
         figure: go.Figure,
-        config: Optional[ControlConfig] = None
+        config: ControlConfig | None = None
     ):
         """
         Initialize animation engine.
@@ -473,7 +472,7 @@ class VRController:
     def __init__(
         self,
         figure: go.Figure,
-        config: Optional[ControlConfig] = None
+        config: ControlConfig | None = None
     ):
         """
         Initialize VR controller.
@@ -648,9 +647,9 @@ def add_viewpoint_buttons(figure: go.Figure) -> go.Figure:
 
 
 def create_camera_path(
-    waypoints: List[Tuple[float, float, float]],
+    waypoints: list[tuple[float, float, float]],
     n_frames: int = 100
-) -> List[Dict]:
+) -> list[dict]:
     """
     Create smooth camera path through waypoints.
 

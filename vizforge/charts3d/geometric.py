@@ -5,10 +5,10 @@ Special 3D geometric visualizations: cone, spiral, helix, torus, sphere.
 Part of VizForge v1.1.0 - Super AGI 3D Features.
 """
 
-from typing import Optional, List, Tuple, Callable
+from dataclasses import dataclass
+
 import numpy as np
 import plotly.graph_objects as go
-from dataclasses import dataclass
 
 
 @dataclass
@@ -19,7 +19,7 @@ class Geometric3DConfig:
     show_wireframe: bool = False
     opacity: float = 0.8
     lighting: dict = None
-    camera_angle: Tuple[float, float, float] = (1.25, 1.25, 1.25)
+    camera_angle: tuple[float, float, float] = (1.25, 1.25, 1.25)
 
 
 class Cone3D:
@@ -43,9 +43,9 @@ class Cone3D:
         self,
         height: float = 10.0,
         radius: float = 5.0,
-        apex_position: Tuple[float, float, float] = (0, 0, 0),
+        apex_position: tuple[float, float, float] = (0, 0, 0),
         color: str = 'viridis',
-        config: Optional[Geometric3DConfig] = None
+        config: Geometric3DConfig | None = None
     ):
         """
         Initialize 3D Cone.
@@ -66,7 +66,7 @@ class Cone3D:
         # Generate cone geometry
         self.x, self.y, self.z = self._generate_cone()
 
-    def _generate_cone(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_cone(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Generate cone mesh coordinates."""
         u = np.linspace(0, 2 * np.pi, self.config.resolution)
         v = np.linspace(0, self.height, self.config.resolution)
@@ -141,7 +141,7 @@ class Spiral3D:
         radius: float = 10.0,
         pitch: float = 2.0,
         spiral_type: str = 'helix',  # 'helix', 'logarithmic', 'archimedean'
-        config: Optional[Geometric3DConfig] = None
+        config: Geometric3DConfig | None = None
     ):
         """
         Initialize 3D Spiral.
@@ -162,7 +162,7 @@ class Spiral3D:
         # Generate spiral geometry
         self.x, self.y, self.z, self.colors = self._generate_spiral()
 
-    def _generate_spiral(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_spiral(self) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """Generate spiral coordinates."""
         t = np.linspace(0, self.turns * 2 * np.pi, self.config.resolution * self.turns)
 
@@ -266,7 +266,7 @@ class Helix3D:
         radius: float = 5.0,
         turns: float = 10.0,
         pitch: float = 2.0,
-        config: Optional[Geometric3DConfig] = None
+        config: Geometric3DConfig | None = None
     ):
         """
         Initialize multi-strand helix.
@@ -286,7 +286,7 @@ class Helix3D:
 
         self.strand_data = []
 
-    def _generate_helix_strand(self, phase_offset: float = 0.0) -> Tuple:
+    def _generate_helix_strand(self, phase_offset: float = 0.0) -> tuple:
         """Generate single helix strand."""
         t = np.linspace(0, self.turns * 2 * np.pi, self.config.resolution * self.turns)
 
@@ -365,7 +365,7 @@ class Torus3D:
         self,
         major_radius: float = 10.0,
         minor_radius: float = 3.0,
-        config: Optional[Geometric3DConfig] = None
+        config: Geometric3DConfig | None = None
     ):
         """
         Initialize 3D Torus.
@@ -381,7 +381,7 @@ class Torus3D:
 
         self.x, self.y, self.z = self._generate_torus()
 
-    def _generate_torus(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_torus(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Generate torus mesh."""
         u = np.linspace(0, 2 * np.pi, self.config.resolution)
         v = np.linspace(0, 2 * np.pi, self.config.resolution)
@@ -449,7 +449,7 @@ class Sphere3D:
     def __init__(
         self,
         radius: float = 10.0,
-        config: Optional[Geometric3DConfig] = None
+        config: Geometric3DConfig | None = None
     ):
         """
         Initialize 3D Sphere.
@@ -463,7 +463,7 @@ class Sphere3D:
 
         self.x, self.y, self.z = self._generate_sphere()
 
-    def _generate_sphere(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _generate_sphere(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Generate sphere mesh."""
         u = np.linspace(0, 2 * np.pi, self.config.resolution)
         v = np.linspace(0, np.pi, self.config.resolution)

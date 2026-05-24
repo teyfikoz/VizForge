@@ -3,18 +3,18 @@ VizForge Visual Bias Detector v2.0
 
 Detects misleading visual encodings and chart manipulations.
 """
-import numpy as np
-from typing import Dict, List
 from dataclasses import dataclass
+
+import numpy as np
 
 
 @dataclass
 class BiasReport:
     """Result of bias detection analysis."""
-    detected_biases: List[Dict]
+    detected_biases: list[dict]
     severity: str  # "none", "low", "medium", "high"
     overall_score: float  # 0 (no bias) to 1 (severe bias)
-    recommendations: List[str]
+    recommendations: list[str]
 
 
 class VisualBiasDetector:
@@ -44,7 +44,7 @@ class VisualBiasDetector:
         data: np.ndarray,
         axis_min: float,
         axis_max: float
-    ) -> Dict:
+    ) -> dict:
         """
         Detect if axis is truncated (doesn't start at zero for bar charts).
 
@@ -78,7 +78,7 @@ class VisualBiasDetector:
         self,
         full_data: np.ndarray,
         displayed_data: np.ndarray
-    ) -> Dict:
+    ) -> dict:
         """
         Detect if data range was cherry-picked to show favorable trend.
         """
@@ -113,7 +113,7 @@ class VisualBiasDetector:
         height: float,
         data_x_range: float,
         data_y_range: float
-    ) -> Dict:
+    ) -> dict:
         """
         Detect if aspect ratio distorts perception of trend.
         """
@@ -145,7 +145,7 @@ class VisualBiasDetector:
         self,
         left_axis_range: float,
         right_axis_range: float
-    ) -> Dict:
+    ) -> dict:
         """
         Detect misleading dual-axis charts where scales are manipulated.
         """
@@ -172,7 +172,7 @@ class VisualBiasDetector:
         self,
         n_points: int,
         plot_area: float  # in square pixels
-    ) -> Dict:
+    ) -> dict:
         """
         Detect overplotting that obscures data distribution.
         """
@@ -202,7 +202,7 @@ class VisualBiasDetector:
         self,
         color_scheme: str,
         data_type: str  # "sequential", "diverging", "categorical"
-    ) -> Dict:
+    ) -> dict:
         """
         Detect inappropriate color schemes for data type.
         """
@@ -220,7 +220,7 @@ class VisualBiasDetector:
         if data_type == "diverging" and color_scheme != "diverging":
             bias_detected = True
             severity = "medium"
-            explanation = f"Diverging data should use diverging color scheme to show positive/negative split"
+            explanation = "Diverging data should use diverging color scheme to show positive/negative split"
 
         return {
             "type": "color_bias",
@@ -234,7 +234,7 @@ class VisualBiasDetector:
         self,
         chart_type: str,
         has_3d: bool
-    ) -> Dict:
+    ) -> dict:
         """
         Detect inappropriate use of 3D effects that distort perception.
         """
@@ -257,7 +257,7 @@ class VisualBiasDetector:
 
     def analyze_chart(
         self,
-        chart_metadata: Dict
+        chart_metadata: dict
     ) -> BiasReport:
         """
         Comprehensive bias analysis of a chart.

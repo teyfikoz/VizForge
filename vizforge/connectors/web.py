@@ -2,7 +2,8 @@
 
 import pandas as pd
 import requests
-from .base import BaseConnector, ConnectionConfig
+
+from .base import BaseConnector
 
 
 class HTMLTableConnector(BaseConnector):

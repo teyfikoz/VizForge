@@ -4,8 +4,9 @@ Basic VizForge Examples
 Demonstrates core functionality of VizForge library.
 """
 
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 import vizforge as vz
 
 

@@ -13,9 +13,9 @@ Features:
 - Progress callbacks
 """
 
-from .video_exporter import VideoExporter, export_video, VideoConfig, VideoFormat
 from .animation_engine import AnimationEngine, AnimationType
 from .frame_generator import FrameGenerator
+from .video_exporter import VideoConfig, VideoExporter, VideoFormat, export_video
 
 __all__ = [
     # Main entry point

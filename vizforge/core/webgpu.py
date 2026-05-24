@@ -7,9 +7,10 @@ Provides 100-1000x performance improvement over CPU-based rendering.
 Unlike Plotly which is CPU-bound, VizForge leverages WebGPU for parallel processing.
 """
 
-import numpy as np
-from typing import Dict, List, Optional, Tuple, Any
 import json
+from typing import Any
+
+import numpy as np
 
 
 class WebGPURenderer:
@@ -40,7 +41,7 @@ class WebGPURenderer:
         self.shader_cache = {}
         self._initialized = False
 
-    def compile_shaders(self, chart_type: str) -> Dict[str, str]:
+    def compile_shaders(self, chart_type: str) -> dict[str, str]:
         """
         Compile WGSL (WebGPU Shading Language) shaders for chart type.
 
@@ -57,7 +58,7 @@ class WebGPURenderer:
         self.shader_cache[chart_type] = shaders
         return shaders
 
-    def _generate_shaders(self, chart_type: str) -> Dict[str, str]:
+    def _generate_shaders(self, chart_type: str) -> dict[str, str]:
         """Generate optimized WGSL shaders for chart type."""
 
         if chart_type == 'scatter':
@@ -206,8 +207,8 @@ class WebGPURenderer:
         }
 
     def render_scatter(self, x: np.ndarray, y: np.ndarray,
-                      colors: Optional[np.ndarray] = None,
-                      sizes: Optional[np.ndarray] = None) -> Dict[str, Any]:
+                      colors: np.ndarray | None = None,
+                      sizes: np.ndarray | None = None) -> dict[str, Any]:
         """
         GPU-accelerated scatter plot rendering.
 
@@ -258,8 +259,8 @@ class WebGPURenderer:
         }
 
     def render_line(self, x: np.ndarray, y: np.ndarray,
-                   color: Tuple[float, float, float, float] = (0.2, 0.6, 1.0, 1.0),
-                   line_width: float = 2.0) -> Dict[str, Any]:
+                   color: tuple[float, float, float, float] = (0.2, 0.6, 1.0, 1.0),
+                   line_width: float = 2.0) -> dict[str, Any]:
         """
         GPU-accelerated line chart rendering.
 
@@ -289,7 +290,7 @@ class WebGPURenderer:
         }
 
     def render_3d(self, vertices: np.ndarray, normals: np.ndarray,
-                 colors: np.ndarray) -> Dict[str, Any]:
+                 colors: np.ndarray) -> dict[str, Any]:
         """
         GPU-accelerated 3D rendering with Phong lighting.
 
@@ -314,7 +315,7 @@ class WebGPURenderer:
             }
         }
 
-    def _simplify_line(self, x: np.ndarray, y: np.ndarray, epsilon: float) -> Tuple[np.ndarray, np.ndarray]:
+    def _simplify_line(self, x: np.ndarray, y: np.ndarray, epsilon: float) -> tuple[np.ndarray, np.ndarray]:
         """
         Douglas-Peucker line simplification algorithm.
         Reduces points while preserving visual fidelity.
@@ -329,7 +330,7 @@ class WebGPURenderer:
         return simplified[:, 0], simplified[:, 1]
 
     def _line_to_triangles(self, x: np.ndarray, y: np.ndarray,
-                          color: Tuple[float, float, float, float],
+                          color: tuple[float, float, float, float],
                           width: float) -> np.ndarray:
         """
         Convert line to triangle strip for GPU rendering.
@@ -364,7 +365,7 @@ class WebGPURenderer:
 
         return vertices
 
-    def generate_html(self, render_config: Dict[str, Any], container_id: str = "vizforge-canvas") -> str:
+    def generate_html(self, render_config: dict[str, Any], container_id: str = "vizforge-canvas") -> str:
         """
         Generate HTML/JavaScript code for WebGPU rendering.
 

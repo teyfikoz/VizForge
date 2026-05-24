@@ -1,9 +1,9 @@
 """Boxplot implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ..core.base import BaseChart
 from ..core.theme import Theme
@@ -18,11 +18,11 @@ class Boxplot(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict, list]] = None,
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | dict | list | None = None,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         orientation: str = "v",
         **kwargs
     ):
@@ -46,10 +46,10 @@ class Boxplot(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'Boxplot':
         """Plot boxplot data."""
@@ -108,14 +108,14 @@ class Boxplot(BaseChart):
 
 
 def boxplot(
-    data: Union[pd.DataFrame, dict, list],
-    x: Optional[Union[str, list, np.ndarray]] = None,
-    y: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict | list,
+    x: str | list | np.ndarray | None = None,
+    y: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     orientation: str = "v",
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Boxplot:
     """

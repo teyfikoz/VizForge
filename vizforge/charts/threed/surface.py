@@ -1,12 +1,11 @@
 """3D Surface plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class SurfacePlot(BaseChart):
@@ -32,15 +31,15 @@ class SurfacePlot(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
-        z: Union[np.ndarray, List, pd.DataFrame],
-        title: Optional[str] = None,
+        x: np.ndarray | list,
+        y: np.ndarray | list,
+        z: np.ndarray | list | pd.DataFrame,
+        title: str | None = None,
         colorscale: str = "Viridis",
         show_colorbar: bool = True,
         contours: bool = False,
         opacity: float = 1.0,
-        lighting: Optional[dict] = None,
+        lighting: dict | None = None,
         **kwargs
     ):
         """
@@ -120,17 +119,17 @@ class SurfacePlot(BaseChart):
 
 
 def surface(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
-    z: Union[np.ndarray, List, pd.DataFrame],
-    title: Optional[str] = None,
+    x: np.ndarray | list,
+    y: np.ndarray | list,
+    z: np.ndarray | list | pd.DataFrame,
+    title: str | None = None,
     colorscale: str = "Viridis",
     show_colorbar: bool = True,
     contours: bool = False,
     opacity: float = 1.0,
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> SurfacePlot:
     """

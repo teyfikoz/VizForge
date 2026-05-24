@@ -1,13 +1,11 @@
 """Dendrogram implementation for VizForge."""
 
-from typing import Optional, List, Dict, Union
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
-import pandas as pd
 import numpy as np
+import pandas as pd
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class Dendrogram(BaseChart):
@@ -30,13 +28,13 @@ class Dendrogram(BaseChart):
 
     def __init__(
         self,
-        data: Union[np.ndarray, pd.DataFrame, List[List[float]]],
-        labels: Optional[List[str]] = None,
+        data: np.ndarray | pd.DataFrame | list[list[float]],
+        labels: list[str] | None = None,
         orientation: str = 'bottom',  # 'bottom', 'top', 'left', 'right'
         linkagefun: callable = None,
         distfun: callable = None,
-        color_threshold: Optional[float] = None,
-        title: Optional[str] = None,
+        color_threshold: float | None = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -100,12 +98,12 @@ class ClusterHeatmap(BaseChart):
 
     def __init__(
         self,
-        data: Union[np.ndarray, pd.DataFrame],
-        row_labels: Optional[List[str]] = None,
-        col_labels: Optional[List[str]] = None,
+        data: np.ndarray | pd.DataFrame,
+        row_labels: list[str] | None = None,
+        col_labels: list[str] | None = None,
         colorscale: str = 'RdBu',
         show_dendrograms: str = 'both',  # 'both', 'row', 'col', 'none'
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -186,16 +184,16 @@ class ClusterHeatmap(BaseChart):
 
 
 def dendrogram(
-    data: Union[np.ndarray, pd.DataFrame, List[List[float]]],
-    labels: Optional[List[str]] = None,
+    data: np.ndarray | pd.DataFrame | list[list[float]],
+    labels: list[str] | None = None,
     orientation: str = 'bottom',
     linkagefun: callable = None,
     distfun: callable = None,
-    color_threshold: Optional[float] = None,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    color_threshold: float | None = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Dendrogram:
     """
@@ -254,15 +252,15 @@ def dendrogram(
 
 
 def cluster_heatmap(
-    data: Union[np.ndarray, pd.DataFrame],
-    row_labels: Optional[List[str]] = None,
-    col_labels: Optional[List[str]] = None,
+    data: np.ndarray | pd.DataFrame,
+    row_labels: list[str] | None = None,
+    col_labels: list[str] | None = None,
     colorscale: str = 'RdBu',
     show_dendrograms: str = 'both',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> ClusterHeatmap:
     """

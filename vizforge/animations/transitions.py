@@ -5,11 +5,11 @@ Smooth chart transitions and animation configurations.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Dict, List, Optional, Union
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
+from typing import Any
+
 import plotly.graph_objects as go
-from .easing import get_easing_function, EasingFunction
 
 
 class TransitionType(Enum):
@@ -44,7 +44,7 @@ class TransitionConfig:
     redraw: bool = True
 
     # Advanced options
-    frame_duration: Optional[int] = None
+    frame_duration: int | None = None
     frame_redraw: bool = False
     from_current: bool = False
 
@@ -104,11 +104,11 @@ class AnimationEngine:
 
     @staticmethod
     def create_frames(
-        data_states: List[Dict[str, Any]],
+        data_states: list[dict[str, Any]],
         frame_duration: int = 500,
         transition_duration: int = 500,
         easing: str = 'ease-in-out'
-    ) -> List[go.Frame]:
+    ) -> list[go.Frame]:
         """
         Create animation frames from data states.
 
@@ -218,7 +218,7 @@ class AnimationEngine:
     @staticmethod
     def add_slider(
         fig: go.Figure,
-        frame_names: Optional[List[str]] = None,
+        frame_names: list[str] | None = None,
         slider_len: float = 0.9,
         x_position: float = 0.1,
         y_position: float = 0.0
@@ -282,7 +282,7 @@ class AnimationEngine:
     @staticmethod
     def smooth_update(
         fig: go.Figure,
-        new_data: Dict[str, Any],
+        new_data: dict[str, Any],
         duration: int = 500,
         easing: str = 'ease-in-out'
     ) -> go.Figure:
@@ -320,7 +320,7 @@ class AnimationEngine:
 
 def apply_transition(
     fig: go.Figure,
-    transition: Union[str, TransitionType, TransitionConfig] = 'smooth',
+    transition: str | TransitionType | TransitionConfig = 'smooth',
     duration: int = 500,
     easing: str = 'ease-in-out'
 ) -> go.Figure:
@@ -362,7 +362,7 @@ def apply_transition(
 
 
 def create_transition(
-    transition_type: Union[str, TransitionType] = 'smooth',
+    transition_type: str | TransitionType = 'smooth',
     duration: int = 500,
     easing: str = 'ease-in-out',
     **kwargs

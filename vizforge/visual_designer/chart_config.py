@@ -4,9 +4,9 @@ Chart configuration classes for Visual Designer.
 Defines available chart types, their properties, and validation rules.
 """
 
-from enum import Enum
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from enum import Enum
+from typing import Any
 
 
 class ChartType(Enum):
@@ -73,9 +73,9 @@ class PropertyConfig:
     label: str
     default: Any = None
     required: bool = False
-    options: Optional[List[str]] = None
-    min_value: Optional[float] = None
-    max_value: Optional[float] = None
+    options: list[str] | None = None
+    min_value: float | None = None
+    max_value: float | None = None
     description: str = ""
 
     def validate(self, value: Any) -> bool:
@@ -114,12 +114,12 @@ class ChartConfig:
     """Complete configuration for a chart."""
     chart_type: ChartType
     title: str = ""
-    properties: Dict[str, Any] = field(default_factory=dict)
-    data_source: Optional[str] = None
-    filters: List[Dict[str, Any]] = field(default_factory=list)
+    properties: dict[str, Any] = field(default_factory=dict)
+    data_source: str | None = None
+    filters: list[dict[str, Any]] = field(default_factory=list)
 
     @classmethod
-    def get_available_properties(cls, chart_type: ChartType) -> List[PropertyConfig]:
+    def get_available_properties(cls, chart_type: ChartType) -> list[PropertyConfig]:
         """Get available properties for a chart type."""
         # Common properties for all charts
         common_props = [
@@ -410,7 +410,7 @@ class ChartConfig:
 
         return common_props + specific_props
 
-    def validate(self) -> tuple[bool, Optional[str]]:
+    def validate(self) -> tuple[bool, str | None]:
         """Validate chart configuration."""
         property_configs = self.get_available_properties(self.chart_type)
 
@@ -422,7 +422,7 @@ class ChartConfig:
 
         return True, None
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert config to dictionary."""
         return {
             'chart_type': self.chart_type.value,
@@ -433,7 +433,7 @@ class ChartConfig:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'ChartConfig':
+    def from_dict(cls, data: dict[str, Any]) -> 'ChartConfig':
         """Create config from dictionary."""
         return cls(
             chart_type=ChartType(data['chart_type']),

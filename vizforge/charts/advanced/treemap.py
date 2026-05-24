@@ -1,12 +1,9 @@
 """Treemap implementation for VizForge."""
 
-from typing import Optional, List, Union, Dict
-import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class Treemap(BaseChart):
@@ -33,13 +30,13 @@ class Treemap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, Dict],
+        data: pd.DataFrame | dict,
         labels: str,
         parents: str,
-        values: Optional[str] = None,
-        colors: Optional[str] = None,
+        values: str | None = None,
+        colors: str | None = None,
         colorscale: str = 'Viridis',
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -97,16 +94,16 @@ class Treemap(BaseChart):
 
 
 def treemap(
-    data: Union[pd.DataFrame, Dict],
+    data: pd.DataFrame | dict,
     labels: str,
     parents: str,
-    values: Optional[str] = None,
-    colors: Optional[str] = None,
+    values: str | None = None,
+    colors: str | None = None,
     colorscale: str = 'Viridis',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Treemap:
     """

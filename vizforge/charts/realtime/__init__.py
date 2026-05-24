@@ -1,11 +1,14 @@
 """Real-time and animated chart types for VizForge."""
 
-from .streaming import StreamingLine, LiveHeatmap, streaming_line, live_heatmap
 from .animated import (
-    AnimatedScatter, animated_scatter,
-    AnimatedBar, animated_bar,
-    AnimatedChoropleth, animated_choropleth,
+    AnimatedBar,
+    AnimatedChoropleth,
+    AnimatedScatter,
+    animated_bar,
+    animated_choropleth,
+    animated_scatter,
 )
+from .streaming import LiveHeatmap, StreamingLine, live_heatmap, streaming_line
 
 __all__ = [
     # Classes

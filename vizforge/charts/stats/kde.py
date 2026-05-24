@@ -1,13 +1,12 @@
 """KDE (Kernel Density Estimation) Plot implementation for VizForge."""
 
-from typing import Optional, List, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 from scipy import stats
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class KDEPlot(BaseChart):
@@ -28,11 +27,11 @@ class KDEPlot(BaseChart):
 
     def __init__(
         self,
-        data: Union[np.ndarray, pd.Series, List],
-        bandwidth: Optional[float] = None,
+        data: np.ndarray | pd.Series | list,
+        bandwidth: float | None = None,
         fill: bool = True,
         rug: bool = False,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -58,7 +57,7 @@ class KDEPlot(BaseChart):
         self.x_range = np.linspace(self.data.min(), self.data.max(), 200)
         self.density = self.kde(self.x_range)
 
-    def create_trace(self) -> List[go.Scatter]:
+    def create_trace(self) -> list[go.Scatter]:
         """Create KDE trace."""
         traces = []
 
@@ -119,11 +118,11 @@ class KDE2D(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, pd.Series, List],
-        y: Union[np.ndarray, pd.Series, List],
+        x: np.ndarray | pd.Series | list,
+        y: np.ndarray | pd.Series | list,
         colorscale: str = 'Viridis',
         contours: bool = True,
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize 2D KDE Plot."""
@@ -165,14 +164,14 @@ class KDE2D(BaseChart):
 
 
 def kde(
-    data: Union[np.ndarray, pd.Series, List],
-    bandwidth: Optional[float] = None,
+    data: np.ndarray | pd.Series | list,
+    bandwidth: float | None = None,
     fill: bool = True,
     rug: bool = False,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> KDEPlot:
     """
@@ -222,14 +221,14 @@ def kde(
 
 
 def kde2d(
-    x: Union[np.ndarray, pd.Series, List],
-    y: Union[np.ndarray, pd.Series, List],
+    x: np.ndarray | pd.Series | list,
+    y: np.ndarray | pd.Series | list,
     colorscale: str = 'Viridis',
     contours: bool = True,
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> KDE2D:
     """

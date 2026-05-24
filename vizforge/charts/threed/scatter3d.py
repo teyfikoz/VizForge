@@ -1,12 +1,11 @@
 """3D Scatter plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class Scatter3D(BaseChart):
@@ -32,14 +31,14 @@ class Scatter3D(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        x: Optional[Union[str, List, np.ndarray]] = None,
-        y: Optional[Union[str, List, np.ndarray]] = None,
-        z: Optional[Union[str, List, np.ndarray]] = None,
-        size: Optional[Union[str, List, np.ndarray]] = None,
-        color: Optional[Union[str, List, np.ndarray]] = None,
-        text: Optional[Union[str, List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        data: pd.DataFrame | dict | None = None,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        z: str | list | np.ndarray | None = None,
+        size: str | list | np.ndarray | None = None,
+        color: str | list | np.ndarray | None = None,
+        text: str | list | np.ndarray | None = None,
+        title: str | None = None,
         marker_size: int = 8,
         colorscale: str = "Viridis",
         opacity: float = 0.8,
@@ -148,19 +147,19 @@ class Scatter3D(BaseChart):
 
 
 def scatter3d(
-    data: Union[pd.DataFrame, dict, None] = None,
-    x: Optional[Union[str, List, np.ndarray]] = None,
-    y: Optional[Union[str, List, np.ndarray]] = None,
-    z: Optional[Union[str, List, np.ndarray]] = None,
-    size: Optional[Union[str, List, np.ndarray]] = None,
-    color: Optional[Union[str, List, np.ndarray]] = None,
-    text: Optional[Union[str, List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    data: pd.DataFrame | dict | None = None,
+    x: str | list | np.ndarray | None = None,
+    y: str | list | np.ndarray | None = None,
+    z: str | list | np.ndarray | None = None,
+    size: str | list | np.ndarray | None = None,
+    color: str | list | np.ndarray | None = None,
+    text: str | list | np.ndarray | None = None,
+    title: str | None = None,
     marker_size: int = 8,
     colorscale: str = "Viridis",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Scatter3D:
     """

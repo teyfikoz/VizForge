@@ -11,12 +11,12 @@ Examples:
     >>> chart = vz.ask("Find top 10 products", df)
 """
 
-from typing import Any, Optional, Union
-import pandas as pd
-import numpy as np
+from typing import Any
 
-from .query_parser import QueryParser, Intent, ParsedQuery
+import pandas as pd
+
 from .entity_extractor import EntityExtractor
+from .query_parser import ParsedQuery, QueryParser
 
 
 class NLQEngine:
@@ -52,7 +52,7 @@ class NLQEngine:
         self.extractor = EntityExtractor(dataframe)
 
         if verbose:
-            print(f"🧠 NLQ Engine initialized")
+            print("🧠 NLQ Engine initialized")
             print(f"   - Rows: {len(dataframe):,}")
             print(f"   - Columns: {len(dataframe.columns)}")
             print(f"   - Numeric: {len(self.extractor.get_numeric_columns())}")
@@ -107,10 +107,7 @@ class NLQEngine:
         """Generate appropriate chart based on parsed query."""
 
         # Import here to avoid circular imports
-        from ..charts import (
-            LineChart, BarChart, ScatterPlot, Histogram,
-            PieChart, Heatmap, Boxplot
-        )
+        from ..charts import BarChart, Boxplot, Heatmap, Histogram, LineChart, PieChart, ScatterPlot
 
         # Get column suggestions
         suggestions = self.extractor.suggest_columns_for_intent(parsed.intent.value)
@@ -165,12 +162,12 @@ class NLQEngine:
         except Exception as e:
             if self.verbose:
                 print(f"⚠️  Chart generation failed: {e}")
-                print(f"   Falling back to auto-selection...")
+                print("   Falling back to auto-selection...")
 
             return self._auto_select_chart(df_filtered, x_col, y_col)
 
     def _determine_columns(self, parsed: ParsedQuery,
-                          suggestions: dict, entities: list) -> tuple[Optional[str], Optional[str]]:
+                          suggestions: dict, entities: list) -> tuple[str | None, str | None]:
         """Determine which columns to use for x and y axes."""
 
         # Priority 1: Use columns from parsed query
@@ -263,7 +260,7 @@ class NLQEngine:
         return filtered
 
     def _apply_aggregation(self, df: pd.DataFrame, agg_type: Any,
-                          x_col: Optional[str], y_col: Optional[str]) -> pd.DataFrame:
+                          x_col: str | None, y_col: str | None) -> pd.DataFrame:
         """Apply aggregation."""
         if not x_col or not y_col:
             return df
@@ -288,7 +285,7 @@ class NLQEngine:
 
         return df
 
-    def _apply_limit(self, df: pd.DataFrame, limit: int, sort_col: Optional[str]) -> pd.DataFrame:
+    def _apply_limit(self, df: pd.DataFrame, limit: int, sort_col: str | None) -> pd.DataFrame:
         """Apply TOP N limit."""
         if not sort_col or sort_col not in df.columns:
             return df.head(limit)
@@ -300,9 +297,9 @@ class NLQEngine:
             return df.head(limit)
 
     def _auto_select_chart(self, df: pd.DataFrame,
-                          x_col: Optional[str], y_col: Optional[str]) -> Any:
+                          x_col: str | None, y_col: str | None) -> Any:
         """Auto-select appropriate chart type."""
-        from ..charts import LineChart, BarChart, ScatterPlot, Histogram
+        from ..charts import BarChart, Histogram, LineChart, ScatterPlot
 
         # If we have both x and y
         if x_col and y_col and x_col in df.columns and y_col in df.columns:

@@ -1,9 +1,9 @@
 """Histogram implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
 from ...core.theme import Theme
@@ -18,11 +18,11 @@ class Histogram(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, list, np.ndarray]] = None,
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
-        nbins: Optional[int] = None,
+        data: pd.DataFrame | list | np.ndarray | None = None,
+        x: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
+        nbins: int | None = None,
         cumulative: bool = False,
         **kwargs
     ):
@@ -47,9 +47,9 @@ class Histogram(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, list, np.ndarray],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | list | np.ndarray,
+        x: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'Histogram':
         """Plot histogram data."""
@@ -92,14 +92,14 @@ class Histogram(BaseChart):
 
 
 def histogram(
-    data: Union[pd.DataFrame, list, np.ndarray],
-    x: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
-    nbins: Optional[int] = None,
+    data: pd.DataFrame | list | np.ndarray,
+    x: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
+    nbins: int | None = None,
     cumulative: bool = False,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> Histogram:
     """

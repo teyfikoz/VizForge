@@ -1,12 +1,10 @@
 """Volume plot implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class VolumePlot(BaseChart):
@@ -29,11 +27,11 @@ class VolumePlot(BaseChart):
 
     def __init__(
         self,
-        x: Union[np.ndarray, List],
-        y: Union[np.ndarray, List],
-        z: Union[np.ndarray, List],
-        values: Union[np.ndarray, List],
-        title: Optional[str] = None,
+        x: np.ndarray | list,
+        y: np.ndarray | list,
+        z: np.ndarray | list,
+        values: np.ndarray | list,
+        title: str | None = None,
         colorscale: str = "Viridis",
         opacity: float = 0.1,
         surface_count: int = 15,
@@ -98,17 +96,17 @@ class VolumePlot(BaseChart):
 
 
 def volume(
-    x: Union[np.ndarray, List],
-    y: Union[np.ndarray, List],
-    z: Union[np.ndarray, List],
-    values: Union[np.ndarray, List],
-    title: Optional[str] = None,
+    x: np.ndarray | list,
+    y: np.ndarray | list,
+    z: np.ndarray | list,
+    values: np.ndarray | list,
+    title: str | None = None,
     colorscale: str = "Viridis",
     opacity: float = 0.1,
     surface_count: int = 15,
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> VolumePlot:
     """

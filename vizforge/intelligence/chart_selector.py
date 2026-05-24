@@ -5,10 +5,11 @@ Intelligent chart type selection using local ML and rules (NO API costs).
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, field
-import pandas as pd
+from typing import Any
+
 import numpy as np
+import pandas as pd
 
 
 @dataclass
@@ -29,13 +30,13 @@ class DataProfile:
     """
     n_rows: int
     n_cols: int
-    numeric_cols: List[str] = field(default_factory=list)
-    categorical_cols: List[str] = field(default_factory=list)
-    temporal_cols: List[str] = field(default_factory=list)
+    numeric_cols: list[str] = field(default_factory=list)
+    categorical_cols: list[str] = field(default_factory=list)
+    temporal_cols: list[str] = field(default_factory=list)
     has_geo: bool = False
     correlation_strength: float = 0.0
-    cardinality: Dict[str, int] = field(default_factory=dict)
-    distribution_types: Dict[str, str] = field(default_factory=dict)
+    cardinality: dict[str, int] = field(default_factory=dict)
+    distribution_types: dict[str, str] = field(default_factory=dict)
 
 
 class ChartSelector:
@@ -68,10 +69,10 @@ class ChartSelector:
     def recommend(
         self,
         data: pd.DataFrame,
-        x: Optional[str] = None,
-        y: Optional[str] = None,
-        intent: Optional[str] = None
-    ) -> Dict[str, Any]:
+        x: str | None = None,
+        y: str | None = None,
+        intent: str | None = None
+    ) -> dict[str, Any]:
         """
         Recommend optimal chart type(s) for given data.
 
@@ -107,8 +108,8 @@ class ChartSelector:
     def _profile_data(
         self,
         data: pd.DataFrame,
-        x: Optional[str],
-        y: Optional[str]
+        x: str | None,
+        y: str | None
     ) -> DataProfile:
         """
         Fast local data profiling (< 10ms for 1M rows).
@@ -172,10 +173,10 @@ class ChartSelector:
     def _apply_rules(
         self,
         profile: DataProfile,
-        intent: Optional[str],
-        x: Optional[str],
-        y: Optional[str]
-    ) -> Dict[str, Any]:
+        intent: str | None,
+        x: str | None,
+        y: str | None
+    ) -> dict[str, Any]:
         """
         Apply decision tree rules to recommend chart type.
 
@@ -324,14 +325,14 @@ class ChartSelector:
             'y_recommended': recommended_y
         }
 
-    def _find_geo_col(self, profile: DataProfile, keyword: str) -> Optional[str]:
+    def _find_geo_col(self, profile: DataProfile, keyword: str) -> str | None:
         """Find geographic column by keyword."""
         for col in profile.numeric_cols + profile.categorical_cols:
             if keyword in col.lower():
                 return col
         return None
 
-    def _build_decision_rules(self) -> List[Dict[str, Any]]:
+    def _build_decision_rules(self) -> list[dict[str, Any]]:
         """
         Build decision tree rules (for future ML training).
 

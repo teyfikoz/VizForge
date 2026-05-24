@@ -12,16 +12,18 @@ Plotly's weakness: No performance layer, everything computed eagerly.
 VizForge's strength: Smart, lazy, parallel, cached.
 """
 
-import numpy as np
-import pandas as pd
-from typing import Any, Callable, Dict, Optional, Tuple, List
-from functools import wraps, lru_cache
 import hashlib
+import multiprocessing as mp
 import pickle
 import time
+from collections.abc import Callable
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from dataclasses import dataclass
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import multiprocessing as mp
+from functools import wraps
+from typing import Any
+
+import numpy as np
+import pandas as pd
 
 
 @dataclass
@@ -54,10 +56,10 @@ class SmartCache:
             max_size_mb: Maximum cache size in megabytes
         """
         self.max_size_bytes = max_size_mb * 1024 * 1024
-        self._cache: Dict[str, Tuple[Any, float, int]] = {}  # key -> (value, timestamp, size)
+        self._cache: dict[str, tuple[Any, float, int]] = {}  # key -> (value, timestamp, size)
         self.stats = CacheStats()
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         """
         Get value from cache.
 
@@ -130,7 +132,7 @@ class SmartCache:
 _cache = SmartCache()
 
 
-def cached(key_func: Optional[Callable] = None):
+def cached(key_func: Callable | None = None):
     """
     Decorator for intelligent caching.
 
@@ -218,7 +220,7 @@ class ParallelExecutor:
     Automatically parallelizes computations for massive speedup.
     """
 
-    def __init__(self, max_workers: Optional[int] = None):
+    def __init__(self, max_workers: int | None = None):
         """
         Initialize parallel executor.
 
@@ -229,8 +231,8 @@ class ParallelExecutor:
         self._thread_pool = ThreadPoolExecutor(max_workers=self.max_workers)
         self._process_pool = ProcessPoolExecutor(max_workers=self.max_workers)
 
-    def map_parallel(self, func: Callable, data: List[Any],
-                    use_processes: bool = False) -> List[Any]:
+    def map_parallel(self, func: Callable, data: list[Any],
+                    use_processes: bool = False) -> list[Any]:
         """
         Parallel map operation.
 
@@ -269,8 +271,8 @@ class PerformanceProfiler:
 
     def __init__(self):
         """Initialize profiler."""
-        self._timings: Dict[str, List[float]] = {}
-        self._counts: Dict[str, int] = {}
+        self._timings: dict[str, list[float]] = {}
+        self._counts: dict[str, int] = {}
 
     def measure(self, name: str):
         """
@@ -291,7 +293,7 @@ class PerformanceProfiler:
         self._timings[name].append(duration)
         self._counts[name] += 1
 
-    def report(self) -> Dict[str, Dict[str, float]]:
+    def report(self) -> dict[str, dict[str, float]]:
         """
         Generate performance report.
 

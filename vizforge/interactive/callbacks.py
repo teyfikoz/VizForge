@@ -5,9 +5,9 @@ Dash-style reactive callbacks for interactive dashboards.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Union
+from collections.abc import Callable
 from dataclasses import dataclass, field
-import inspect
+from typing import Any
 
 
 @dataclass
@@ -21,10 +21,10 @@ class Callback:
     - State: Components whose values are read but don't trigger
     """
 
-    outputs: List[str]  # Component IDs to update
-    inputs: List[str]   # Component IDs that trigger callback
-    state: List[str] = field(default_factory=list)  # Read-only components
-    function: Optional[Callable] = None
+    outputs: list[str]  # Component IDs to update
+    inputs: list[str]   # Component IDs that trigger callback
+    state: list[str] = field(default_factory=list)  # Read-only components
+    function: Callable | None = None
 
     def __post_init__(self):
         """Validate callback specification."""
@@ -49,9 +49,9 @@ class CallbackManager:
 
     def __init__(self):
         """Initialize callback manager."""
-        self.callbacks: List[Callback] = []
-        self.components: Dict[str, Any] = {}
-        self._callback_graph: Dict[str, List[Callback]] = {}
+        self.callbacks: list[Callback] = []
+        self.components: dict[str, Any] = {}
+        self._callback_graph: dict[str, list[Callback]] = {}
 
     def register_component(self, component_id: str, component: Any):
         """
@@ -65,9 +65,9 @@ class CallbackManager:
 
     def callback(
         self,
-        outputs: Union[str, List[str]],
-        inputs: Union[str, List[str]],
-        state: Union[str, List[str], None] = None
+        outputs: str | list[str],
+        inputs: str | list[str],
+        state: str | list[str] | None = None
     ):
         """
         Decorator for creating callbacks.
@@ -116,7 +116,7 @@ class CallbackManager:
 
         return decorator
 
-    def trigger(self, component_id: str, value: Any) -> Dict[str, Any]:
+    def trigger(self, component_id: str, value: Any) -> dict[str, Any]:
         """
         Trigger callbacks when a component value changes.
 
@@ -206,7 +206,7 @@ class CallbackManager:
         elif isinstance(component, dict):
             component['value'] = value
 
-    def get_dependencies(self, component_id: str) -> List[str]:
+    def get_dependencies(self, component_id: str) -> list[str]:
         """
         Get all components that depend on this component.
 
@@ -229,7 +229,7 @@ class CallbackManager:
         self.callbacks.clear()
         self._callback_graph.clear()
 
-    def get_callback_info(self) -> List[Dict[str, Any]]:
+    def get_callback_info(self) -> list[dict[str, Any]]:
         """
         Get information about all registered callbacks.
 

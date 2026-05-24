@@ -1,12 +1,11 @@
 """Network Graph implementation for VizForge."""
 
-from typing import Optional, Union, List, Dict
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class NetworkGraph(BaseChart):
@@ -28,14 +27,14 @@ class NetworkGraph(BaseChart):
 
     def __init__(
         self,
-        nodes: Union[List, pd.DataFrame],
-        edges: Union[List[tuple], pd.DataFrame],
-        node_labels: Optional[List] = None,
-        node_size: Union[int, List] = 10,
-        node_color: Union[str, List] = None,
-        edge_width: Union[int, List] = 1,
+        nodes: list | pd.DataFrame,
+        edges: list[tuple] | pd.DataFrame,
+        node_labels: list | None = None,
+        node_size: int | list = 10,
+        node_color: str | list = None,
+        edge_width: int | list = 1,
         layout: str = "spring",
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -65,7 +64,7 @@ class NetworkGraph(BaseChart):
         # Create positions using spring layout simulation
         self.positions = self._calculate_positions()
 
-    def _calculate_positions(self) -> Dict:
+    def _calculate_positions(self) -> dict:
         """Calculate node positions based on layout algorithm."""
         n = len(self.nodes)
 
@@ -116,7 +115,7 @@ class NetworkGraph(BaseChart):
 
         return {node: (x[i], y[i]) for i, node in enumerate(self.nodes)}
 
-    def create_trace(self) -> List[go.Scatter]:
+    def create_trace(self) -> list[go.Scatter]:
         """Create Plotly Scatter traces for graph."""
         traces = []
 
@@ -179,17 +178,17 @@ class NetworkGraph(BaseChart):
 
 
 def network_graph(
-    nodes: Union[List, pd.DataFrame],
-    edges: Union[List[tuple], pd.DataFrame],
-    node_labels: Optional[List] = None,
-    node_size: Union[int, List] = 10,
-    node_color: Union[str, List] = None,
-    edge_width: Union[int, List] = 1,
+    nodes: list | pd.DataFrame,
+    edges: list[tuple] | pd.DataFrame,
+    node_labels: list | None = None,
+    node_size: int | list = 10,
+    node_color: str | list = None,
+    edge_width: int | list = 1,
     layout: str = "spring",
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> NetworkGraph:
     """

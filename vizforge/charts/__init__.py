@@ -1,72 +1,113 @@
 """Chart types for VizForge (2D, 3D, Geographic, Network, Real-time, Statistical, Advanced)."""
 
 # 2D Charts
-from .line import LineChart, line
-from .bar import BarChart, bar
-from .area import AreaChart, area
-from .scatter import ScatterPlot, scatter
-from .pie import PieChart, pie, donut
-from .heatmap import Heatmap, heatmap
-from .histogram import Histogram, histogram
-from .boxplot import Boxplot, boxplot
-from .radar import RadarChart, radar
-from .waterfall import WaterfallChart, waterfall
-from .funnel import FunnelChart, funnel
-from .bubble import BubbleChart, bubble
-
-# 3D Charts
-from .threed import (
-    SurfacePlot, surface,
-    Scatter3D, scatter3d,
-    Mesh3D, mesh3d,
-    VolumePlot, volume,
-    ConePlot, cone,
-    IsosurfacePlot, isosurface,
+# Advanced Charts
+from .advanced import (
+    ContourPlot,
+    FilledContour,
+    ParallelCoordinates,
+    Sunburst,
+    Treemap,
+    contour,
+    filled_contour,
+    parallel_coordinates,
+    sunburst,
+    treemap,
 )
+from .area import AreaChart, area
+from .bar import BarChart, bar
+from .boxplot import Boxplot, boxplot
+from .bubble import BubbleChart, bubble
+from .funnel import FunnelChart, funnel
 
 # Geographic Charts
 from .geo import (
-    ChoroplethMap, choropleth,
-    ScatterGeoMap, scattergeo,
-    LineGeoMap, linegeo,
-    DensityGeoMap, densitygeo,
-    FlowMap, flowmap,
+    ChoroplethMap,
+    DensityGeoMap,
+    FlowMap,
+    LineGeoMap,
+    ScatterGeoMap,
+    choropleth,
+    densitygeo,
+    flowmap,
+    linegeo,
+    scattergeo,
 )
+from .heatmap import Heatmap, heatmap
+from .histogram import Histogram, histogram
+from .line import LineChart, line
 
 # Network Charts
 from .network import (
-    NetworkGraph, network_graph,
-    SankeyDiagram, sankey,
-    TreeDiagram, IcicleDiagram, tree, icicle,
-    Dendrogram, ClusterHeatmap, dendrogram, cluster_heatmap,
+    ClusterHeatmap,
+    Dendrogram,
+    IcicleDiagram,
+    NetworkGraph,
+    SankeyDiagram,
+    TreeDiagram,
+    cluster_heatmap,
+    dendrogram,
+    icicle,
+    network_graph,
+    sankey,
+    tree,
 )
+from .pie import PieChart, donut, pie
+from .radar import RadarChart, radar
 
 # Real-time Charts
 from .realtime import (
-    StreamingLine, streaming_line,
-    LiveHeatmap, live_heatmap,
-    AnimatedScatter, animated_scatter,
-    AnimatedBar, animated_bar,
-    AnimatedChoropleth, animated_choropleth,
+    AnimatedBar,
+    AnimatedChoropleth,
+    AnimatedScatter,
+    LiveHeatmap,
+    StreamingLine,
+    animated_bar,
+    animated_choropleth,
+    animated_scatter,
+    live_heatmap,
+    streaming_line,
 )
+from .scatter import ScatterPlot, scatter
 
 # Statistical Charts
 from .stats import (
-    ViolinPlot, violin,
-    KDEPlot, KDE2D, kde, kde2d,
-    RegressionPlot, regression,
-    CorrelationMatrix, correlation_matrix,
-    ROCCurve, MultiROCCurve, roc_curve_plot, multi_roc_curve,
-    FeatureImportance, PermutationImportance, feature_importance, permutation_importance,
+    KDE2D,
+    CorrelationMatrix,
+    FeatureImportance,
+    KDEPlot,
+    MultiROCCurve,
+    PermutationImportance,
+    RegressionPlot,
+    ROCCurve,
+    ViolinPlot,
+    correlation_matrix,
+    feature_importance,
+    kde,
+    kde2d,
+    multi_roc_curve,
+    permutation_importance,
+    regression,
+    roc_curve_plot,
+    violin,
 )
 
-# Advanced Charts
-from .advanced import (
-    Treemap, treemap,
-    Sunburst, sunburst,
-    ParallelCoordinates, parallel_coordinates,
-    ContourPlot, FilledContour, contour, filled_contour,
+# 3D Charts
+from .threed import (
+    ConePlot,
+    IsosurfacePlot,
+    Mesh3D,
+    Scatter3D,
+    SurfacePlot,
+    VolumePlot,
+    cone,
+    isosurface,
+    mesh3d,
+    scatter3d,
+    surface,
+    volume,
 )
+from .waterfall import WaterfallChart, waterfall
 
 __all__ = [
     # 2D Chart Classes

@@ -1,9 +1,9 @@
 """Network chart types for VizForge."""
 
+from .dendrogram import ClusterHeatmap, Dendrogram, cluster_heatmap, dendrogram
 from .graph import NetworkGraph, network_graph
 from .sankey import SankeyDiagram, sankey
-from .tree import TreeDiagram, IcicleDiagram, tree, icicle
-from .dendrogram import Dendrogram, ClusterHeatmap, dendrogram, cluster_heatmap
+from .tree import IcicleDiagram, TreeDiagram, icicle, tree
 
 __all__ = [
     # Classes

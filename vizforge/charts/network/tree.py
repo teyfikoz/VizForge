@@ -1,12 +1,8 @@
 """Tree Diagram implementation for VizForge."""
 
-from typing import Optional, List, Dict, Union, Tuple
 import plotly.graph_objects as go
-import pandas as pd
-import numpy as np
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class TreeDiagram(BaseChart):
@@ -29,13 +25,13 @@ class TreeDiagram(BaseChart):
 
     def __init__(
         self,
-        labels: List[str],
-        parents: List[str],
-        values: Optional[List[float]] = None,
-        text: Optional[List[str]] = None,
-        marker_colors: Optional[List[str]] = None,
+        labels: list[str],
+        parents: list[str],
+        values: list[float] | None = None,
+        text: list[str] | None = None,
+        marker_colors: list[str] | None = None,
         orientation: str = 'v',  # 'v' for vertical, 'h' for horizontal
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """
@@ -60,7 +56,7 @@ class TreeDiagram(BaseChart):
         self.marker_colors = marker_colors or self._generate_colors(len(labels))
         self.orientation = orientation
 
-    def _generate_colors(self, n: int) -> List[str]:
+    def _generate_colors(self, n: int) -> list[str]:
         """Generate colors for nodes."""
         colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6',
                   '#1abc9c', '#e67e22', '#95a5a6', '#16a085', '#c0392b']
@@ -106,13 +102,13 @@ class IcicleDiagram(BaseChart):
 
     def __init__(
         self,
-        labels: List[str],
-        parents: List[str],
-        values: Optional[List[float]] = None,
-        text: Optional[List[str]] = None,
-        marker_colors: Optional[List[str]] = None,
+        labels: list[str],
+        parents: list[str],
+        values: list[float] | None = None,
+        text: list[str] | None = None,
+        marker_colors: list[str] | None = None,
         orientation: str = 'v',
-        title: Optional[str] = None,
+        title: str | None = None,
         **kwargs
     ):
         """Initialize Icicle Diagram."""
@@ -155,16 +151,16 @@ class IcicleDiagram(BaseChart):
 
 
 def tree(
-    labels: List[str],
-    parents: List[str],
-    values: Optional[List[float]] = None,
-    text: Optional[List[str]] = None,
-    marker_colors: Optional[List[str]] = None,
+    labels: list[str],
+    parents: list[str],
+    values: list[float] | None = None,
+    text: list[str] | None = None,
+    marker_colors: list[str] | None = None,
     orientation: str = 'v',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> TreeDiagram:
     """
@@ -218,16 +214,16 @@ def tree(
 
 
 def icicle(
-    labels: List[str],
-    parents: List[str],
-    values: Optional[List[float]] = None,
-    text: Optional[List[str]] = None,
-    marker_colors: Optional[List[str]] = None,
+    labels: list[str],
+    parents: list[str],
+    values: list[float] | None = None,
+    text: list[str] | None = None,
+    marker_colors: list[str] | None = None,
     orientation: str = 'v',
-    title: Optional[str] = None,
-    theme: Optional[str] = None,
+    title: str | None = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> IcicleDiagram:
     """

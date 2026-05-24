@@ -1,12 +1,11 @@
 """Density geo map implementation for VizForge."""
 
-from typing import Optional, Union, List
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
-from ...core.theme import Theme
 
 
 class DensityGeoMap(BaseChart):
@@ -33,11 +32,11 @@ class DensityGeoMap(BaseChart):
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, dict, None] = None,
-        lat: Optional[Union[str, List, np.ndarray]] = None,
-        lon: Optional[Union[str, List, np.ndarray]] = None,
-        z: Optional[Union[str, List, np.ndarray]] = None,
-        title: Optional[str] = None,
+        data: pd.DataFrame | dict | None = None,
+        lat: str | list | np.ndarray | None = None,
+        lon: str | list | np.ndarray | None = None,
+        z: str | list | np.ndarray | None = None,
+        title: str | None = None,
         radius: int = 10,
         colorscale: str = "Hot",
         scope: str = "world",
@@ -126,17 +125,17 @@ class DensityGeoMap(BaseChart):
 
 
 def densitygeo(
-    data: Union[pd.DataFrame, dict, None] = None,
-    lat: Optional[Union[str, List, np.ndarray]] = None,
-    lon: Optional[Union[str, List, np.ndarray]] = None,
-    z: Optional[Union[str, List, np.ndarray]] = None,
-    title: Optional[str] = None,
+    data: pd.DataFrame | dict | None = None,
+    lat: str | list | np.ndarray | None = None,
+    lon: str | list | np.ndarray | None = None,
+    z: str | list | np.ndarray | None = None,
+    title: str | None = None,
     radius: int = 10,
     colorscale: str = "Hot",
     scope: str = "world",
-    theme: Optional[str] = None,
+    theme: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> DensityGeoMap:
     """

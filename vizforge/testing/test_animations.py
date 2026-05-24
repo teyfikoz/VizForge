@@ -5,27 +5,42 @@ Tests for transitions, easing functions, and gestures.
 Target: 90%+ coverage for animations module.
 """
 
-import pytest
-import math
+
 import plotly.graph_objects as go
+import pytest
 
 # Import animations module components
 from ..animations.easing import (
-    linear, ease_in, ease_out, ease_in_out,
-    ease_in_cubic, ease_out_cubic, ease_in_out_cubic,
-    ease_in_elastic, ease_out_elastic,
-    ease_in_bounce, ease_out_bounce,
-    bezier, get_easing_function
-)
-from ..animations.transitions import (
-    TransitionConfig, TransitionType, AnimationEngine,
-    apply_transition, create_transition
+    bezier,
+    ease_in,
+    ease_in_bounce,
+    ease_in_cubic,
+    ease_in_elastic,
+    ease_in_out,
+    ease_in_out_cubic,
+    ease_out,
+    ease_out_bounce,
+    ease_out_cubic,
+    ease_out_elastic,
+    get_easing_function,
+    linear,
 )
 from ..animations.gestures import (
-    GestureType, GestureConfig, GestureHandler, TouchEvent,
-    setup_gestures, enable_mobile_gestures, optimize_for_touch
+    GestureConfig,
+    GestureHandler,
+    GestureType,
+    TouchEvent,
+    enable_mobile_gestures,
+    optimize_for_touch,
+    setup_gestures,
 )
-
+from ..animations.transitions import (
+    AnimationEngine,
+    TransitionConfig,
+    TransitionType,
+    apply_transition,
+    create_transition,
+)
 
 # ==================== Easing Function Tests ====================
 

@@ -5,31 +5,36 @@ Tests for widgets, filters, actions, and dashboard interactivity.
 Target: 90%+ coverage for interactive module.
 """
 
-import pytest
-import pandas as pd
+from datetime import date
+from unittest.mock import Mock
+
 import numpy as np
-from datetime import date, datetime, timedelta
-from unittest.mock import Mock, patch
+import pandas as pd
+import pytest
+
+from ..interactive.actions import (
+    ActionManager,
+    DrillDownAction,
+    FilterAction,
+)
+from ..interactive.callbacks import CallbackManager
+from ..interactive.filters import (
+    DateRangeFilter,
+    FilterContext,
+    ListFilter,
+    RangeFilter,
+    SearchFilter,
+    TopNFilter,
+)
+from ..interactive.state import SessionState
 
 # Import interactive module components
 from ..interactive.widgets import (
-    Widget, Slider, RangeSlider, SelectBox, MultiSelect,
-    DatePicker, DateRangePicker, TextInput, NumberInput,
-    Checkbox, RadioButtons, Button, ColorPicker, WidgetFactory
+    MultiSelect,
+    SelectBox,
+    Slider,
+    WidgetFactory,
 )
-from ..interactive.filters import (
-    Filter, RangeFilter, ListFilter, SearchFilter,
-    DateRangeFilter, TopNFilter, CustomFilter,
-    FilterContext, CrossFilter
-)
-from ..interactive.actions import (
-    Action, FilterAction, HighlightAction, URLAction,
-    DrillDownAction, ParameterAction, SetAction, CustomAction,
-    ActionManager
-)
-from ..interactive.state import SessionState, get_session_state
-from ..interactive.callbacks import CallbackManager, Callback
-
 
 # ==================== Fixtures ====================
 

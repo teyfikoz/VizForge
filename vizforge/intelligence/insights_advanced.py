@@ -15,25 +15,27 @@ Features:
 Part of VizForge v1.2.0 - ULTRA Intelligence Features
 """
 
-from typing import List, Dict, Tuple, Optional, Union, Any
-import numpy as np
-import pandas as pd
+import warnings
 from dataclasses import dataclass
 from datetime import datetime
-import warnings
+from typing import Any
+
+import numpy as np
+import pandas as pd
+
 warnings.filterwarnings('ignore')
 
-from .pattern_detector import PatternDetector, Pattern, PatternType
+from .pattern_detector import Pattern, PatternDetector
 
 
 @dataclass
 class InsightReport:
     """Comprehensive insight report."""
     summary: str  # Executive summary
-    key_findings: List[str]  # Top insights
-    recommendations: List[str]  # Action items
-    detailed_insights: Dict[str, List[str]]  # Grouped by category
-    statistics: Dict[str, Any]  # Key metrics
+    key_findings: list[str]  # Top insights
+    recommendations: list[str]  # Action items
+    detailed_insights: dict[str, list[str]]  # Grouped by category
+    statistics: dict[str, Any]  # Key metrics
     generated_at: datetime = None
 
     def __post_init__(self):
@@ -42,27 +44,27 @@ class InsightReport:
 
     def to_markdown(self) -> str:
         """Export report as Markdown."""
-        md = f"# Data Insights Report\n\n"
+        md = "# Data Insights Report\n\n"
         md += f"*Generated: {self.generated_at.strftime('%Y-%m-%d %H:%M:%S')}*\n\n"
 
         md += f"## Executive Summary\n\n{self.summary}\n\n"
 
-        md += f"## Key Findings\n\n"
+        md += "## Key Findings\n\n"
         for i, finding in enumerate(self.key_findings, 1):
             md += f"{i}. {finding}\n"
 
-        md += f"\n## Recommendations\n\n"
+        md += "\n## Recommendations\n\n"
         for i, rec in enumerate(self.recommendations, 1):
             md += f"{i}. {rec}\n"
 
-        md += f"\n## Detailed Insights\n\n"
+        md += "\n## Detailed Insights\n\n"
         for category, insights in self.detailed_insights.items():
             md += f"### {category}\n\n"
             for insight in insights:
                 md += f"- {insight}\n"
             md += "\n"
 
-        md += f"## Key Statistics\n\n"
+        md += "## Key Statistics\n\n"
         for stat, value in self.statistics.items():
             if isinstance(value, float):
                 md += f"- **{stat}**: {value:.2f}\n"
@@ -146,7 +148,7 @@ class EnhancedInsightsEngine:
 
     def __init__(
         self,
-        data: Union[pd.DataFrame, pd.Series, np.ndarray],
+        data: pd.DataFrame | pd.Series | np.ndarray,
         confidence_threshold: float = 0.7
     ):
         """
@@ -159,9 +161,9 @@ class EnhancedInsightsEngine:
         self.data = self._prepare_data(data)
         self.confidence_threshold = confidence_threshold
         self.detector = PatternDetector(self.data, confidence_threshold)
-        self.patterns: List[Pattern] = []
+        self.patterns: list[Pattern] = []
 
-    def _prepare_data(self, data: Union[pd.DataFrame, pd.Series, np.ndarray]) -> pd.DataFrame:
+    def _prepare_data(self, data: pd.DataFrame | pd.Series | np.ndarray) -> pd.DataFrame:
         """Convert input to DataFrame."""
         if isinstance(data, pd.DataFrame):
             return data
@@ -241,13 +243,13 @@ class EnhancedInsightsEngine:
         # Add pattern diversity
         if len(pattern_counts) > 1:
             summary += f"The data exhibits {len(pattern_counts)} distinct pattern types, "
-            summary += f"indicating complex behavior worthy of deeper investigation."
+            summary += "indicating complex behavior worthy of deeper investigation."
         else:
-            summary += f"The data shows consistent behavior with a single dominant pattern type."
+            summary += "The data shows consistent behavior with a single dominant pattern type."
 
         return summary
 
-    def _generate_key_findings(self, max_findings: int = 5) -> List[str]:
+    def _generate_key_findings(self, max_findings: int = 5) -> list[str]:
         """Generate top key findings."""
         findings = []
 
@@ -353,7 +355,7 @@ class EnhancedInsightsEngine:
 
         return findings[:max_findings]
 
-    def _generate_recommendations(self) -> List[str]:
+    def _generate_recommendations(self) -> list[str]:
         """Generate actionable recommendations."""
         recommendations = []
 
@@ -432,7 +434,7 @@ class EnhancedInsightsEngine:
 
         return recommendations
 
-    def _generate_detailed_insights(self) -> Dict[str, List[str]]:
+    def _generate_detailed_insights(self) -> dict[str, list[str]]:
         """Generate detailed insights grouped by category."""
         detailed = {
             'Time Series Patterns': [],
@@ -461,7 +463,7 @@ class EnhancedInsightsEngine:
 
         return detailed
 
-    def _calculate_statistics(self) -> Dict[str, Any]:
+    def _calculate_statistics(self) -> dict[str, Any]:
         """Calculate key statistics."""
         stats = {
             'Total Observations': len(self.data),
@@ -535,7 +537,7 @@ class EnhancedInsightsEngine:
         predicted_next = current + slope
         predicted_5 = current + (slope * 5)
 
-        explanation += f"Predictions (assuming trend continues):\n"
+        explanation += "Predictions (assuming trend continues):\n"
         explanation += f"• Next value: {predicted_next:.2f}\n"
         explanation += f"• 5 steps ahead: {predicted_5:.2f}\n"
 
@@ -565,7 +567,7 @@ class EnhancedInsightsEngine:
         explanation = f"Correlation Analysis: {var1} vs {var2}\n\n"
         explanation += f"• Correlation Coefficient: {corr:.3f}\n"
         explanation += f"• Direction: {'Positive' if corr > 0 else 'Negative'}\n"
-        explanation += f"• Strength: "
+        explanation += "• Strength: "
 
         if abs(corr) > 0.9:
             explanation += "Very Strong\n"
@@ -576,13 +578,13 @@ class EnhancedInsightsEngine:
         else:
             explanation += "Weak\n"
 
-        explanation += f"\nInterpretation:\n"
+        explanation += "\nInterpretation:\n"
         if corr > 0:
             explanation += f"When {var1} increases, {var2} tends to increase as well.\n"
         else:
             explanation += f"When {var1} increases, {var2} tends to decrease.\n"
 
-        explanation += f"\nCaution: Correlation does not imply causation. Further investigation needed."
+        explanation += "\nCaution: Correlation does not imply causation. Further investigation needed."
 
         return explanation
 
@@ -590,7 +592,7 @@ class EnhancedInsightsEngine:
 # ==================== CONVENIENCE FUNCTIONS ====================
 
 def generate_insights(
-    data: Union[pd.DataFrame, pd.Series, np.ndarray],
+    data: pd.DataFrame | pd.Series | np.ndarray,
     confidence_threshold: float = 0.7,
     verbose: bool = False
 ) -> InsightReport:
@@ -615,7 +617,7 @@ def generate_insights(
 
 
 def quick_summary(
-    data: Union[pd.DataFrame, pd.Series, np.ndarray],
+    data: pd.DataFrame | pd.Series | np.ndarray,
     confidence_threshold: float = 0.7
 ) -> str:
     """

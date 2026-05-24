@@ -4,9 +4,11 @@ Database connectors for SQL and NoSQL databases.
 Supports: PostgreSQL, MySQL, SQLite, MongoDB, Redis
 """
 
+from typing import Any
+
 import pandas as pd
-from typing import List, Dict, Any, Optional
-from .base import BaseConnector, CachedConnector, ConnectionConfig, DataSourceType
+
+from .base import BaseConnector, CachedConnector, ConnectionConfig
 
 
 class PostgreSQLConnector(CachedConnector):
@@ -97,7 +99,7 @@ class PostgreSQLConnector(CachedConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to PostgreSQL: {e}")
 
-    def list_tables(self) -> List[str]:
+    def list_tables(self) -> list[str]:
         """List all tables in database."""
         query = """
             SELECT table_name
@@ -107,7 +109,7 @@ class PostgreSQLConnector(CachedConnector):
         df = self.query(query)
         return df['table_name'].tolist()
 
-    def get_schema(self, table: str) -> Dict[str, Any]:
+    def get_schema(self, table: str) -> dict[str, Any]:
         """Get table schema."""
         query = f"""
             SELECT column_name, data_type, is_nullable
@@ -201,13 +203,13 @@ class MySQLConnector(CachedConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to MySQL: {e}")
 
-    def list_tables(self) -> List[str]:
+    def list_tables(self) -> list[str]:
         """List all tables in database."""
         query = "SHOW TABLES"
         df = self.query(query)
         return df.iloc[:, 0].tolist()
 
-    def get_schema(self, table: str) -> Dict[str, Any]:
+    def get_schema(self, table: str) -> dict[str, Any]:
         """Get table schema."""
         query = f"DESCRIBE {table}"
         df = self.query(query)
@@ -288,13 +290,13 @@ class SQLiteConnector(CachedConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to SQLite: {e}")
 
-    def list_tables(self) -> List[str]:
+    def list_tables(self) -> list[str]:
         """List all tables in database."""
         query = "SELECT name FROM sqlite_master WHERE type='table'"
         df = self.query(query)
         return df['name'].tolist()
 
-    def get_schema(self, table: str) -> Dict[str, Any]:
+    def get_schema(self, table: str) -> dict[str, Any]:
         """Get table schema."""
         query = f"PRAGMA table_info({table})"
         df = self.query(query)
@@ -318,7 +320,7 @@ class MongoDBConnector(BaseConnector):
             if self.config.url:
                 connection_string = self.config.url
             else:
-                connection_string = f"mongodb://"
+                connection_string = "mongodb://"
                 if self.config.username and self.config.password:
                     connection_string += f"{self.config.username}:{self.config.password}@"
                 connection_string += f"{self.config.host}:{self.config.port or 27017}"
@@ -352,7 +354,7 @@ class MongoDBConnector(BaseConnector):
         except:
             return False
 
-    def read(self, collection: str, query: Dict = None, limit: int = None, **kwargs) -> pd.DataFrame:
+    def read(self, collection: str, query: dict = None, limit: int = None, **kwargs) -> pd.DataFrame:
         """Read data from MongoDB collection."""
         if not self.is_connected:
             self.connect()
@@ -384,7 +386,7 @@ class MongoDBConnector(BaseConnector):
         except Exception as e:
             raise RuntimeError(f"Failed to write to MongoDB: {e}")
 
-    def query(self, collection: str, pipeline: List[Dict] = None, **kwargs) -> pd.DataFrame:
+    def query(self, collection: str, pipeline: list[dict] = None, **kwargs) -> pd.DataFrame:
         """Execute MongoDB aggregation pipeline."""
         if not self.is_connected:
             self.connect()
@@ -399,11 +401,11 @@ class MongoDBConnector(BaseConnector):
 
         return df
 
-    def list_tables(self) -> List[str]:
+    def list_tables(self) -> list[str]:
         """List all collections in database."""
         return self.db.list_collection_names()
 
-    def get_schema(self, collection: str) -> Dict[str, Any]:
+    def get_schema(self, collection: str) -> dict[str, Any]:
         """Get collection schema (sample first document)."""
         sample = self.db[collection].find_one()
         if sample:

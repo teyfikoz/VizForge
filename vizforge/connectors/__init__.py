@@ -13,32 +13,32 @@ Supported Sources:
 - Streaming: Kafka, real-time feeds
 """
 
-from .base import BaseConnector, DataSource
-from .database import (
-    PostgreSQLConnector,
-    MySQLConnector,
-    SQLiteConnector,
-    MongoDBConnector,
-)
-from .cloud import (
-    S3Connector,
-    GCSConnector,
-    AzureBlobConnector,
-)
 from .api import (
-    RESTConnector,
     GraphQLConnector,
+    RESTConnector,
+)
+from .base import BaseConnector, DataSource
+from .cloud import (
+    AzureBlobConnector,
+    GCSConnector,
+    S3Connector,
+)
+from .connector_factory import connect, list_connectors
+from .database import (
+    MongoDBConnector,
+    MySQLConnector,
+    PostgreSQLConnector,
+    SQLiteConnector,
 )
 from .file import (
     ExcelConnector,
-    ParquetConnector,
     HDF5Connector,
+    ParquetConnector,
 )
 from .web import (
     HTMLTableConnector,
     WebScraperConnector,
 )
-from .connector_factory import connect, list_connectors
 
 __all__ = [
     # Main entry points

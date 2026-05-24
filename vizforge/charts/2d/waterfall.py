@@ -1,9 +1,9 @@
 """Waterfall chart implementation for VizForge."""
 
-from typing import Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ...core.base import BaseChart
 from ...core.theme import Theme
@@ -18,11 +18,11 @@ class WaterfallChart(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict]] = None,
-        x: Optional[Union[str, list]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | dict | None = None,
+        x: str | list | None = None,
+        y: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         **kwargs
     ):
         """
@@ -43,9 +43,9 @@ class WaterfallChart(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict],
-        x: Optional[Union[str, list]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
+        data: pd.DataFrame | dict,
+        x: str | list | None = None,
+        y: str | list | np.ndarray | None = None,
         **kwargs
     ) -> 'WaterfallChart':
         """Plot waterfall chart data."""
@@ -104,13 +104,13 @@ class WaterfallChart(BaseChart):
 
 
 def waterfall(
-    data: Union[pd.DataFrame, dict],
-    x: Optional[Union[str, list]] = None,
-    y: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict,
+    x: str | list | None = None,
+    y: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> WaterfallChart:
     """

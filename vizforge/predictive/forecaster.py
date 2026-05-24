@@ -11,11 +11,10 @@ Supports:
 """
 
 from dataclasses import dataclass
-from typing import Union, Optional, Tuple
 from enum import Enum
+
 import numpy as np
 import pandas as pd
-from datetime import timedelta
 
 
 class ForecastMethod(Enum):
@@ -68,9 +67,9 @@ class TimeSeriesForecaster:
 
     def __init__(
         self,
-        data: Union[pd.Series, np.ndarray, list],
+        data: pd.Series | np.ndarray | list,
         method: ForecastMethod = ForecastMethod.AUTO,
-        seasonal_period: Optional[int] = None,
+        seasonal_period: int | None = None,
     ):
         """
         Initialize forecaster.
@@ -331,7 +330,7 @@ class TimeSeriesForecaster:
         # Return absolute correlation as trend strength
         return abs(corr)
 
-    def _detect_seasonality(self) -> Optional[int]:
+    def _detect_seasonality(self) -> int | None:
         """Auto-detect seasonal period."""
         n = len(self.data)
 
@@ -380,11 +379,11 @@ class TimeSeriesForecaster:
 # ==================== Convenience Function ====================
 
 def forecast(
-    data: Union[pd.Series, np.ndarray, list],
+    data: pd.Series | np.ndarray | list,
     periods: int = 10,
-    method: Union[str, ForecastMethod] = ForecastMethod.AUTO,
+    method: str | ForecastMethod = ForecastMethod.AUTO,
     confidence: float = 0.95,
-    seasonal_period: Optional[int] = None
+    seasonal_period: int | None = None
 ) -> ForecastResult:
     """
     Forecast time series (one-liner!).

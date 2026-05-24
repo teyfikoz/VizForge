@@ -5,11 +5,13 @@ Intelligent caching for expensive operations to improve performance.
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from functools import lru_cache, wraps
-from typing import Any, Callable, Dict, Optional
 import hashlib
 import pickle
 import time
+from collections.abc import Callable
+from functools import lru_cache, wraps
+from typing import Any
+
 import pandas as pd
 
 
@@ -34,8 +36,8 @@ class ChartCache:
         """
         self.max_size = max_size
         self.ttl = ttl
-        self._cache: Dict[str, Dict[str, Any]] = {}
-        self._access_times: Dict[str, float] = {}
+        self._cache: dict[str, dict[str, Any]] = {}
+        self._access_times: dict[str, float] = {}
 
     def _generate_key(self, *args, **kwargs) -> str:
         """
@@ -57,7 +59,7 @@ class ChartCache:
             key_str = str(args) + str(sorted(kwargs.items()))
             return hashlib.md5(key_str.encode()).hexdigest()
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         """
         Retrieve item from cache.
 

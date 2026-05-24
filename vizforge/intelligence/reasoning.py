@@ -4,10 +4,9 @@ VizForge Chart Reasoning Engine v2.0
 Intelligent chart type selection based on data characteristics,
 user intent, and visualization best practices.
 """
-import pandas as pd
-import numpy as np
-from typing import Dict, List, Literal, Optional
 from dataclasses import dataclass
+
+import pandas as pd
 
 
 @dataclass
@@ -15,11 +14,11 @@ class ChartDecision:
     """Result of chart reasoning process."""
     recommended: str
     confidence: float
-    rejected: Dict[str, str]  # chart_type -> reason
-    reasoning: List[str]
-    alternatives: List[Dict[str, float]]  # [{type: score}, ...]
-    data_profile: Dict
-    risks: List[str]
+    rejected: dict[str, str]  # chart_type -> reason
+    reasoning: list[str]
+    alternatives: list[dict[str, float]]  # [{type: score}, ...]
+    data_profile: dict
+    risks: list[str]
 
 
 class ChartReasoningEngine:
@@ -42,7 +41,7 @@ class ChartReasoningEngine:
     def __init__(self):
         self.decision_rules = self._build_decision_rules()
 
-    def _build_decision_rules(self) -> Dict:
+    def _build_decision_rules(self) -> dict:
         """Build rule-based decision tree."""
         return {
             "temporal_continuous": {
@@ -77,7 +76,7 @@ class ChartReasoningEngine:
             }
         }
 
-    def analyze_data(self, df: pd.DataFrame, x_col: str = None, y_col: str = None) -> Dict:
+    def analyze_data(self, df: pd.DataFrame, x_col: str = None, y_col: str = None) -> dict:
         """
         Profile data characteristics.
 
@@ -132,8 +131,8 @@ class ChartReasoningEngine:
 
     def infer_intent(
         self,
-        data_profile: Dict,
-        explicit_intent: Optional[str] = None
+        data_profile: dict,
+        explicit_intent: str | None = None
     ) -> str:
         """
         Infer user intent from data characteristics.
@@ -166,9 +165,9 @@ class ChartReasoningEngine:
 
     def score_chart_types(
         self,
-        data_profile: Dict,
+        data_profile: dict,
         intent: str
-    ) -> Dict[str, float]:
+    ) -> dict[str, float]:
         """
         Score all chart types based on data and intent.
 
@@ -218,10 +217,10 @@ class ChartReasoningEngine:
 
     def generate_rejection_reasons(
         self,
-        data_profile: Dict,
+        data_profile: dict,
         intent: str,
-        scores: Dict[str, float]
-    ) -> Dict[str, str]:
+        scores: dict[str, float]
+    ) -> dict[str, str]:
         """Generate human-readable rejection reasons for low-scoring charts."""
         rejected = {}
         threshold = 0.4
@@ -258,8 +257,8 @@ class ChartReasoningEngine:
     def assess_risks(
         self,
         chart_type: str,
-        data_profile: Dict
-    ) -> List[str]:
+        data_profile: dict
+    ) -> list[str]:
         """Identify potential risks/biases for chosen chart."""
         risks = []
 
@@ -293,7 +292,7 @@ class ChartReasoningEngine:
         df: pd.DataFrame,
         x_col: str = None,
         y_col: str = None,
-        intent: Optional[str] = None
+        intent: str | None = None
     ) -> ChartDecision:
         """
         Make intelligent chart type decision.

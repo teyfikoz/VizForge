@@ -12,8 +12,8 @@ Methods:
 """
 
 from dataclasses import dataclass
-from typing import Union, Optional, List, Tuple
 from enum import Enum
+
 import numpy as np
 import pandas as pd
 
@@ -63,7 +63,7 @@ class AnomalyDetector:
 
     def __init__(
         self,
-        data: Union[pd.Series, np.ndarray, list],
+        data: pd.Series | np.ndarray | list,
         method: AnomalyMethod = AnomalyMethod.AUTO,
         sensitivity: float = 2.0,
     ):
@@ -97,7 +97,7 @@ class AnomalyDetector:
         # Handle missing values
         self.data = pd.Series(self.data).ffill().bfill().values
 
-    def detect(self) -> List[Anomaly]:
+    def detect(self) -> list[Anomaly]:
         """
         Detect anomalies in time series.
 
@@ -137,7 +137,7 @@ class AnomalyDetector:
         # Default to Z-score for medium datasets
         return AnomalyMethod.ZSCORE
 
-    def _detect_zscore(self) -> List[Anomaly]:
+    def _detect_zscore(self) -> list[Anomaly]:
         """Z-score anomaly detection."""
         mean = np.mean(self.data)
         std = np.std(self.data)
@@ -167,7 +167,7 @@ class AnomalyDetector:
 
         return anomalies
 
-    def _detect_iqr(self) -> List[Anomaly]:
+    def _detect_iqr(self) -> list[Anomaly]:
         """IQR (Interquartile Range) anomaly detection."""
         q1 = np.percentile(self.data, 25)
         q3 = np.percentile(self.data, 75)
@@ -207,7 +207,7 @@ class AnomalyDetector:
 
         return anomalies
 
-    def _detect_mad(self) -> List[Anomaly]:
+    def _detect_mad(self) -> list[Anomaly]:
         """MAD (Median Absolute Deviation) anomaly detection."""
         median = np.median(self.data)
         mad = np.median(np.abs(self.data - median))
@@ -237,7 +237,7 @@ class AnomalyDetector:
 
         return anomalies
 
-    def _detect_moving_average(self) -> List[Anomaly]:
+    def _detect_moving_average(self) -> list[Anomaly]:
         """Moving average deviation anomaly detection."""
         # Use 7-period moving average
         window = min(7, len(self.data) // 3)
@@ -279,7 +279,7 @@ class AnomalyDetector:
 
         return anomalies
 
-    def _classify_severity(self, score: float, thresholds: List[float]) -> str:
+    def _classify_severity(self, score: float, thresholds: list[float]) -> str:
         """Classify anomaly severity based on score."""
         if score < thresholds[0]:
             return 'low'
@@ -294,10 +294,10 @@ class AnomalyDetector:
 # ==================== Convenience Function ====================
 
 def detect_anomalies(
-    data: Union[pd.Series, np.ndarray, list],
-    method: Union[str, AnomalyMethod] = AnomalyMethod.AUTO,
+    data: pd.Series | np.ndarray | list,
+    method: str | AnomalyMethod = AnomalyMethod.AUTO,
     sensitivity: float = 2.0
-) -> List[Anomaly]:
+) -> list[Anomaly]:
     """
     Detect anomalies in time series (one-liner!).
 

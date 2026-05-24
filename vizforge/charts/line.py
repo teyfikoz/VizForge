@@ -1,9 +1,10 @@
 """Line chart implementation for VizForge."""
 
-from typing import Any, Optional, Union
-import plotly.graph_objects as go
-import pandas as pd
+from typing import Any
+
 import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
 from ..core.base import BaseChart
 from ..core.theme import Theme
@@ -18,13 +19,13 @@ class LineChart(BaseChart):
 
     def __init__(
         self,
-        data: Optional[Union[pd.DataFrame, dict, list]] = None,
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        title: Optional[str] = None,
-        theme: Optional[Union[str, Theme]] = None,
+        data: pd.DataFrame | dict | list | None = None,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        title: str | None = None,
+        theme: str | Theme | None = None,
         mode: str = "lines",
-        fill: Optional[str] = None,
+        fill: str | None = None,
         **kwargs
     ):
         """
@@ -53,10 +54,10 @@ class LineChart(BaseChart):
 
     def plot(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]] = None,
-        y: Optional[Union[str, list, np.ndarray]] = None,
-        name: Optional[str] = None,
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None = None,
+        y: str | list | np.ndarray | None = None,
+        name: str | None = None,
         **kwargs
     ) -> 'LineChart':
         """
@@ -105,10 +106,10 @@ class LineChart(BaseChart):
 
     def _parse_data(
         self,
-        data: Union[pd.DataFrame, dict, list],
-        x: Optional[Union[str, list, np.ndarray]],
-        y: Optional[Union[str, list, np.ndarray]],
-        name: Optional[str]
+        data: pd.DataFrame | dict | list,
+        x: str | list | np.ndarray | None,
+        y: str | list | np.ndarray | None,
+        name: str | None
     ) -> tuple[Any, list[Any], list[str]]:
         """Parse different data formats into x, y, and names."""
 
@@ -164,15 +165,15 @@ class LineChart(BaseChart):
 
 
 def line(
-    data: Union[pd.DataFrame, dict, list],
-    x: Optional[Union[str, list, np.ndarray]] = None,
-    y: Optional[Union[str, list, np.ndarray]] = None,
-    title: Optional[str] = None,
-    theme: Optional[Union[str, Theme]] = None,
+    data: pd.DataFrame | dict | list,
+    x: str | list | np.ndarray | None = None,
+    y: str | list | np.ndarray | None = None,
+    title: str | None = None,
+    theme: str | Theme | None = None,
     mode: str = "lines",
-    fill: Optional[str] = None,
+    fill: str | None = None,
     show: bool = False,
-    export: Optional[str] = None,
+    export: str | None = None,
     **kwargs
 ) -> LineChart:
     """

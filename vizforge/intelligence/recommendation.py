@@ -5,9 +5,9 @@ Best practices and improvement recommendations (NO API costs).
 Part of VizForge v1.0.0 - Super AGI features.
 """
 
-from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 from enum import Enum
+
 import pandas as pd
 
 
@@ -78,10 +78,10 @@ class RecommendationEngine:
     def analyze(
         self,
         data: pd.DataFrame,
-        chart_type: Optional[str] = None,
-        x: Optional[str] = None,
-        y: Optional[str] = None
-    ) -> List[Recommendation]:
+        chart_type: str | None = None,
+        x: str | None = None,
+        y: str | None = None
+    ) -> list[Recommendation]:
         """
         Analyze data and chart setup, generate recommendations.
 
@@ -125,9 +125,9 @@ class RecommendationEngine:
         self,
         data: pd.DataFrame,
         chart_type: str,
-        x: Optional[str],
-        y: Optional[str]
-    ) -> List[Recommendation]:
+        x: str | None,
+        y: str | None
+    ) -> list[Recommendation]:
         """Recommend chart-specific improvements."""
         recommendations = []
 
@@ -186,7 +186,7 @@ class RecommendationEngine:
 
         return recommendations
 
-    def _recommend_data_quality(self, data: pd.DataFrame) -> List[Recommendation]:
+    def _recommend_data_quality(self, data: pd.DataFrame) -> list[Recommendation]:
         """Recommend data quality improvements."""
         recommendations = []
 
@@ -232,8 +232,8 @@ class RecommendationEngine:
     def _recommend_visual_design(
         self,
         data: pd.DataFrame,
-        chart_type: Optional[str]
-    ) -> List[Recommendation]:
+        chart_type: str | None
+    ) -> list[Recommendation]:
         """Recommend visual design improvements."""
         recommendations = []
 
@@ -261,8 +261,8 @@ class RecommendationEngine:
 
     def _recommend_accessibility(
         self,
-        chart_type: Optional[str]
-    ) -> List[Recommendation]:
+        chart_type: str | None
+    ) -> list[Recommendation]:
         """Recommend accessibility improvements."""
         recommendations = []
 
@@ -291,8 +291,8 @@ class RecommendationEngine:
     def _recommend_performance(
         self,
         data: pd.DataFrame,
-        chart_type: Optional[str]
-    ) -> List[Recommendation]:
+        chart_type: str | None
+    ) -> list[Recommendation]:
         """Recommend performance optimizations."""
         recommendations = []
 
@@ -320,7 +320,7 @@ class RecommendationEngine:
 
         return recommendations
 
-    def summarize_recommendations(self, recommendations: List[Recommendation]) -> str:
+    def summarize_recommendations(self, recommendations: list[Recommendation]) -> str:
         """
         Generate human-readable summary of recommendations.
 
