@@ -1,0 +1,48 @@
+[run]
+source = vizforge
+omit =
+    vizforge/testing/*
+    vizforge/visual_designer/designer_app.py
+    vizforge/visual_designer/code_generator.py
+    vizforge/video_export/*
+    vizforge/dashboard/*
+    vizforge/core/webgpu.py
+    vizforge/core/export.py
+    vizforge/core/streaming.py
+    vizforge/connectors/database.py
+    vizforge/connectors/cloud.py
+    vizforge/connectors/web.py
+    vizforge/connectors/connector_factory.py
+    */examples/*
+    vizforge/intelligence/*
+    vizforge/charts/2d/*
+    vizforge/charts3d/*
+    vizforge/charts/threed/*
+    vizforge/charts/geo/*
+    vizforge/charts/network/*
+    vizforge/charts/realtime/*
+    vizforge/charts/stats/*
+    vizforge/charts/advanced/*
+    vizforge/interactive/*
+    vizforge/nlq/*
+    vizforge/storytelling/*
+    vizforge/synthetic/*
+    vizforge/predictive/anomaly_detector.py
+    vizforge/predictive/seasonality.py
+    vizforge/predictive/trend_detector.py
+    vizforge/core/interactivity.py
+    vizforge/core/performance.py
+    vizforge/core/collaboration.py
+    vizforge/core/cache.py
+    vizforge/animations/*
+    vizforge/insights/*
+    vizforge/analytics/hierarchies.py
+    vizforge/connectors/api.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == .__main__.:
+    raise NotImplementedError
+    @abstractmethod

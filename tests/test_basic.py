@@ -14,7 +14,7 @@ def test_version():
     from vizforge.version import __version__, __version_info__
     assert isinstance(__version__, str)
     assert len(__version__.split(".")) == 3
-    assert __version_info__ == (3, 3, 0)
+    assert __version_info__ == (3, 4, 0)
 
 
 def test_config_import():
