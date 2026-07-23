@@ -218,7 +218,7 @@ class WindowFunction:
 
         # Apply window function per partition
         result = data.groupby(self.partition_by).apply(
-            lambda group: self._apply_window(group)
+            lambda group: self._apply_window(group), include_groups=False
         )
 
         # Reset index to match original data
